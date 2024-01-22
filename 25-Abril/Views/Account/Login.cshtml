@@ -1,0 +1,93 @@
+﻿@{
+    Layout = null;
+}
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Login</title>
+
+    @Styles.Render("~/Content/Login")
+
+    <script>
+        function HideLogin() {
+            var checkbox = document.getElementById('chk');
+
+            var elementsToHide = [
+                document.getElementById('lblUSer'),
+                document.getElementById('txtUSer'),
+                document.getElementById('lblPassword'),
+                document.getElementById('txtPassword'),
+                document.getElementById('btnLogin')
+            ];
+
+            if (!checkbox.checked) {
+                elementsToHide.forEach(function (element) {
+                    setTimeout(function () {
+                        element.classList.add('hidden');
+                        setTimeout(function () {
+                            elementsToHide.forEach(function (element) {
+                                element.style.display = 'none';
+                            });
+                        }, 500);
+                    })
+
+                });
+
+
+            }
+            else {
+                elementsToHide.forEach(function (element) {
+                    setTimeout(function () {
+                        element.style.display = 'block';
+                        setTimeout(function () {
+                            element.classList.remove('hidden');
+                        }, 500);
+                    });
+                });
+            }
+
+        }
+    </script>
+</head>
+
+<body class="Background">
+    <div class="main">
+        <input type="checkbox" id="chk" aria-hidden="true">
+
+        <div class="login">
+            <form>
+                <label for="chk" aria-hidden="true" class="Title" id="lblLogin" onclick="HideLogin()">Login</label>
+                <label for="User" class="Labels" id="lblUser">Username ou Email</label>
+                <input type="text" name="email" placeholder="Login" required="" id="txtUser"
+                       style="background: rgb(255, 80, 80, 30%);">
+                <label for="Password" class="Labels" id="lblPass">Palavra-Passe</label>
+                <input type="password" name="pswd" placeholder="Password" required="" id="txtPass"
+                       style="background: rgb(255, 80, 80, 30%);">
+                <input type="submit" value="Login" />
+                <button id="btnLogin">Login</button>
+            </form>
+        </div>
+
+        <div class="signup">
+            <form>
+                <label for="chk" aria-hidden="true" class="Title" id="lblSignUp" style="color: rgb(255, 255, 255, 80%);"
+                       onclick="HideLogin()">Sign up</label>
+                <label for="Username" class="Labels" id="lblUserName">Username</label>
+                <input type="text" name="txt" placeholder="User name" required="" id="Username">
+                <label for="Email" class="Labels" id="lblEmail">Email</label>
+                <input type="email" name="email" placeholder="Email" required="" id="Email">
+                <label for="Password" class="Labels" id="lblPassword">Password</label>
+                <input type="password" name="pswd" placeholder="Password" required="" id="Password">
+                <label for="DataNasc" class="Labels" id="lblData">Data de Nascimento</label>
+                <input type="date" id="DataNasc">
+                <button>Sign up</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

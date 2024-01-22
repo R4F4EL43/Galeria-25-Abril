@@ -1,0 +1,1149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AbrilModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Aluno">
+          <Key>
+            <PropertyRef Name="ID_Aluno" />
+          </Key>
+          <Property Name="ID_Aluno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Numero" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Turma_ID" Type="int" Nullable="false" />
+          <Property Name="Conta_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ano">
+          <Key>
+            <PropertyRef Name="ID_Ano" />
+          </Key>
+          <Property Name="ID_Ano" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ano" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Arte">
+          <Key>
+            <PropertyRef Name="ID_Arte" />
+          </Key>
+          <Property Name="ID_Arte" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome_Arte" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descricao" Type="varchar(max)" />
+          <Property Name="Aceite" Type="bit" Nullable="false" />
+          <Property Name="TipoArte_ID" Type="int" Nullable="false" />
+          <Property Name="Conta_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Comentario">
+          <Key>
+            <PropertyRef Name="ID_Comentario" />
+          </Key>
+          <Property Name="ID_Comentario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Comentario" Type="varchar(max)" Nullable="false" />
+          <Property Name="Data" Type="date" Nullable="false" />
+          <Property Name="Aceite" Type="bit" Nullable="false" />
+          <Property Name="Conta_ID" Type="int" Nullable="false" />
+          <Property Name="Arte_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Conta">
+          <Key>
+            <PropertyRef Name="ID_Conta" />
+          </Key>
+          <Property Name="ID_Conta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsAdmin" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Gosto">
+          <Key>
+            <PropertyRef Name="ID_Gosto" />
+          </Key>
+          <Property Name="ID_Gosto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Conta_ID" Type="int" Nullable="false" />
+          <Property Name="Arte_ID" Type="int" Nullable="false" />
+          <Property Name="Data" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tipo de Arte">
+          <Key>
+            <PropertyRef Name="ID_Tipo" />
+          </Key>
+          <Property Name="ID_Tipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tipo_Arte" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Turma">
+          <Key>
+            <PropertyRef Name="ID_Turma" />
+          </Key>
+          <Property Name="ID_Turma" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ano_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Aluno_Conta">
+          <End Role="Conta" Type="Self.Conta" Multiplicity="1" />
+          <End Role="Aluno" Type="Self.Aluno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Conta">
+              <PropertyRef Name="ID_Conta" />
+            </Principal>
+            <Dependent Role="Aluno">
+              <PropertyRef Name="Conta_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Aluno_Turma">
+          <End Role="Turma" Type="Self.Turma" Multiplicity="1" />
+          <End Role="Aluno" Type="Self.Aluno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Turma">
+              <PropertyRef Name="ID_Turma" />
+            </Principal>
+            <Dependent Role="Aluno">
+              <PropertyRef Name="Turma_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Arte_Conta">
+          <End Role="Conta" Type="Self.Conta" Multiplicity="1" />
+          <End Role="Arte" Type="Self.Arte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Conta">
+              <PropertyRef Name="ID_Conta" />
+            </Principal>
+            <Dependent Role="Arte">
+              <PropertyRef Name="Conta_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Arte_Tipo de Arte">
+          <End Role="Tipo de Arte" Type="Self.Tipo de Arte" Multiplicity="1" />
+          <End Role="Arte" Type="Self.Arte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo de Arte">
+              <PropertyRef Name="ID_Tipo" />
+            </Principal>
+            <Dependent Role="Arte">
+              <PropertyRef Name="TipoArte_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comentario_Arte">
+          <End Role="Arte" Type="Self.Arte" Multiplicity="1" />
+          <End Role="Comentario" Type="Self.Comentario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Arte">
+              <PropertyRef Name="ID_Arte" />
+            </Principal>
+            <Dependent Role="Comentario">
+              <PropertyRef Name="Arte_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comentario_Conta">
+          <End Role="Conta" Type="Self.Conta" Multiplicity="1" />
+          <End Role="Comentario" Type="Self.Comentario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Conta">
+              <PropertyRef Name="ID_Conta" />
+            </Principal>
+            <Dependent Role="Comentario">
+              <PropertyRef Name="Conta_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Like_Arte">
+          <End Role="Arte" Type="Self.Arte" Multiplicity="1" />
+          <End Role="Gosto" Type="Self.Gosto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Arte">
+              <PropertyRef Name="ID_Arte" />
+            </Principal>
+            <Dependent Role="Gosto">
+              <PropertyRef Name="Arte_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Like_Conta">
+          <End Role="Conta" Type="Self.Conta" Multiplicity="1" />
+          <End Role="Gosto" Type="Self.Gosto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Conta">
+              <PropertyRef Name="ID_Conta" />
+            </Principal>
+            <Dependent Role="Gosto">
+              <PropertyRef Name="Conta_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Turma_Ano">
+          <End Role="Ano" Type="Self.Ano" Multiplicity="1" />
+          <End Role="Turma" Type="Self.Turma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ano">
+              <PropertyRef Name="ID_Ano" />
+            </Principal>
+            <Dependent Role="Turma">
+              <PropertyRef Name="Ano_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="acptArte" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nome" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="addAluno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="conta" Type="nvarchar" Mode="In" />
+          <Parameter Name="turma" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="addAno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ano" Type="int" Mode="In" />
+        </Function>
+        <Function Name="addArte" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nome" Type="varchar" Mode="In" />
+          <Parameter Name="descricao" Type="varchar(max)" Mode="In" />
+          <Parameter Name="conta" Type="varchar" Mode="In" />
+          <Parameter Name="tipo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="addComentario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="comentario" Type="varchar(max)" Mode="In" />
+          <Parameter Name="data" Type="date" Mode="In" />
+          <Parameter Name="conta" Type="varchar" Mode="In" />
+          <Parameter Name="arte" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="addConta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nome" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+          <Parameter Name="admin" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="addGosto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="conta" Type="varchar" Mode="In" />
+          <Parameter Name="arte" Type="varchar" Mode="In" />
+          <Parameter Name="data" Type="date" Mode="In" />
+        </Function>
+        <Function Name="addTipoArte" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="tipo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="addTurma" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nome" Type="varchar" Mode="In" />
+          <Parameter Name="ano" Type="int" Mode="In" />
+        </Function>
+        <Function Name="delAluno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="conta" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="delAno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ano" Type="int" Mode="In" />
+        </Function>
+        <Function Name="delArte" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nome" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="delComentario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="comentario" Type="varchar(max)" Mode="In" />
+          <Parameter Name="data" Type="date" Mode="In" />
+          <Parameter Name="conta" Type="varchar" Mode="In" />
+          <Parameter Name="arte" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="delConta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nome" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="delGosto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="conta" Type="varchar" Mode="In" />
+          <Parameter Name="arte" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="delTipoArte" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="tipo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="delTurma" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nome" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="getAlunos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="turma" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="getArtes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nome" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="getArtesTipo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="tipo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="getComentarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nome" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="getComentariosArte" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nome" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="getConta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="conta" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="getContaAlunos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="turma" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="getGostos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nome" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="getGostosArte" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nome" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="getOrderComentarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nome" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="getRfvArtes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="getRvfComentarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nome" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="getTipoArtes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="getTurmas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ano" Type="int" Mode="In" />
+        </Function>
+        <Function Name="rfvArte" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nome" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="rmvAdm" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nome" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="stAdm" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nome" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="updAluno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="conta" Type="varchar" Mode="In" />
+          <Parameter Name="turma" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="updAno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ano" Type="int" Mode="In" />
+          <Parameter Name="NEWano" Type="int" Mode="In" />
+        </Function>
+        <Function Name="updArte" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nome" Type="varchar" Mode="In" />
+          <Parameter Name="newNome" Type="varchar" Mode="In" />
+          <Parameter Name="descricao" Type="varchar" Mode="In" />
+          <Parameter Name="conta" Type="varchar" Mode="In" />
+          <Parameter Name="tipo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="updConta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nome" Type="varchar" Mode="In" />
+          <Parameter Name="newNome" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="updTipoArte" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="tipo" Type="varchar" Mode="In" />
+          <Parameter Name="new" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="updTurma" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nome" Type="varchar" Mode="In" />
+          <Parameter Name="NEWnome" Type="varchar" Mode="In" />
+          <Parameter Name="ano" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="AbrilModelStoreContainer">
+          <EntitySet Name="Aluno" EntityType="Self.Aluno" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ano" EntityType="Self.Ano" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Arte" EntityType="Self.Arte" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comentario" EntityType="Self.Comentario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Conta" EntityType="Self.Conta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gosto" EntityType="Self.Gosto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tipo de Arte" EntityType="Self.Tipo de Arte" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Turma" EntityType="Self.Turma" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Aluno_Conta" Association="Self.FK_Aluno_Conta">
+            <End Role="Conta" EntitySet="Conta" />
+            <End Role="Aluno" EntitySet="Aluno" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Aluno_Turma" Association="Self.FK_Aluno_Turma">
+            <End Role="Turma" EntitySet="Turma" />
+            <End Role="Aluno" EntitySet="Aluno" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Arte_Conta" Association="Self.FK_Arte_Conta">
+            <End Role="Conta" EntitySet="Conta" />
+            <End Role="Arte" EntitySet="Arte" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Arte_Tipo de Arte" Association="Self.FK_Arte_Tipo de Arte">
+            <End Role="Tipo de Arte" EntitySet="Tipo de Arte" />
+            <End Role="Arte" EntitySet="Arte" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comentario_Arte" Association="Self.FK_Comentario_Arte">
+            <End Role="Arte" EntitySet="Arte" />
+            <End Role="Comentario" EntitySet="Comentario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comentario_Conta" Association="Self.FK_Comentario_Conta">
+            <End Role="Conta" EntitySet="Conta" />
+            <End Role="Comentario" EntitySet="Comentario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Like_Arte" Association="Self.FK_Like_Arte">
+            <End Role="Arte" EntitySet="Arte" />
+            <End Role="Gosto" EntitySet="Gosto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Like_Conta" Association="Self.FK_Like_Conta">
+            <End Role="Conta" EntitySet="Conta" />
+            <End Role="Gosto" EntitySet="Gosto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Turma_Ano" Association="Self.FK_Turma_Ano">
+            <End Role="Ano" EntitySet="Ano" />
+            <End Role="Turma" EntitySet="Turma" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AbrilModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Aluno">
+          <Key>
+            <PropertyRef Name="ID_Aluno" />
+          </Key>
+          <Property Name="ID_Aluno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Numero" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Turma_ID" Type="Int32" Nullable="false" />
+          <Property Name="Conta_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Conta" Relationship="Self.FK_Aluno_Conta" FromRole="Aluno" ToRole="Conta" />
+          <NavigationProperty Name="Turma" Relationship="Self.FK_Aluno_Turma" FromRole="Aluno" ToRole="Turma" />
+        </EntityType>
+        <EntityType Name="Ano">
+          <Key>
+            <PropertyRef Name="ID_Ano" />
+          </Key>
+          <Property Name="ID_Ano" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ano1" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Turma" Relationship="Self.FK_Turma_Ano" FromRole="Ano" ToRole="Turma" />
+        </EntityType>
+        <EntityType Name="Arte">
+          <Key>
+            <PropertyRef Name="ID_Arte" />
+          </Key>
+          <Property Name="ID_Arte" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome_Arte" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descricao" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Aceite" Type="Boolean" Nullable="false" />
+          <Property Name="TipoArte_ID" Type="Int32" Nullable="false" />
+          <Property Name="Conta_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Conta" Relationship="Self.FK_Arte_Conta" FromRole="Arte" ToRole="Conta" />
+          <NavigationProperty Name="Tipo_de_Arte" Relationship="Self.FK_Arte_Tipo_de_Arte" FromRole="Arte" ToRole="Tipo_de_Arte" />
+          <NavigationProperty Name="Comentario" Relationship="Self.FK_Comentario_Arte" FromRole="Arte" ToRole="Comentario" />
+          <NavigationProperty Name="Gosto" Relationship="Self.FK_Like_Arte" FromRole="Arte" ToRole="Gosto" />
+        </EntityType>
+        <EntityType Name="Comentario">
+          <Key>
+            <PropertyRef Name="ID_Comentario" />
+          </Key>
+          <Property Name="ID_Comentario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Comentario1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Data" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Aceite" Type="Boolean" Nullable="false" />
+          <Property Name="Conta_ID" Type="Int32" Nullable="false" />
+          <Property Name="Arte_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Arte" Relationship="Self.FK_Comentario_Arte" FromRole="Comentario" ToRole="Arte" />
+          <NavigationProperty Name="Conta" Relationship="Self.FK_Comentario_Conta" FromRole="Comentario" ToRole="Conta" />
+        </EntityType>
+        <EntityType Name="Conta">
+          <Key>
+            <PropertyRef Name="ID_Conta" />
+          </Key>
+          <Property Name="ID_Conta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Aluno" Relationship="Self.FK_Aluno_Conta" FromRole="Conta" ToRole="Aluno" />
+          <NavigationProperty Name="Arte" Relationship="Self.FK_Arte_Conta" FromRole="Conta" ToRole="Arte" />
+          <NavigationProperty Name="Comentario" Relationship="Self.FK_Comentario_Conta" FromRole="Conta" ToRole="Comentario" />
+          <NavigationProperty Name="Gosto" Relationship="Self.FK_Like_Conta" FromRole="Conta" ToRole="Gosto" />
+        </EntityType>
+        <EntityType Name="Gosto">
+          <Key>
+            <PropertyRef Name="ID_Gosto" />
+          </Key>
+          <Property Name="ID_Gosto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Conta_ID" Type="Int32" Nullable="false" />
+          <Property Name="Arte_ID" Type="Int32" Nullable="false" />
+          <Property Name="Data" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Arte" Relationship="Self.FK_Like_Arte" FromRole="Gosto" ToRole="Arte" />
+          <NavigationProperty Name="Conta" Relationship="Self.FK_Like_Conta" FromRole="Gosto" ToRole="Conta" />
+        </EntityType>
+        <EntityType Name="Tipo_de_Arte">
+          <Key>
+            <PropertyRef Name="ID_Tipo" />
+          </Key>
+          <Property Name="ID_Tipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tipo_Arte" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Arte" Relationship="Self.FK_Arte_Tipo_de_Arte" FromRole="Tipo_de_Arte" ToRole="Arte" />
+        </EntityType>
+        <EntityType Name="Turma">
+          <Key>
+            <PropertyRef Name="ID_Turma" />
+          </Key>
+          <Property Name="ID_Turma" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ano_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Aluno" Relationship="Self.FK_Aluno_Turma" FromRole="Turma" ToRole="Aluno" />
+          <NavigationProperty Name="Ano" Relationship="Self.FK_Turma_Ano" FromRole="Turma" ToRole="Ano" />
+        </EntityType>
+        <Association Name="FK_Aluno_Conta">
+          <End Role="Conta" Type="Self.Conta" Multiplicity="1" />
+          <End Role="Aluno" Type="Self.Aluno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Conta">
+              <PropertyRef Name="ID_Conta" />
+            </Principal>
+            <Dependent Role="Aluno">
+              <PropertyRef Name="Conta_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Aluno_Turma">
+          <End Role="Turma" Type="Self.Turma" Multiplicity="1" />
+          <End Role="Aluno" Type="Self.Aluno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Turma">
+              <PropertyRef Name="ID_Turma" />
+            </Principal>
+            <Dependent Role="Aluno">
+              <PropertyRef Name="Turma_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Turma_Ano">
+          <End Role="Ano" Type="Self.Ano" Multiplicity="1" />
+          <End Role="Turma" Type="Self.Turma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ano">
+              <PropertyRef Name="ID_Ano" />
+            </Principal>
+            <Dependent Role="Turma">
+              <PropertyRef Name="Ano_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Arte_Conta">
+          <End Role="Conta" Type="Self.Conta" Multiplicity="1" />
+          <End Role="Arte" Type="Self.Arte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Conta">
+              <PropertyRef Name="ID_Conta" />
+            </Principal>
+            <Dependent Role="Arte">
+              <PropertyRef Name="Conta_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Arte_Tipo_de_Arte">
+          <End Role="Tipo_de_Arte" Type="Self.Tipo_de_Arte" Multiplicity="1" />
+          <End Role="Arte" Type="Self.Arte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_de_Arte">
+              <PropertyRef Name="ID_Tipo" />
+            </Principal>
+            <Dependent Role="Arte">
+              <PropertyRef Name="TipoArte_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comentario_Arte">
+          <End Role="Arte" Type="Self.Arte" Multiplicity="1" />
+          <End Role="Comentario" Type="Self.Comentario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Arte">
+              <PropertyRef Name="ID_Arte" />
+            </Principal>
+            <Dependent Role="Comentario">
+              <PropertyRef Name="Arte_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Like_Arte">
+          <End Role="Arte" Type="Self.Arte" Multiplicity="1" />
+          <End Role="Gosto" Type="Self.Gosto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Arte">
+              <PropertyRef Name="ID_Arte" />
+            </Principal>
+            <Dependent Role="Gosto">
+              <PropertyRef Name="Arte_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comentario_Conta">
+          <End Role="Conta" Type="Self.Conta" Multiplicity="1" />
+          <End Role="Comentario" Type="Self.Comentario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Conta">
+              <PropertyRef Name="ID_Conta" />
+            </Principal>
+            <Dependent Role="Comentario">
+              <PropertyRef Name="Conta_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Like_Conta">
+          <End Role="Conta" Type="Self.Conta" Multiplicity="1" />
+          <End Role="Gosto" Type="Self.Gosto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Conta">
+              <PropertyRef Name="ID_Conta" />
+            </Principal>
+            <Dependent Role="Gosto">
+              <PropertyRef Name="Conta_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities25Abril" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Aluno" EntityType="Self.Aluno" />
+          <EntitySet Name="Ano" EntityType="Self.Ano" />
+          <EntitySet Name="Arte" EntityType="Self.Arte" />
+          <EntitySet Name="Comentario" EntityType="Self.Comentario" />
+          <EntitySet Name="Conta" EntityType="Self.Conta" />
+          <EntitySet Name="Gosto" EntityType="Self.Gosto" />
+          <EntitySet Name="Tipo_de_Arte" EntityType="Self.Tipo_de_Arte" />
+          <EntitySet Name="Turma" EntityType="Self.Turma" />
+          <AssociationSet Name="FK_Aluno_Conta" Association="Self.FK_Aluno_Conta">
+            <End Role="Conta" EntitySet="Conta" />
+            <End Role="Aluno" EntitySet="Aluno" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Aluno_Turma" Association="Self.FK_Aluno_Turma">
+            <End Role="Turma" EntitySet="Turma" />
+            <End Role="Aluno" EntitySet="Aluno" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Turma_Ano" Association="Self.FK_Turma_Ano">
+            <End Role="Ano" EntitySet="Ano" />
+            <End Role="Turma" EntitySet="Turma" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Arte_Conta" Association="Self.FK_Arte_Conta">
+            <End Role="Conta" EntitySet="Conta" />
+            <End Role="Arte" EntitySet="Arte" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Arte_Tipo_de_Arte" Association="Self.FK_Arte_Tipo_de_Arte">
+            <End Role="Tipo_de_Arte" EntitySet="Tipo_de_Arte" />
+            <End Role="Arte" EntitySet="Arte" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comentario_Arte" Association="Self.FK_Comentario_Arte">
+            <End Role="Arte" EntitySet="Arte" />
+            <End Role="Comentario" EntitySet="Comentario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Like_Arte" Association="Self.FK_Like_Arte">
+            <End Role="Arte" EntitySet="Arte" />
+            <End Role="Gosto" EntitySet="Gosto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comentario_Conta" Association="Self.FK_Comentario_Conta">
+            <End Role="Conta" EntitySet="Conta" />
+            <End Role="Comentario" EntitySet="Comentario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Like_Conta" Association="Self.FK_Like_Conta">
+            <End Role="Conta" EntitySet="Conta" />
+            <End Role="Gosto" EntitySet="Gosto" />
+          </AssociationSet>
+          <FunctionImport Name="acptArte" ReturnType="Collection(Boolean)">
+            <Parameter Name="nome" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="addAluno">
+            <Parameter Name="conta" Mode="In" Type="String" />
+            <Parameter Name="turma" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="addAno">
+            <Parameter Name="ano" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="addArte">
+            <Parameter Name="nome" Mode="In" Type="String" />
+            <Parameter Name="descricao" Mode="In" Type="String" />
+            <Parameter Name="conta" Mode="In" Type="String" />
+            <Parameter Name="tipo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="addComentario">
+            <Parameter Name="comentario" Mode="In" Type="String" />
+            <Parameter Name="data" Mode="In" Type="DateTime" />
+            <Parameter Name="conta" Mode="In" Type="String" />
+            <Parameter Name="arte" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="addConta">
+            <Parameter Name="nome" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="admin" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="addGosto">
+            <Parameter Name="conta" Mode="In" Type="String" />
+            <Parameter Name="arte" Mode="In" Type="String" />
+            <Parameter Name="data" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="addTipoArte">
+            <Parameter Name="tipo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="addTurma">
+            <Parameter Name="nome" Mode="In" Type="String" />
+            <Parameter Name="ano" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="delAluno">
+            <Parameter Name="conta" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="delAno">
+            <Parameter Name="ano" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="delArte">
+            <Parameter Name="nome" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="delComentario">
+            <Parameter Name="comentario" Mode="In" Type="String" />
+            <Parameter Name="data" Mode="In" Type="DateTime" />
+            <Parameter Name="conta" Mode="In" Type="String" />
+            <Parameter Name="arte" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="delConta">
+            <Parameter Name="nome" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="delGosto">
+            <Parameter Name="conta" Mode="In" Type="String" />
+            <Parameter Name="arte" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="delTipoArte">
+            <Parameter Name="tipo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="delTurma">
+            <Parameter Name="nome" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="getAlunos" ReturnType="Collection(AbrilModel.getAlunos_Result)">
+            <Parameter Name="turma" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="getArtes" ReturnType="Collection(AbrilModel.getArtes_Result)">
+            <Parameter Name="nome" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="getArtesTipo" ReturnType="Collection(AbrilModel.getArtesTipo_Result)">
+            <Parameter Name="tipo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="getComentarios" ReturnType="Collection(AbrilModel.getComentarios_Result)">
+            <Parameter Name="nome" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="getComentariosArte" ReturnType="Collection(AbrilModel.getComentariosArte_Result)">
+            <Parameter Name="nome" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="getConta" ReturnType="Collection(AbrilModel.getConta_Result)">
+            <Parameter Name="conta" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="getContaAlunos" ReturnType="Collection(AbrilModel.getContaAlunos_Result)">
+            <Parameter Name="turma" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="getGostos" ReturnType="Collection(AbrilModel.getGostos_Result)">
+            <Parameter Name="nome" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="getGostosArte" ReturnType="Collection(AbrilModel.getGostosArte_Result)">
+            <Parameter Name="nome" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="getOrderComentarios" ReturnType="Collection(AbrilModel.getOrderComentarios_Result)">
+            <Parameter Name="nome" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="getRfvArtes" ReturnType="Collection(AbrilModel.getRfvArtes_Result)" />
+          <FunctionImport Name="getRvfComentarios" ReturnType="Collection(AbrilModel.getRvfComentarios_Result)">
+            <Parameter Name="nome" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="getTipoArtes" ReturnType="Collection(String)" />
+          <FunctionImport Name="getTurmas" ReturnType="Collection(AbrilModel.getTurmas_Result)">
+            <Parameter Name="ano" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="rfvArte">
+            <Parameter Name="nome" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="rmvAdm">
+            <Parameter Name="nome" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="stAdm">
+            <Parameter Name="nome" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="updAluno">
+            <Parameter Name="conta" Mode="In" Type="String" />
+            <Parameter Name="turma" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="updAno">
+            <Parameter Name="ano" Mode="In" Type="Int32" />
+            <Parameter Name="NEWano" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="updArte">
+            <Parameter Name="nome" Mode="In" Type="String" />
+            <Parameter Name="newNome" Mode="In" Type="String" />
+            <Parameter Name="descricao" Mode="In" Type="String" />
+            <Parameter Name="conta" Mode="In" Type="String" />
+            <Parameter Name="tipo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="updConta">
+            <Parameter Name="nome" Mode="In" Type="String" />
+            <Parameter Name="newNome" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="updTipoArte">
+            <Parameter Name="tipo" Mode="In" Type="String" />
+            <Parameter Name="new" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="updTurma">
+            <Parameter Name="nome" Mode="In" Type="String" />
+            <Parameter Name="NEWnome" Mode="In" Type="String" />
+            <Parameter Name="ano" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="getAlunos_Result">
+          <Property Type="Int32" Name="ID_Aluno" Nullable="false" />
+          <Property Type="String" Name="Numero" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Turma_ID" Nullable="false" />
+          <Property Type="Int32" Name="Conta_ID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="getArtes_Result">
+          <Property Type="Int32" Name="ID_Arte" Nullable="false" />
+          <Property Type="String" Name="Nome_Arte" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Descricao" Nullable="true" />
+          <Property Type="Boolean" Name="Aceite" Nullable="false" />
+          <Property Type="Int32" Name="TipoArte_ID" Nullable="false" />
+          <Property Type="Int32" Name="Conta_ID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="getArtesTipo_Result">
+          <Property Type="Int32" Name="ID_Arte" Nullable="false" />
+          <Property Type="String" Name="Nome_Arte" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Descricao" Nullable="true" />
+          <Property Type="Boolean" Name="Aceite" Nullable="false" />
+          <Property Type="Int32" Name="TipoArte_ID" Nullable="false" />
+          <Property Type="Int32" Name="Conta_ID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="getComentarios_Result">
+          <Property Type="Int32" Name="ID_Comentario" Nullable="false" />
+          <Property Type="String" Name="Comentario" Nullable="false" />
+          <Property Type="DateTime" Name="Data" Nullable="false" />
+          <Property Type="Boolean" Name="Aceite" Nullable="false" />
+          <Property Type="Int32" Name="Conta_ID" Nullable="false" />
+          <Property Type="Int32" Name="Arte_ID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="getComentariosArte_Result">
+          <Property Type="Int32" Name="ID_Comentario" Nullable="false" />
+          <Property Type="String" Name="Comentario" Nullable="false" />
+          <Property Type="DateTime" Name="Data" Nullable="false" />
+          <Property Type="Boolean" Name="Aceite" Nullable="false" />
+          <Property Type="Int32" Name="Conta_ID" Nullable="false" />
+          <Property Type="Int32" Name="Arte_ID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="getConta_Result">
+          <Property Type="Int32" Name="ID_Conta" Nullable="false" />
+          <Property Type="String" Name="Nome" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="50" />
+          <Property Type="Boolean" Name="IsAdmin" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="getContaAlunos_Result">
+          <Property Type="Int32" Name="ID_Conta" Nullable="false" />
+          <Property Type="String" Name="Nome" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="50" />
+          <Property Type="Boolean" Name="IsAdmin" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="getGostos_Result">
+          <Property Type="Int32" Name="ID_Gosto" Nullable="false" />
+          <Property Type="Int32" Name="Conta_ID" Nullable="false" />
+          <Property Type="Int32" Name="Arte_ID" Nullable="false" />
+          <Property Type="DateTime" Name="Data" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="getGostosArte_Result">
+          <Property Type="Int32" Name="ID_Gosto" Nullable="false" />
+          <Property Type="Int32" Name="Conta_ID" Nullable="false" />
+          <Property Type="Int32" Name="Arte_ID" Nullable="false" />
+          <Property Type="DateTime" Name="Data" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="getOrderComentarios_Result">
+          <Property Type="Int32" Name="ID_Comentario" Nullable="false" />
+          <Property Type="String" Name="Comentario" Nullable="false" />
+          <Property Type="DateTime" Name="Data" Nullable="false" />
+          <Property Type="Boolean" Name="Aceite" Nullable="false" />
+          <Property Type="Int32" Name="Conta_ID" Nullable="false" />
+          <Property Type="Int32" Name="Arte_ID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="getRfvArtes_Result">
+          <Property Type="Int32" Name="ID_Arte" Nullable="false" />
+          <Property Type="String" Name="Nome_Arte" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Descricao" Nullable="true" />
+          <Property Type="Boolean" Name="Aceite" Nullable="false" />
+          <Property Type="Int32" Name="TipoArte_ID" Nullable="false" />
+          <Property Type="Int32" Name="Conta_ID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="getRvfComentarios_Result">
+          <Property Type="Int32" Name="ID_Comentario" Nullable="false" />
+          <Property Type="String" Name="Comentario" Nullable="false" />
+          <Property Type="DateTime" Name="Data" Nullable="false" />
+          <Property Type="Boolean" Name="Aceite" Nullable="false" />
+          <Property Type="Int32" Name="Conta_ID" Nullable="false" />
+          <Property Type="Int32" Name="Arte_ID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="getTurmas_Result">
+          <Property Type="Int32" Name="ID_Turma" Nullable="false" />
+          <Property Type="String" Name="Nome" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Ano_ID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AbrilModelStoreContainer" CdmEntityContainer="Entities25Abril">
+          <EntitySetMapping Name="Aluno">
+            <EntityTypeMapping TypeName="AbrilModel.Aluno">
+              <MappingFragment StoreEntitySet="Aluno">
+                <ScalarProperty Name="ID_Aluno" ColumnName="ID_Aluno" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Turma_ID" ColumnName="Turma_ID" />
+                <ScalarProperty Name="Conta_ID" ColumnName="Conta_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ano">
+            <EntityTypeMapping TypeName="AbrilModel.Ano">
+              <MappingFragment StoreEntitySet="Ano">
+                <ScalarProperty Name="ID_Ano" ColumnName="ID_Ano" />
+                <ScalarProperty Name="Ano1" ColumnName="Ano" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Arte">
+            <EntityTypeMapping TypeName="AbrilModel.Arte">
+              <MappingFragment StoreEntitySet="Arte">
+                <ScalarProperty Name="ID_Arte" ColumnName="ID_Arte" />
+                <ScalarProperty Name="Nome_Arte" ColumnName="Nome_Arte" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Aceite" ColumnName="Aceite" />
+                <ScalarProperty Name="TipoArte_ID" ColumnName="TipoArte_ID" />
+                <ScalarProperty Name="Conta_ID" ColumnName="Conta_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comentario">
+            <EntityTypeMapping TypeName="AbrilModel.Comentario">
+              <MappingFragment StoreEntitySet="Comentario">
+                <ScalarProperty Name="ID_Comentario" ColumnName="ID_Comentario" />
+                <ScalarProperty Name="Comentario1" ColumnName="Comentario" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Aceite" ColumnName="Aceite" />
+                <ScalarProperty Name="Conta_ID" ColumnName="Conta_ID" />
+                <ScalarProperty Name="Arte_ID" ColumnName="Arte_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Conta">
+            <EntityTypeMapping TypeName="AbrilModel.Conta">
+              <MappingFragment StoreEntitySet="Conta">
+                <ScalarProperty Name="ID_Conta" ColumnName="ID_Conta" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gosto">
+            <EntityTypeMapping TypeName="AbrilModel.Gosto">
+              <MappingFragment StoreEntitySet="Gosto">
+                <ScalarProperty Name="ID_Gosto" ColumnName="ID_Gosto" />
+                <ScalarProperty Name="Conta_ID" ColumnName="Conta_ID" />
+                <ScalarProperty Name="Arte_ID" ColumnName="Arte_ID" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tipo_de_Arte">
+            <EntityTypeMapping TypeName="AbrilModel.Tipo_de_Arte">
+              <MappingFragment StoreEntitySet="Tipo de Arte">
+                <ScalarProperty Name="ID_Tipo" ColumnName="ID_Tipo" />
+                <ScalarProperty Name="Tipo_Arte" ColumnName="Tipo_Arte" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Turma">
+            <EntityTypeMapping TypeName="AbrilModel.Turma">
+              <MappingFragment StoreEntitySet="Turma">
+                <ScalarProperty Name="ID_Turma" ColumnName="ID_Turma" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Ano_ID" ColumnName="Ano_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="acptArte" FunctionName="AbrilModel.Store.acptArte" />
+          <FunctionImportMapping FunctionImportName="addAluno" FunctionName="AbrilModel.Store.addAluno" />
+          <FunctionImportMapping FunctionImportName="addAno" FunctionName="AbrilModel.Store.addAno" />
+          <FunctionImportMapping FunctionImportName="addArte" FunctionName="AbrilModel.Store.addArte" />
+          <FunctionImportMapping FunctionImportName="addComentario" FunctionName="AbrilModel.Store.addComentario" />
+          <FunctionImportMapping FunctionImportName="addConta" FunctionName="AbrilModel.Store.addConta" />
+          <FunctionImportMapping FunctionImportName="addGosto" FunctionName="AbrilModel.Store.addGosto" />
+          <FunctionImportMapping FunctionImportName="addTipoArte" FunctionName="AbrilModel.Store.addTipoArte" />
+          <FunctionImportMapping FunctionImportName="addTurma" FunctionName="AbrilModel.Store.addTurma" />
+          <FunctionImportMapping FunctionImportName="delAluno" FunctionName="AbrilModel.Store.delAluno" />
+          <FunctionImportMapping FunctionImportName="delAno" FunctionName="AbrilModel.Store.delAno" />
+          <FunctionImportMapping FunctionImportName="delArte" FunctionName="AbrilModel.Store.delArte" />
+          <FunctionImportMapping FunctionImportName="delComentario" FunctionName="AbrilModel.Store.delComentario" />
+          <FunctionImportMapping FunctionImportName="delConta" FunctionName="AbrilModel.Store.delConta" />
+          <FunctionImportMapping FunctionImportName="delGosto" FunctionName="AbrilModel.Store.delGosto" />
+          <FunctionImportMapping FunctionImportName="delTipoArte" FunctionName="AbrilModel.Store.delTipoArte" />
+          <FunctionImportMapping FunctionImportName="delTurma" FunctionName="AbrilModel.Store.delTurma" />
+          <FunctionImportMapping FunctionImportName="getAlunos" FunctionName="AbrilModel.Store.getAlunos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AbrilModel.getAlunos_Result">
+                <ScalarProperty Name="ID_Aluno" ColumnName="ID_Aluno" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Turma_ID" ColumnName="Turma_ID" />
+                <ScalarProperty Name="Conta_ID" ColumnName="Conta_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getArtes" FunctionName="AbrilModel.Store.getArtes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AbrilModel.getArtes_Result">
+                <ScalarProperty Name="ID_Arte" ColumnName="ID_Arte" />
+                <ScalarProperty Name="Nome_Arte" ColumnName="Nome_Arte" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Aceite" ColumnName="Aceite" />
+                <ScalarProperty Name="TipoArte_ID" ColumnName="TipoArte_ID" />
+                <ScalarProperty Name="Conta_ID" ColumnName="Conta_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getArtesTipo" FunctionName="AbrilModel.Store.getArtesTipo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AbrilModel.getArtesTipo_Result">
+                <ScalarProperty Name="ID_Arte" ColumnName="ID_Arte" />
+                <ScalarProperty Name="Nome_Arte" ColumnName="Nome_Arte" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Aceite" ColumnName="Aceite" />
+                <ScalarProperty Name="TipoArte_ID" ColumnName="TipoArte_ID" />
+                <ScalarProperty Name="Conta_ID" ColumnName="Conta_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getComentarios" FunctionName="AbrilModel.Store.getComentarios">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AbrilModel.getComentarios_Result">
+                <ScalarProperty Name="ID_Comentario" ColumnName="ID_Comentario" />
+                <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Aceite" ColumnName="Aceite" />
+                <ScalarProperty Name="Conta_ID" ColumnName="Conta_ID" />
+                <ScalarProperty Name="Arte_ID" ColumnName="Arte_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getComentariosArte" FunctionName="AbrilModel.Store.getComentariosArte">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AbrilModel.getComentariosArte_Result">
+                <ScalarProperty Name="ID_Comentario" ColumnName="ID_Comentario" />
+                <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Aceite" ColumnName="Aceite" />
+                <ScalarProperty Name="Conta_ID" ColumnName="Conta_ID" />
+                <ScalarProperty Name="Arte_ID" ColumnName="Arte_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getConta" FunctionName="AbrilModel.Store.getConta">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AbrilModel.getConta_Result">
+                <ScalarProperty Name="ID_Conta" ColumnName="ID_Conta" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getContaAlunos" FunctionName="AbrilModel.Store.getContaAlunos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AbrilModel.getContaAlunos_Result">
+                <ScalarProperty Name="ID_Conta" ColumnName="ID_Conta" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getGostos" FunctionName="AbrilModel.Store.getGostos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AbrilModel.getGostos_Result">
+                <ScalarProperty Name="ID_Gosto" ColumnName="ID_Gosto" />
+                <ScalarProperty Name="Conta_ID" ColumnName="Conta_ID" />
+                <ScalarProperty Name="Arte_ID" ColumnName="Arte_ID" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getGostosArte" FunctionName="AbrilModel.Store.getGostosArte">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AbrilModel.getGostosArte_Result">
+                <ScalarProperty Name="ID_Gosto" ColumnName="ID_Gosto" />
+                <ScalarProperty Name="Conta_ID" ColumnName="Conta_ID" />
+                <ScalarProperty Name="Arte_ID" ColumnName="Arte_ID" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getOrderComentarios" FunctionName="AbrilModel.Store.getOrderComentarios">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AbrilModel.getOrderComentarios_Result">
+                <ScalarProperty Name="ID_Comentario" ColumnName="ID_Comentario" />
+                <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Aceite" ColumnName="Aceite" />
+                <ScalarProperty Name="Conta_ID" ColumnName="Conta_ID" />
+                <ScalarProperty Name="Arte_ID" ColumnName="Arte_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getRfvArtes" FunctionName="AbrilModel.Store.getRfvArtes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AbrilModel.getRfvArtes_Result">
+                <ScalarProperty Name="ID_Arte" ColumnName="ID_Arte" />
+                <ScalarProperty Name="Nome_Arte" ColumnName="Nome_Arte" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Aceite" ColumnName="Aceite" />
+                <ScalarProperty Name="TipoArte_ID" ColumnName="TipoArte_ID" />
+                <ScalarProperty Name="Conta_ID" ColumnName="Conta_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getRvfComentarios" FunctionName="AbrilModel.Store.getRvfComentarios">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AbrilModel.getRvfComentarios_Result">
+                <ScalarProperty Name="ID_Comentario" ColumnName="ID_Comentario" />
+                <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Aceite" ColumnName="Aceite" />
+                <ScalarProperty Name="Conta_ID" ColumnName="Conta_ID" />
+                <ScalarProperty Name="Arte_ID" ColumnName="Arte_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getTipoArtes" FunctionName="AbrilModel.Store.getTipoArtes" />
+          <FunctionImportMapping FunctionImportName="getTurmas" FunctionName="AbrilModel.Store.getTurmas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AbrilModel.getTurmas_Result">
+                <ScalarProperty Name="ID_Turma" ColumnName="ID_Turma" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Ano_ID" ColumnName="Ano_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="rfvArte" FunctionName="AbrilModel.Store.rfvArte" />
+          <FunctionImportMapping FunctionImportName="rmvAdm" FunctionName="AbrilModel.Store.rmvAdm" />
+          <FunctionImportMapping FunctionImportName="stAdm" FunctionName="AbrilModel.Store.stAdm" />
+          <FunctionImportMapping FunctionImportName="updAluno" FunctionName="AbrilModel.Store.updAluno" />
+          <FunctionImportMapping FunctionImportName="updAno" FunctionName="AbrilModel.Store.updAno" />
+          <FunctionImportMapping FunctionImportName="updArte" FunctionName="AbrilModel.Store.updArte" />
+          <FunctionImportMapping FunctionImportName="updConta" FunctionName="AbrilModel.Store.updConta" />
+          <FunctionImportMapping FunctionImportName="updTipoArte" FunctionName="AbrilModel.Store.updTipoArte" />
+          <FunctionImportMapping FunctionImportName="updTurma" FunctionName="AbrilModel.Store.updTurma" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

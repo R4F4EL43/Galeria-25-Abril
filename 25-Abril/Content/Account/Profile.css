@@ -1,0 +1,48 @@
+﻿.DivProfile {
+    float: left;
+    border-radius: 10px;
+    background-color: rgb(200, 20, 20, 60%);
+    max-width: 200px;
+    height: fit-content;
+    padding: 8px;
+    margin: 10px;
+}
+
+.ProfileIMG {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.ProfileInfo {
+    width: auto;
+    display: flex;
+    gap: 15px;
+    flex-direction: column;
+    margin: 10px;
+    float: right;
+    position: relative;
+}
+
+.Info {
+    font-size: 18px;
+    display: flex;
+}
+
+.InfoLabel {
+    font-weight: bold;
+}
+
+.EditButton {
+    padding: 3px;
+    background-color: rgb(200, 20, 20, 30%);
+    font-size: 18px;
+    border-radius: 5px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+    .EditButton :hover {
+        cursor: pointer;
+    }

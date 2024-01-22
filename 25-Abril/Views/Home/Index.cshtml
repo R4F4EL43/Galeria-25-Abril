@@ -1,0 +1,93 @@
+﻿@model IEnumerable<_25_Abril.Models.Arte>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<main>
+
+    <body class="Background">
+
+        <div class="DivMain">
+
+                @if (Model != null)
+                {
+                    foreach (var item in Model)
+                    {
+                        <div class="ArtProject">
+                            <img src="~/Imagens/Projeto/Background.png" alt="">
+                            <div class="Titulo">
+                                @Html.DisplayFor(modelItem => item.Nome_Arte)
+                            </div>
+                            <div class="Descricao">
+                                @Html.DisplayFor(modelItem => item.Descricao)
+                            </div>
+                            <div class="Autor">
+                                @Html.DisplayFor(modelItem => item.Conta.Nome)
+                            </div>
+                            @Html.ActionLink("Details", "Details", new { id = item.ID_Arte }) |
+                        </div>
+
+                        
+                    }
+                }
+
+
+            @*<div class="ArtProject">
+                <img src="~/Imagens/Projeto/Background.png" alt="">
+                <div class="Titulo">
+                    Ponte 25 de Abril
+                </div>
+                <div class="Descricao">
+                    A melhor ponte 25 de abril de sempre, é verdade!
+                </div>
+                <div class="Autor">
+                    Arquiteto
+                </div>
+            </div>
+
+            <div class="ArtProject">
+                <img src="~/Imagens/Projeto/Background.png" alt="">
+                <div class="Titulo">
+                    Ponte 25 de Abril
+                </div>
+                <div class="Descricao">
+                    A melhor ponte 25 de abril de sempre, é verdade!
+                </div>
+                <div class="Autor">
+                    Arquiteto
+                </div>
+            </div>
+
+            <div class="ArtProject">
+                <img src="~/Imagens/Projeto/Background.png" alt="">
+                <div class="Titulo">
+                    Ponte 25 de Abril
+                </div>
+                <div class="Descricao">
+                    A melhor ponte 25 de abril de sempre, é verdade!
+                </div>
+                <div class="Autor">
+                    Arquiteto
+                </div>
+            </div>
+
+            <div class="ArtProject">
+                <img src="~/Imagens/Projeto/Background.png" alt="">
+                <div class="Titulo">
+                    Ponte 25 de Abril
+                </div>
+                <div class="Descricao">
+                    A melhor ponte 25 de abril de sempre, é verdade!
+                </div>
+                <div class="Autor">
+                    Arquiteto
+                </div>
+            </div>*@
+
+        </div>
+
+    </body>
+
+    </html>
+</main>

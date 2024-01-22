@@ -1,0 +1,121 @@
+﻿@model _25_Abril.Models.Conta
+
+@{
+    Layout = null;
+}
+
+@Html.AntiForgeryToken()
+
+<head>
+
+    @Styles.Render("~/Content/Login")
+    <script>
+        function HideLogin() {
+            var checkbox = document.getElementById('chk');
+
+            var elementsToHide = [
+                document.getElementById('lblUser'),
+                document.getElementById('txtUser'),
+                document.getElementById('lblPassword'),
+                document.getElementById('txtPassword'),
+                document.getElementById('btnLogin')
+            ];
+
+            if (!checkbox.checked) {
+                elementsToHide.forEach(function (element) {
+                    setTimeout(function () {
+                        element.classList.add('hidden');
+                        setTimeout(function () {
+                            elementsToHide.forEach(function (element) {
+                                element.style.display = 'none';
+                            });
+                        }, 500);
+                    })
+
+                });
+
+
+            }
+            else {
+                elementsToHide.forEach(function (element) {
+                    setTimeout(function () {
+                        element.style.display = 'block';
+                        setTimeout(function () {
+                            element.classList.remove('hidden');
+                        }, 500);
+                    });
+                });
+            }
+
+        }
+    </script>
+</head>
+
+<body class="Background">
+    <div class="main">
+        <input type="checkbox" id="chk" aria-hidden="true">
+        <div class="login">
+            @using (Html.BeginForm("Login", "Contas", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <form>
+                    <label for="chk" aria-hidden="true" class="Title" id="lblLogin" onclick="HideLogin()">Login</label>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div>
+                        @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "Labels", @id = "lblUser" })
+                        <div>
+                            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", @id = "txtUser", @style = "background: rgb(255, 80, 80, 30%);" } })
+                            @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div>
+                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "Labels", @id = "lblPassword" })
+                        <div>
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @id = "txtPassword", @style = "background: rgb(255, 80, 80, 30%);" } })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <input type="submit" value="Login" class="Butoes" id="btnLogin" />
+                </form>
+            }
+        </div>
+
+        <div class="signup">
+            @using (Html.BeginForm("Create", "Contas", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <form>
+
+                    <label for="chk" aria-hidden="true" class="Title" id="lblSignUp" style="color: rgb(255, 255, 255, 80%);"
+                           onclick="HideLogin()">Sign up</label>
+                    <div>
+                        @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "Labels" })
+                        <div>
+                            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div>
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "Labels" })
+                        <div>
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div>
+                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "Labels" })
+                        <div>
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <input type="submit" value="Create" class="Butoes" />
+                </form>
+            }
+        </div>
+    </div>
+</body>
+

@@ -1,0 +1,59 @@
+﻿@model _25_Abril.Models.Arte
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Arte</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome_Arte)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome_Arte)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Aceite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Aceite)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Conta.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Conta.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tipo_de_Arte.Tipo_Arte)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tipo_de_Arte.Tipo_Arte)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_Arte }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

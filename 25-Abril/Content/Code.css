@@ -1,0 +1,120 @@
+﻿body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.Background {
+    background-image: url("/Imagens/Projeto/Background.png");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.topnav {
+    height: 35%;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    overflow: hidden;
+    background-color: transparent;
+}
+
+    .topnav a {
+        height: 100%;
+        border-radius: 8px;
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 130%;
+        margin-left: 20px;
+    }
+
+.topnav-right {
+    float: right;
+}
+
+.Logo {
+    padding: 0;
+}
+
+.LogoIMG {
+    transition: transform .2s;
+    height: 47px;
+    margin: 0;
+    float: left;
+    object-fit: contain;
+    width: 83px;
+    margin-bottom: 0px;
+    border-radius: 10px;
+}
+
+    .LogoIMG:hover {
+        cursor: pointer;
+        -ms-transform: scale(1.05);
+        -webkit-transform: scale(1.05);
+        transform: scale(1.05);
+    }
+
+
+.topnav a:hover {
+    background-color: rgb(84, 84, 84, 60%);
+    color: white;
+    -ms-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.navbar-right {
+    float: right;
+}
+
+.UserIMG {
+    padding: 0;
+    height: 50px;
+    margin: 0;
+    border-radius: 50%;
+}
+
+.ArtProject {
+    padding: 10px;
+    background-color: rgb(200, 20, 20, 60%);
+    margin: 10px;
+    border-radius: 8px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: fit-content;
+}
+
+    .ArtProject img {
+        object-fit: contain;
+        width: 100%;
+    }
+
+.Titulo {
+    margin-top: 4px;
+    width: 100%;
+    padding-left: 30px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.Descricao {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.Autor {
+    width: 100%;
+    text-align: right;
+    text-decoration: underline;
+}body {
+}

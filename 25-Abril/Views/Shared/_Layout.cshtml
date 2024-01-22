@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Meu Aplicativo ASP.NET</title>
+    @Styles.Render("~/Content/Home")
+</head>
+
+<body>
+    <header>
+        <div class="topnav">
+            <a href="@Url.Action("Home", "Home")" style="padding: 2px" ;>
+                <img src="~/Imagens/Projeto/Logo.png" alt="Not Found" class="LogoIMG">
+            </a>
+            <a href="@Url.Action("Home", "Home")">Home</a>
+            <a href="@Url.Action("News", "Home")">News</a>
+            <a href="@Url.Action("Contact", "Home")">Contact</a>
+
+            <div class="topnav-right">
+                <a href="@Url.Action("Create", "Contas")" style="padding:0;">
+                    <center>
+                        <img src="~/Imagens/Projeto/Anonimo.png" alt="Not Found" class="UserIMG">
+                    </center>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Meu Aplicativo ASP.NET</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
