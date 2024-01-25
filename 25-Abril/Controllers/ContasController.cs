@@ -15,7 +15,7 @@ namespace _25_Abril.Controllers
 {
     public class ContasController : Controller
     {
-        SqlConnection Connection = new SqlConnection(@"Server=.\SQLEXPRESS;Database=25-Abril;Trusted_Connection=True;");
+        //SqlConnection Connection = new SqlConnection(@"Server=.\SQLEXPRESS;Database=25-Abril;Trusted_Connection=True;");
         private Entities25Abril BD = new Entities25Abril();
 
         // GET: Contas
@@ -87,7 +87,6 @@ namespace _25_Abril.Controllers
             if (ModelState.IsValid)
             {
                 BD.updConta(nome, conta.Nome, conta.Email, conta.Password);
-                //BD.Entry(conta).State = EntityState.Modified;
                 BD.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -133,27 +132,16 @@ namespace _25_Abril.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(string user, string pass)
         {
-            Connection.Open();
-            //BD.Conta.Find(user, pass);
-            SqlCommand cmd = new SqlCommand("getConta", Connection);
-            cmd.CommandType = CommandType.StoredProcedure;
+            Conta conta = BD.Conta.FirstOrDefault(s => (s.Nome == user && s.Password == pass) || (s.Email == user && s.Password == pass));
 
-            cmd.Parameters.AddWithValue("@conta", user);
-            cmd.Parameters.AddWithValue("@password", pass);
-
-            SqlDataReader rdConta = cmd.ExecuteReader();
-
-            Conta conta = new Conta();
-            while (rdConta.Read())
+            if(conta == null)
             {
-                conta.Nome = rdConta.GetString(1);
-                conta.Email = rdConta.GetString(2);
-                conta.Password = rdConta.GetString(3);
-                conta.IsAdmin = rdConta.GetBoolean(4);
+                Session["User"] = null;
             }
-            rdConta.Close();
-            Connection.Close();
-
+            else
+            {
+                Session["User"] = conta.Nome;
+            }
 
             return View(conta);
         }

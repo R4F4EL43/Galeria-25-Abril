@@ -21,7 +21,15 @@
             <div class="topnav-right">
                 <a href="@Url.Action("Create", "Contas")" style="padding:0;">
                     <center>
-                        <img src="~/Imagens/Projeto/Anonimo.png" alt="Not Found" class="UserIMG">
+                        @if (Session["User"] == null)
+                        {
+                            <img src="~/Imagens/Projeto/Anonimo.png" alt="Not Found" class="UserIMG">
+                        }
+                        else
+                        {
+                            <img src="~/Imagens/Projeto/LoggedUser.png" alt="Not Found" class="UserIMG">
+                        }
+
                     </center>
                 </a>
             </div>
