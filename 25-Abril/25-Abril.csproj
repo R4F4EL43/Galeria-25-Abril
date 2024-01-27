@@ -280,11 +280,8 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Home\Home.cshtml" />
-    <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\About\About.cshtml" />
-    <Content Include="Views\Projetos\Projetos.cshtml" />
     <Content Include="Views\Artes\Create.cshtml" />
     <Content Include="Views\Artes\Delete.cshtml" />
     <Content Include="Views\Artes\Details.cshtml" />
@@ -298,8 +295,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Login\" />
-    <Folder Include="Views\Profile\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
