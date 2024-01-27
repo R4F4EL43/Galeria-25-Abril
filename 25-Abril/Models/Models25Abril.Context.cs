@@ -45,21 +45,21 @@ namespace _25_Abril.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<bool>>("acptArte", nomeParameter);
         }
     
-        public virtual int addAluno(string conta, string numero, string turma)
+        public virtual int addAluno(Nullable<int> conta, Nullable<int> turma, string numero)
         {
-            var contaParameter = conta != null ?
+            var contaParameter = conta.HasValue ?
                 new ObjectParameter("conta", conta) :
-                new ObjectParameter("conta", typeof(string));
-
-            var numeroParameter = numero != null ?
-                new ObjectParameter("numero", turma) :
-                new ObjectParameter("numero", typeof(string));
-
-            var turmaParameter = turma != null ?
-                new ObjectParameter("turma", turma) :
-                new ObjectParameter("turma", typeof(string));
+                new ObjectParameter("conta", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("addAluno", contaParameter, numeroParameter, turmaParameter);
+            var turmaParameter = turma.HasValue ?
+                new ObjectParameter("turma", turma) :
+                new ObjectParameter("turma", typeof(int));
+    
+            var numeroParameter = numero != null ?
+                new ObjectParameter("numero", numero) :
+                new ObjectParameter("numero", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("addAluno", contaParameter, turmaParameter, numeroParameter);
         }
     
         public virtual int addAno(Nullable<int> ano)
@@ -71,7 +71,7 @@ namespace _25_Abril.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("addAno", anoParameter);
         }
     
-        public virtual int addArte(string nome, string descricao, string conta, string tipo)
+        public virtual int addArte(string nome, string descricao, Nullable<int> conta, Nullable<int> tipo, string caminho)
         {
             var nomeParameter = nome != null ?
                 new ObjectParameter("nome", nome) :
@@ -81,18 +81,22 @@ namespace _25_Abril.Models
                 new ObjectParameter("descricao", descricao) :
                 new ObjectParameter("descricao", typeof(string));
     
-            var contaParameter = conta != null ?
+            var contaParameter = conta.HasValue ?
                 new ObjectParameter("conta", conta) :
-                new ObjectParameter("conta", typeof(string));
+                new ObjectParameter("conta", typeof(int));
     
-            var tipoParameter = tipo != null ?
+            var tipoParameter = tipo.HasValue ?
                 new ObjectParameter("tipo", tipo) :
-                new ObjectParameter("tipo", typeof(string));
+                new ObjectParameter("tipo", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("addArte", nomeParameter, descricaoParameter, contaParameter, tipoParameter);
+            var caminhoParameter = caminho != null ?
+                new ObjectParameter("Caminho", caminho) :
+                new ObjectParameter("Caminho", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("addArte", nomeParameter, descricaoParameter, contaParameter, tipoParameter, caminhoParameter);
         }
     
-        public virtual int addComentario(string comentario, Nullable<System.DateTime> data, string conta, string arte)
+        public virtual int addComentario(string comentario, Nullable<System.DateTime> data, Nullable<int> conta, Nullable<int> arte)
         {
             var comentarioParameter = comentario != null ?
                 new ObjectParameter("comentario", comentario) :
@@ -102,13 +106,13 @@ namespace _25_Abril.Models
                 new ObjectParameter("data", data) :
                 new ObjectParameter("data", typeof(System.DateTime));
     
-            var contaParameter = conta != null ?
+            var contaParameter = conta.HasValue ?
                 new ObjectParameter("conta", conta) :
-                new ObjectParameter("conta", typeof(string));
+                new ObjectParameter("conta", typeof(int));
     
-            var arteParameter = arte != null ?
+            var arteParameter = arte.HasValue ?
                 new ObjectParameter("arte", arte) :
-                new ObjectParameter("arte", typeof(string));
+                new ObjectParameter("arte", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("addComentario", comentarioParameter, dataParameter, contaParameter, arteParameter);
         }
@@ -134,15 +138,15 @@ namespace _25_Abril.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("addConta", nomeParameter, emailParameter, passwordParameter, adminParameter);
         }
     
-        public virtual int addGosto(string conta, string arte, Nullable<System.DateTime> data)
+        public virtual int addGosto(Nullable<int> conta, Nullable<int> arte, Nullable<System.DateTime> data)
         {
-            var contaParameter = conta != null ?
+            var contaParameter = conta.HasValue ?
                 new ObjectParameter("conta", conta) :
-                new ObjectParameter("conta", typeof(string));
+                new ObjectParameter("conta", typeof(int));
     
-            var arteParameter = arte != null ?
+            var arteParameter = arte.HasValue ?
                 new ObjectParameter("arte", arte) :
-                new ObjectParameter("arte", typeof(string));
+                new ObjectParameter("arte", typeof(int));
     
             var dataParameter = data.HasValue ?
                 new ObjectParameter("data", data) :
@@ -173,11 +177,11 @@ namespace _25_Abril.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("addTurma", nomeParameter, anoParameter);
         }
     
-        public virtual int delAluno(string conta)
+        public virtual int delAluno(Nullable<int> conta)
         {
-            var contaParameter = conta != null ?
+            var contaParameter = conta.HasValue ?
                 new ObjectParameter("conta", conta) :
-                new ObjectParameter("conta", typeof(string));
+                new ObjectParameter("conta", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("delAluno", contaParameter);
         }
@@ -200,7 +204,7 @@ namespace _25_Abril.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("delArte", nomeParameter);
         }
     
-        public virtual int delComentario(string comentario, Nullable<System.DateTime> data, string conta, string arte)
+        public virtual int delComentario(string comentario, Nullable<System.DateTime> data, Nullable<int> conta, Nullable<int> arte)
         {
             var comentarioParameter = comentario != null ?
                 new ObjectParameter("comentario", comentario) :
@@ -210,13 +214,13 @@ namespace _25_Abril.Models
                 new ObjectParameter("data", data) :
                 new ObjectParameter("data", typeof(System.DateTime));
     
-            var contaParameter = conta != null ?
+            var contaParameter = conta.HasValue ?
                 new ObjectParameter("conta", conta) :
-                new ObjectParameter("conta", typeof(string));
+                new ObjectParameter("conta", typeof(int));
     
-            var arteParameter = arte != null ?
+            var arteParameter = arte.HasValue ?
                 new ObjectParameter("arte", arte) :
-                new ObjectParameter("arte", typeof(string));
+                new ObjectParameter("arte", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("delComentario", comentarioParameter, dataParameter, contaParameter, arteParameter);
         }
@@ -230,15 +234,15 @@ namespace _25_Abril.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("delConta", nomeParameter);
         }
     
-        public virtual int delGosto(string conta, string arte)
+        public virtual int delGosto(Nullable<int> conta, Nullable<int> arte)
         {
-            var contaParameter = conta != null ?
+            var contaParameter = conta.HasValue ?
                 new ObjectParameter("conta", conta) :
-                new ObjectParameter("conta", typeof(string));
+                new ObjectParameter("conta", typeof(int));
     
-            var arteParameter = arte != null ?
+            var arteParameter = arte.HasValue ?
                 new ObjectParameter("arte", arte) :
-                new ObjectParameter("arte", typeof(string));
+                new ObjectParameter("arte", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("delGosto", contaParameter, arteParameter);
         }
@@ -306,17 +310,13 @@ namespace _25_Abril.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getComentariosArte_Result>("getComentariosArte", nomeParameter);
         }
     
-        public virtual ObjectResult<getConta_Result> getConta(string conta, string password)
+        public virtual ObjectResult<getConta_Result> getConta(Nullable<int> conta)
         {
-            var contaParameter = conta != null ?
+            var contaParameter = conta.HasValue ?
                 new ObjectParameter("conta", conta) :
-                new ObjectParameter("conta", typeof(string));
+                new ObjectParameter("conta", typeof(int));
     
-            var passwordParameter = password != null ?
-                new ObjectParameter("password", password) :
-                new ObjectParameter("password", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getConta_Result>("getConta", contaParameter, passwordParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getConta_Result>("getConta", contaParameter);
         }
     
         public virtual ObjectResult<getContaAlunos_Result> getContaAlunos(string turma)
@@ -410,17 +410,21 @@ namespace _25_Abril.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("stAdm", nomeParameter);
         }
     
-        public virtual int updAluno(string conta, string turma)
+        public virtual int updAluno(Nullable<int> conta, Nullable<int> nEWconta, Nullable<int> turma)
         {
-            var contaParameter = conta != null ?
+            var contaParameter = conta.HasValue ?
                 new ObjectParameter("conta", conta) :
-                new ObjectParameter("conta", typeof(string));
+                new ObjectParameter("conta", typeof(int));
     
-            var turmaParameter = turma != null ?
+            var nEWcontaParameter = nEWconta.HasValue ?
+                new ObjectParameter("NEWconta", nEWconta) :
+                new ObjectParameter("NEWconta", typeof(int));
+    
+            var turmaParameter = turma.HasValue ?
                 new ObjectParameter("turma", turma) :
-                new ObjectParameter("turma", typeof(string));
+                new ObjectParameter("turma", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("updAluno", contaParameter, turmaParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("updAluno", contaParameter, nEWcontaParameter, turmaParameter);
         }
     
         public virtual int updAno(Nullable<int> ano, Nullable<int> nEWano)
@@ -436,7 +440,7 @@ namespace _25_Abril.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("updAno", anoParameter, nEWanoParameter);
         }
     
-        public virtual int updArte(string nome, string newNome, string descricao, string conta, string tipo)
+        public virtual int updArte(string nome, string newNome, string descricao, Nullable<int> conta, Nullable<int> tipo)
         {
             var nomeParameter = nome != null ?
                 new ObjectParameter("nome", nome) :
@@ -450,13 +454,13 @@ namespace _25_Abril.Models
                 new ObjectParameter("descricao", descricao) :
                 new ObjectParameter("descricao", typeof(string));
     
-            var contaParameter = conta != null ?
+            var contaParameter = conta.HasValue ?
                 new ObjectParameter("conta", conta) :
-                new ObjectParameter("conta", typeof(string));
+                new ObjectParameter("conta", typeof(int));
     
-            var tipoParameter = tipo != null ?
+            var tipoParameter = tipo.HasValue ?
                 new ObjectParameter("tipo", tipo) :
-                new ObjectParameter("tipo", typeof(string));
+                new ObjectParameter("tipo", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("updArte", nomeParameter, newNomeParameter, descricaoParameter, contaParameter, tipoParameter);
         }

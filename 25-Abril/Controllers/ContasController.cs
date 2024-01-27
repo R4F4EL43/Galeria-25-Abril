@@ -7,15 +7,16 @@ using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Runtime.Remoting.Messaging;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using _25_Abril.Models;
+using _25_Abril.ViewModels;
 
 namespace _25_Abril.Controllers
 {
     public class ContasController : Controller
     {
-        SqlConnection Connection = new SqlConnection(@"Server=.\SQLEXPRESS;Database=25-Abril;Trusted_Connection=True;");
         private Entities25Abril BD = new Entities25Abril();
 
         // GET: Contas
@@ -25,18 +26,30 @@ namespace _25_Abril.Controllers
         }
 
         // GET: Contas/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(string nome)
         {
-            if (id == null)
+            if (nome == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Conta conta = BD.Conta.Find(id);
+            Conta conta = BD.Conta.FirstOrDefault(s => s.Nome == nome);
             if (conta == null)
             {
                 return HttpNotFound();
             }
-            return View(conta);
+
+            List<Arte> artes = new List<Arte>();
+            foreach(Arte arte in BD.Arte)
+            {
+                if (arte.Conta_ID == conta.ID_Conta)
+                    artes.Add(arte);
+            }
+
+            ContaArte_ViewModel model = new ContaArte_ViewModel();
+            model.Conta = conta;
+            model.Artes = artes;
+            
+            return View(model);
         }
 
         // GET: Contas/Create
@@ -50,26 +63,31 @@ namespace _25_Abril.Controllers
         // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Nome,Email,Password")] Conta conta)
+        public ActionResult Create(string Nome, string Email, string Password)
         {
-            if (ModelState.IsValid)
+            if (Nome != null && Email != null && Password != null)
             {
-                BD.addConta(conta.Nome, conta.Email, conta.Password, false);
-                BD.SaveChanges();
-                return RedirectToAction("Index");
+                if(BD.Conta.FirstOrDefault(s => s.Nome == Nome && s.Email == Email && s.Password == Password) == null)
+                {
+                    BD.addConta(Nome, Email, Password, false);
+                    BD.SaveChanges();
+                    
+                    if (BD.Conta.FirstOrDefault(s => s.Nome == Nome && s.Email == Email && s.Password == Password) != null)
+                        return RedirectToAction("Details", new { nome = Nome });
+                }                
             }
 
-            return View(conta);
+            return View();
         }
 
         // GET: Contas/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(string nome)
         {
-            if (id == null)
+            if (nome == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Conta conta = BD.Conta.Find(id);
+            Conta conta = BD.Conta.FirstOrDefault(s => s.Nome == nome);
             if (conta == null)
             {
                 return HttpNotFound();
@@ -131,31 +149,21 @@ namespace _25_Abril.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(string user, string pass)
+        public ActionResult Login(string Nome, string Password)
         {
-            Connection.Open();
-            //BD.Conta.Find(user, pass);
-            SqlCommand cmd = new SqlCommand("getConta", Connection);
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            cmd.Parameters.AddWithValue("@conta", user);
-            cmd.Parameters.AddWithValue("@password", pass);
-
-            SqlDataReader rdConta = cmd.ExecuteReader();
-
-            Conta conta = new Conta();
-            while (rdConta.Read())
+            if(Nome != null && Password != null)
             {
-                conta.Nome = rdConta.GetString(1);
-                conta.Email = rdConta.GetString(2);
-                conta.Password = rdConta.GetString(3);
-                conta.IsAdmin = rdConta.GetBoolean(4);
+                Conta conta = BD.Conta.FirstOrDefault(s => s.Nome == Nome && s.Password == Password);
+                if(conta != null)
+                {
+                    Session["User"] = conta.Nome;
+                    Session["UserImage"] = conta.Image;
+                    return RedirectToAction("Details", new { nome = conta.Nome });
+                }
             }
-            rdConta.Close();
-            Connection.Close();
 
 
-            return View(conta);
+            return RedirectToAction("Index");
         }
 
         

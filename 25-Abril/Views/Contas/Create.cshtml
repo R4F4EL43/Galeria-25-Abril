@@ -15,9 +15,9 @@
 
             var elementsToHide = [
                 document.getElementById('lblUser'),
-                document.getElementById('txtUser'),
+                document.getElementById('Nome'),
                 document.getElementById('lblPassword'),
-                document.getElementById('txtPassword'),
+                document.getElementById('Password'),
                 document.getElementById('btnLogin')
             ];
 
@@ -60,20 +60,19 @@
                 @Html.AntiForgeryToken()
                 <form>
                     <label for="chk" aria-hidden="true" class="Title" id="lblLogin" onclick="HideLogin()">Login</label>
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div>
                         @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "Labels", @id = "lblUser" })
                         <div>
-                            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", @id = "txtUser", @style = "background: rgb(255, 80, 80, 30%);" } })
-                            @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @id = "Nome", @style = "background: rgb(255, 80, 80, 30%);" } })
+                            @Html.ValidationMessageFor(model => model.Nome)
                         </div>
                     </div>
 
                     <div>
                         @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "Labels", @id = "lblPassword" })
                         <div>
-                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @id = "txtPassword", @style = "background: rgb(255, 80, 80, 30%);" } })
-                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @id = "Password", @style = "background: rgb(255, 80, 80, 30%);" } })
+                            @Html.ValidationMessageFor(model => model.Password)
                         </div>
                     </div>
                     <input type="submit" value="Login" class="Butoes" id="btnLogin" />

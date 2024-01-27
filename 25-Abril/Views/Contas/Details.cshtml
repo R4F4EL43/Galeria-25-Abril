@@ -1,51 +1,73 @@
-﻿@model _25_Abril.Models.Conta
+﻿@model _25_Abril.ViewModels.ContaArte_ViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
 
-<div>
-    <h4>Conta</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
+    @Styles.Render("~/Content/Profile")
+</head>
 
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
+<body class="Background">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+    <div class="DivMain" style="justify-content: start; position: relative;">
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+        <div class="DivProfile">
+            <img src=@Model.Conta.Image alt="" class="ProfileIMG">
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Password)
-        </dd>
+        @Html.ActionLink("Edit", "Contas", new { nome = Model.Conta.Nome }, new { @class = "EditButton" })
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IsAdmin)
-        </dt>
+        <div class="ProfileInfo">
 
-        <dd>
-            @Html.DisplayFor(model => model.IsAdmin)
-        </dd>
+            <div class="Info">
+                <span class="InfoLabel">Nome:</span>
+                <span>@Model.Conta.Nome</span>
+            </div>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", Model.Nome, new { id = Model.ID_Conta }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+            <div class="Info">
+                <span class="InfoLabel">Email: </span>
+                <span>@Model.Conta.Email</span>
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <div class="DivMain">
+
+
+        @foreach (_25_Abril.Models.Arte arte in Model.Artes)
+        {
+            if (arte.Conta_ID == Model.Conta.ID_Conta)
+            {
+                <div class="ArtProject">
+                    <img src=@arte.Caminho alt="NotFound">
+                    <div class="Titulo">
+                        @arte.Nome_Arte
+                    </div>
+                    <div class="Descricao">
+                        @arte.Descricao
+                    </div>
+                    <div style="display : flex">
+                        @*Nao leva para o endereço certo*@
+                        @Html.Action("Edit", "Artes", new { nome = arte.Nome_Arte })
+                        @Html.Action("Details", "Artes", new { nome = arte.Nome_Arte })
+                        @Html.Action("Delete", "Artes", new { nome = arte.Nome_Arte })
+                    </div>
+                    
+                </div>
+            }
+        }
+        </body>
+
+    </html>

@@ -1,59 +1,38 @@
-﻿@model _25_Abril.Models.Arte
+﻿@model _25_Abril.ViewModels.ArteComentarios_ViewModel
 
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<body class="Background" style="width:80%; margin-left:10%; margin-right:10%">
 
-<div>
-    <h4>Arte</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome_Arte)
-        </dt>
-
+    <div class="DivMain" style="justify-content: start; position: relative;">
         <dd>
-            @Html.DisplayFor(model => model.Nome_Arte)
+            @Html.DisplayFor(model => model.Arte.Nome_Arte)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Descricao)
-        </dt>
+        <img src=@Model.Arte.Caminho alt="Not Found" style="width : 80%; height : auto; margin-right: 10%; margin-left : 10%" />
 
         <dd>
-            @Html.DisplayFor(model => model.Descricao)
+            @Html.DisplayFor(model => model.Arte.Descricao)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Aceite)
-        </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Aceite)
+            @Html.DisplayFor(model => model.Arte.Conta.Nome)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Conta.Nome)
-        </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Conta.Nome)
+            @Html.DisplayFor(model => model.Arte.Tipo_de_Arte.Tipo_Arte)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Tipo_de_Arte.Tipo_Arte)
-        </dt>
+        <div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Tipo_de_Arte.Tipo_Arte)
-        </dd>
+        </div>
+        <p>
+            @Html.ActionLink("Edit", "Edit", new { nome = Model.Arte.Nome_Arte }) |
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+    </div>
+</body>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_Arte }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

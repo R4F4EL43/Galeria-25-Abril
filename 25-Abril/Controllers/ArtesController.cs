@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using _25_Abril.Models;
+using _25_Abril.ViewModels;
 
 namespace _25_Abril.Controllers
 {
@@ -17,23 +18,55 @@ namespace _25_Abril.Controllers
         // GET: Artes
         public ActionResult Index()
         {
-            var arte = db.Arte.Include(a => a.Conta).Include(a => a.Tipo_de_Arte);
-            return View(arte.ToList());
+            List<Arte> artes = new List<Arte>();
+            foreach(Arte arte in db.Arte.ToList())
+            {                
+                if(db.Conta.FirstOrDefault(s => s.ID_Conta == arte.Conta_ID) != null)
+                {
+                    arte.Conta = db.Conta.FirstOrDefault(s => s.ID_Conta == arte.Conta_ID);
+                    artes.Add(arte);
+                }
+                
+            }
+            List<Tipo_de_Arte> tipos = db.Tipo_de_Arte.ToList();
+
+            ArtesTipoArte_ViewModel arteTipos = new ArtesTipoArte_ViewModel();
+            arteTipos.Artes = artes;
+            arteTipos.Tipos = tipos;
+
+            return View(arteTipos);
         }
 
         // GET: Artes/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(string nome)
         {
-            if (id == null)
+            if (nome == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Arte arte = db.Arte.Find(id);
+            Arte arte = db.Arte.FirstOrDefault(s => s.Nome_Arte == nome);
             if (arte == null)
             {
                 return HttpNotFound();
             }
-            return View(arte);
+
+            List<Comentario> comentarios = new List<Comentario>();
+            if(db.Comentario.ToList() != null)
+            {
+                foreach (Comentario comentario in db.Comentario.ToList())
+                {
+                    if (comentario.Arte_ID == arte.ID_Arte)
+                        comentarios.Add(comentario);
+                }
+            }
+            
+
+            ArteComentarios_ViewModel arteComentario = new ArteComentarios_ViewModel();
+            arteComentario.Arte = arte;
+            arteComentario.Comentarios = comentarios;
+
+            
+            return View(arteComentario);
         }
 
         // GET: Artes/Create

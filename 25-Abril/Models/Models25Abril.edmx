@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AbrilModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AbrilModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Aluno">
           <Key>
             <PropertyRef Name="ID_Aluno" />
@@ -31,6 +31,7 @@
           <Property Name="Aceite" Type="bit" Nullable="false" />
           <Property Name="TipoArte_ID" Type="int" Nullable="false" />
           <Property Name="Conta_ID" Type="int" Nullable="false" />
+          <Property Name="Caminho" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Comentario">
           <Key>
@@ -51,6 +52,7 @@
           <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Image" Type="nvarchar(max)" Nullable="false" />
           <Property Name="IsAdmin" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Gosto">
@@ -98,30 +100,6 @@
             </Principal>
             <Dependent Role="Aluno">
               <PropertyRef Name="Turma_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Arte_Conta">
-          <End Role="Conta" Type="Self.Conta" Multiplicity="1" />
-          <End Role="Arte" Type="Self.Arte" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Conta">
-              <PropertyRef Name="ID_Conta" />
-            </Principal>
-            <Dependent Role="Arte">
-              <PropertyRef Name="Conta_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Arte_Tipo de Arte">
-          <End Role="Tipo de Arte" Type="Self.Tipo de Arte" Multiplicity="1" />
-          <End Role="Arte" Type="Self.Arte" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tipo de Arte">
-              <PropertyRef Name="ID_Tipo" />
-            </Principal>
-            <Dependent Role="Arte">
-              <PropertyRef Name="TipoArte_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -189,8 +167,9 @@
           <Parameter Name="nome" Type="varchar" Mode="In" />
         </Function>
         <Function Name="addAluno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="conta" Type="nvarchar" Mode="In" />
-          <Parameter Name="turma" Type="nvarchar" Mode="In" />
+          <Parameter Name="conta" Type="int" Mode="In" />
+          <Parameter Name="turma" Type="int" Mode="In" />
+          <Parameter Name="numero" Type="varchar" Mode="In" />
         </Function>
         <Function Name="addAno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ano" Type="int" Mode="In" />
@@ -198,14 +177,15 @@
         <Function Name="addArte" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="nome" Type="varchar" Mode="In" />
           <Parameter Name="descricao" Type="varchar(max)" Mode="In" />
-          <Parameter Name="conta" Type="varchar" Mode="In" />
-          <Parameter Name="tipo" Type="varchar" Mode="In" />
+          <Parameter Name="conta" Type="int" Mode="In" />
+          <Parameter Name="tipo" Type="int" Mode="In" />
+          <Parameter Name="Caminho" Type="varchar(max)" Mode="In" />
         </Function>
         <Function Name="addComentario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="comentario" Type="varchar(max)" Mode="In" />
           <Parameter Name="data" Type="date" Mode="In" />
-          <Parameter Name="conta" Type="varchar" Mode="In" />
-          <Parameter Name="arte" Type="varchar" Mode="In" />
+          <Parameter Name="conta" Type="int" Mode="In" />
+          <Parameter Name="arte" Type="int" Mode="In" />
         </Function>
         <Function Name="addConta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="nome" Type="varchar" Mode="In" />
@@ -214,8 +194,8 @@
           <Parameter Name="admin" Type="bit" Mode="In" />
         </Function>
         <Function Name="addGosto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="conta" Type="varchar" Mode="In" />
-          <Parameter Name="arte" Type="varchar" Mode="In" />
+          <Parameter Name="conta" Type="int" Mode="In" />
+          <Parameter Name="arte" Type="int" Mode="In" />
           <Parameter Name="data" Type="date" Mode="In" />
         </Function>
         <Function Name="addTipoArte" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -226,7 +206,7 @@
           <Parameter Name="ano" Type="int" Mode="In" />
         </Function>
         <Function Name="delAluno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="conta" Type="nvarchar" Mode="In" />
+          <Parameter Name="conta" Type="int" Mode="In" />
         </Function>
         <Function Name="delAno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ano" Type="int" Mode="In" />
@@ -237,15 +217,15 @@
         <Function Name="delComentario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="comentario" Type="varchar(max)" Mode="In" />
           <Parameter Name="data" Type="date" Mode="In" />
-          <Parameter Name="conta" Type="varchar" Mode="In" />
-          <Parameter Name="arte" Type="varchar" Mode="In" />
+          <Parameter Name="conta" Type="int" Mode="In" />
+          <Parameter Name="arte" Type="int" Mode="In" />
         </Function>
         <Function Name="delConta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="nome" Type="varchar" Mode="In" />
         </Function>
         <Function Name="delGosto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="conta" Type="varchar" Mode="In" />
-          <Parameter Name="arte" Type="varchar" Mode="In" />
+          <Parameter Name="conta" Type="int" Mode="In" />
+          <Parameter Name="arte" Type="int" Mode="In" />
         </Function>
         <Function Name="delTipoArte" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="tipo" Type="varchar" Mode="In" />
@@ -269,8 +249,7 @@
           <Parameter Name="nome" Type="varchar" Mode="In" />
         </Function>
         <Function Name="getConta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="conta" Type="varchar" Mode="In" />
-          <Parameter Name="password" Type="varchar" Mode="In" />
+          <Parameter Name="conta" Type="int" Mode="In" />
         </Function>
         <Function Name="getContaAlunos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="turma" Type="varchar" Mode="In" />
@@ -302,8 +281,9 @@
           <Parameter Name="nome" Type="varchar" Mode="In" />
         </Function>
         <Function Name="updAluno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="conta" Type="varchar" Mode="In" />
-          <Parameter Name="turma" Type="varchar" Mode="In" />
+          <Parameter Name="conta" Type="int" Mode="In" />
+          <Parameter Name="NEWconta" Type="int" Mode="In" />
+          <Parameter Name="turma" Type="int" Mode="In" />
         </Function>
         <Function Name="updAno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ano" Type="int" Mode="In" />
@@ -313,8 +293,8 @@
           <Parameter Name="nome" Type="varchar" Mode="In" />
           <Parameter Name="newNome" Type="varchar" Mode="In" />
           <Parameter Name="descricao" Type="varchar" Mode="In" />
-          <Parameter Name="conta" Type="varchar" Mode="In" />
-          <Parameter Name="tipo" Type="varchar" Mode="In" />
+          <Parameter Name="conta" Type="int" Mode="In" />
+          <Parameter Name="tipo" Type="int" Mode="In" />
         </Function>
         <Function Name="updConta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="nome" Type="varchar" Mode="In" />
@@ -348,14 +328,6 @@
             <End Role="Turma" EntitySet="Turma" />
             <End Role="Aluno" EntitySet="Aluno" />
           </AssociationSet>
-          <AssociationSet Name="FK_Arte_Conta" Association="Self.FK_Arte_Conta">
-            <End Role="Conta" EntitySet="Conta" />
-            <End Role="Arte" EntitySet="Arte" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Arte_Tipo de Arte" Association="Self.FK_Arte_Tipo de Arte">
-            <End Role="Tipo de Arte" EntitySet="Tipo de Arte" />
-            <End Role="Arte" EntitySet="Arte" />
-          </AssociationSet>
           <AssociationSet Name="FK_Comentario_Arte" Association="Self.FK_Comentario_Arte">
             <End Role="Arte" EntitySet="Arte" />
             <End Role="Comentario" EntitySet="Comentario" />
@@ -377,8 +349,7 @@
             <End Role="Turma" EntitySet="Turma" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AbrilModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -387,11 +358,11 @@
             <PropertyRef Name="ID_Aluno" />
           </Key>
           <Property Name="ID_Aluno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Numero" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Turma_ID" Type="Int32" Nullable="false" />
           <Property Name="Conta_ID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Conta" Relationship="Self.FK_Aluno_Conta" FromRole="Aluno" ToRole="Conta" />
           <NavigationProperty Name="Turma" Relationship="Self.FK_Aluno_Turma" FromRole="Aluno" ToRole="Turma" />
+          <Property Name="Numero" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Ano">
           <Key>
@@ -415,6 +386,7 @@
           <NavigationProperty Name="Tipo_de_Arte" Relationship="Self.FK_Arte_Tipo_de_Arte" FromRole="Arte" ToRole="Tipo_de_Arte" />
           <NavigationProperty Name="Comentario" Relationship="Self.FK_Comentario_Arte" FromRole="Arte" ToRole="Comentario" />
           <NavigationProperty Name="Gosto" Relationship="Self.FK_Like_Arte" FromRole="Arte" ToRole="Gosto" />
+          <Property Name="Caminho" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Comentario">
           <Key>
@@ -442,6 +414,7 @@
           <NavigationProperty Name="Arte" Relationship="Self.FK_Arte_Conta" FromRole="Conta" ToRole="Arte" />
           <NavigationProperty Name="Comentario" Relationship="Self.FK_Comentario_Conta" FromRole="Conta" ToRole="Comentario" />
           <NavigationProperty Name="Gosto" Relationship="Self.FK_Like_Conta" FromRole="Conta" ToRole="Gosto" />
+          <Property Name="Image" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Gosto">
           <Key>
@@ -626,26 +599,28 @@
             <End Role="Gosto" EntitySet="Gosto" />
           </AssociationSet>
           <FunctionImport Name="acptArte" ReturnType="Collection(Boolean)">
-            <Parameter Name="nome" Mode="In" Type="String" />
+          <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="addAluno">
-            <Parameter Name="conta" Mode="In" Type="String" />
-            <Parameter Name="turma" Mode="In" Type="String" />
+            <Parameter Name="conta" Mode="In" Type="Int32" />
+            <Parameter Name="turma" Mode="In" Type="Int32" />
+            <Parameter Name="numero" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="addAno">
-            <Parameter Name="ano" Mode="In" Type="Int32" />
+          <Parameter Name="ano" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="addArte">
             <Parameter Name="nome" Mode="In" Type="String" />
             <Parameter Name="descricao" Mode="In" Type="String" />
-            <Parameter Name="conta" Mode="In" Type="String" />
-            <Parameter Name="tipo" Mode="In" Type="String" />
+            <Parameter Name="conta" Mode="In" Type="Int32" />
+            <Parameter Name="tipo" Mode="In" Type="Int32" />
+            <Parameter Name="Caminho" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="addComentario">
             <Parameter Name="comentario" Mode="In" Type="String" />
             <Parameter Name="data" Mode="In" Type="DateTime" />
-            <Parameter Name="conta" Mode="In" Type="String" />
-            <Parameter Name="arte" Mode="In" Type="String" />
+            <Parameter Name="conta" Mode="In" Type="Int32" />
+            <Parameter Name="arte" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="addConta">
             <Parameter Name="nome" Mode="In" Type="String" />
@@ -654,96 +629,96 @@
             <Parameter Name="admin" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="addGosto">
-            <Parameter Name="conta" Mode="In" Type="String" />
-            <Parameter Name="arte" Mode="In" Type="String" />
+            <Parameter Name="conta" Mode="In" Type="Int32" />
+            <Parameter Name="arte" Mode="In" Type="Int32" />
             <Parameter Name="data" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="addTipoArte">
-            <Parameter Name="tipo" Mode="In" Type="String" />
+          <Parameter Name="tipo" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="addTurma">
             <Parameter Name="nome" Mode="In" Type="String" />
             <Parameter Name="ano" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="delAluno">
-            <Parameter Name="conta" Mode="In" Type="String" />
+          <Parameter Name="conta" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="delAno">
-            <Parameter Name="ano" Mode="In" Type="Int32" />
+          <Parameter Name="ano" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="delArte">
-            <Parameter Name="nome" Mode="In" Type="String" />
+          <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="delComentario">
             <Parameter Name="comentario" Mode="In" Type="String" />
             <Parameter Name="data" Mode="In" Type="DateTime" />
-            <Parameter Name="conta" Mode="In" Type="String" />
-            <Parameter Name="arte" Mode="In" Type="String" />
+            <Parameter Name="conta" Mode="In" Type="Int32" />
+            <Parameter Name="arte" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="delConta">
-            <Parameter Name="nome" Mode="In" Type="String" />
+          <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="delGosto">
-            <Parameter Name="conta" Mode="In" Type="String" />
-            <Parameter Name="arte" Mode="In" Type="String" />
+            <Parameter Name="conta" Mode="In" Type="Int32" />
+            <Parameter Name="arte" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="delTipoArte">
-            <Parameter Name="tipo" Mode="In" Type="String" />
+          <Parameter Name="tipo" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="delTurma">
-            <Parameter Name="nome" Mode="In" Type="String" />
+          <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="getAlunos" ReturnType="Collection(AbrilModel.getAlunos_Result)">
-            <Parameter Name="turma" Mode="In" Type="String" />
+          <Parameter Name="turma" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="getArtes" ReturnType="Collection(AbrilModel.getArtes_Result)">
-            <Parameter Name="nome" Mode="In" Type="String" />
+          <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="getArtesTipo" ReturnType="Collection(AbrilModel.getArtesTipo_Result)">
-            <Parameter Name="tipo" Mode="In" Type="String" />
+          <Parameter Name="tipo" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="getComentarios" ReturnType="Collection(AbrilModel.getComentarios_Result)">
-            <Parameter Name="nome" Mode="In" Type="String" />
+          <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="getComentariosArte" ReturnType="Collection(AbrilModel.getComentariosArte_Result)">
-            <Parameter Name="nome" Mode="In" Type="String" />
+          <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="getConta" ReturnType="Collection(AbrilModel.getConta_Result)">
-            <Parameter Name="conta" Mode="In" Type="String" />
-            <Parameter Name="password" Mode="In" Type="String" />
+          <Parameter Name="conta" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="getContaAlunos" ReturnType="Collection(AbrilModel.getContaAlunos_Result)">
-            <Parameter Name="turma" Mode="In" Type="String" />
+          <Parameter Name="turma" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="getGostos" ReturnType="Collection(AbrilModel.getGostos_Result)">
-            <Parameter Name="nome" Mode="In" Type="String" />
+          <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="getGostosArte" ReturnType="Collection(AbrilModel.getGostosArte_Result)">
-            <Parameter Name="nome" Mode="In" Type="String" />
+          <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="getOrderComentarios" ReturnType="Collection(AbrilModel.getOrderComentarios_Result)">
-            <Parameter Name="nome" Mode="In" Type="String" />
+          <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="getRfvArtes" ReturnType="Collection(AbrilModel.getRfvArtes_Result)" />
           <FunctionImport Name="getRvfComentarios" ReturnType="Collection(AbrilModel.getRvfComentarios_Result)">
-            <Parameter Name="nome" Mode="In" Type="String" />
+          <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="getTipoArtes" ReturnType="Collection(String)" />
           <FunctionImport Name="getTurmas" ReturnType="Collection(AbrilModel.getTurmas_Result)">
-            <Parameter Name="ano" Mode="In" Type="Int32" />
+          <Parameter Name="ano" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="rfvArte">
-            <Parameter Name="nome" Mode="In" Type="String" />
+          <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="rmvAdm">
-            <Parameter Name="nome" Mode="In" Type="String" />
+          <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="stAdm">
-            <Parameter Name="nome" Mode="In" Type="String" />
+          <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="updAluno">
-            <Parameter Name="conta" Mode="In" Type="String" />
-            <Parameter Name="turma" Mode="In" Type="String" />
+            <Parameter Name="conta" Mode="In" Type="Int32" />
+            <Parameter Name="NEWconta" Mode="In" Type="Int32" />
+            <Parameter Name="turma" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="updAno">
             <Parameter Name="ano" Mode="In" Type="Int32" />
@@ -753,8 +728,8 @@
             <Parameter Name="nome" Mode="In" Type="String" />
             <Parameter Name="newNome" Mode="In" Type="String" />
             <Parameter Name="descricao" Mode="In" Type="String" />
-            <Parameter Name="conta" Mode="In" Type="String" />
-            <Parameter Name="tipo" Mode="In" Type="String" />
+            <Parameter Name="conta" Mode="In" Type="Int32" />
+            <Parameter Name="tipo" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="updConta">
             <Parameter Name="nome" Mode="In" Type="String" />
@@ -874,8 +849,8 @@
           <EntitySetMapping Name="Aluno">
             <EntityTypeMapping TypeName="AbrilModel.Aluno">
               <MappingFragment StoreEntitySet="Aluno">
-                <ScalarProperty Name="ID_Aluno" ColumnName="ID_Aluno" />
                 <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="ID_Aluno" ColumnName="ID_Aluno" />
                 <ScalarProperty Name="Turma_ID" ColumnName="Turma_ID" />
                 <ScalarProperty Name="Conta_ID" ColumnName="Conta_ID" />
               </MappingFragment>
@@ -892,6 +867,7 @@
           <EntitySetMapping Name="Arte">
             <EntityTypeMapping TypeName="AbrilModel.Arte">
               <MappingFragment StoreEntitySet="Arte">
+                <ScalarProperty Name="Caminho" ColumnName="Caminho" />
                 <ScalarProperty Name="ID_Arte" ColumnName="ID_Arte" />
                 <ScalarProperty Name="Nome_Arte" ColumnName="Nome_Arte" />
                 <ScalarProperty Name="Descricao" ColumnName="Descricao" />
@@ -916,6 +892,7 @@
           <EntitySetMapping Name="Conta">
             <EntityTypeMapping TypeName="AbrilModel.Conta">
               <MappingFragment StoreEntitySet="Conta">
+                <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="ID_Conta" ColumnName="ID_Conta" />
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
@@ -1137,7 +1114,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
