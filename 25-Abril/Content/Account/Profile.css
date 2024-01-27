@@ -34,6 +34,8 @@
 }
 
 .EditButton {
+    color: black;
+    text-decoration : none;
     padding: 3px;
     background-color: rgb(200, 20, 20, 30%);
     font-size: 18px;
@@ -46,3 +48,8 @@
     .EditButton :hover {
         cursor: pointer;
     }
+
+a {
+    color: black;
+    text-decoration: none;
+}

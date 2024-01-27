@@ -42,10 +42,7 @@
 
                 <div style="display : flex">
                     <div style="text-align : left; flex : 1">
-
-                        @Html.ActionLink("Edit", "Edit", new { id = arte.ID_Arte })
                         @Html.ActionLink("Details", "Details", new { nome = arte.Nome_Arte })
-                        @Html.ActionLink("Delete", "Delete", new { id = arte.ID_Arte })
                     </div>
                     <div style=" text-align : right">
                         <div class="Autor">
@@ -57,7 +54,7 @@
             </div>
 
             <div class="ArtProject">
-                <img src="~/Imagens/Projetos/Ponte25Abril.png" alt="">
+                <img src=@arte.Caminho alt="">
                 <div class="Titulo">
                     @arte.Nome_Arte
                 </div>
@@ -67,10 +64,30 @@
 
                 <div style="display : flex">
                     <div style="text-align : left; flex : 1">
-
-                        @Html.ActionLink("Edit", "Edit", new { id = arte.ID_Arte })
                         @Html.ActionLink("Details", "Details", new { nome = arte.Nome_Arte })
-                        @Html.ActionLink("Delete", "Delete", new { id = arte.ID_Arte })
+                    </div>
+                    <div style=" text-align : right">
+                        <div class="Autor">
+                            @arte.Conta.Nome
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="ArtProject">
+                <img src=@arte.Caminho alt="">
+                <div class="Titulo">
+                    @arte.Nome_Arte
+                </div>
+                <div class="Descricao">
+                    @arte.Descricao
+                </div>
+
+                <div style="display : flex">
+                    <div style="text-align : left; flex : 1">
+                        @Html.ActionLink("Details", "Details", new { nome = arte.Nome_Arte })
                     </div>
                     <div style=" text-align : right">
                         <div class="Autor">

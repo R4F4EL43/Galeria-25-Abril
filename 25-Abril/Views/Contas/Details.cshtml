@@ -24,9 +24,7 @@
         </div>
 
 
-        <button class="EditButton">
-            @Html.ActionLink("Edit", "Contas", new { nome = Model.Conta.Nome }, new { @class = "EditButton" })
-        </button>
+        @Html.ActionLink("Edit", "Contas", new { nome = Model.Conta.Nome }, new { @class = "EditButton" })
 
         <div class="ProfileInfo">
 
@@ -62,9 +60,9 @@
                     </div>
                     <div style="display : flex">
                         @*Nao leva para o endereço certo*@
-                        @Html.ActionLink("Edit", "Artes", new { id = arte.ID_Arte })
-                        @Html.ActionLink("Details", "Artes", new { id = arte.ID_Arte })
-                        @Html.ActionLink("Delete", "Artes", new { id = arte.ID_Arte })
+                        @Html.Action("Edit", "Artes", new { nome = arte.Nome_Arte })
+                        @Html.Action("Details", "Artes", new { nome = arte.Nome_Arte })
+                        @Html.Action("Delete", "Artes", new { nome = arte.Nome_Arte })
                     </div>
                     
                 </div>
