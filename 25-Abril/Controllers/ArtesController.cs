@@ -29,13 +29,13 @@ namespace _25_Abril.Controllers
         }
 
         // GET: Artes/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(string nome)
         {
-            if (id == null)
+            if (nome == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Arte arte = db.Arte.Find(id);
+            Arte arte = db.Arte.FirstOrDefault(s => s.Nome_Arte == nome);
             if (arte == null)
             {
                 return HttpNotFound();

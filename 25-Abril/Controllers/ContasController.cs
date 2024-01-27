@@ -81,13 +81,13 @@ namespace _25_Abril.Controllers
         }
 
         // GET: Contas/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(string nome)
         {
-            if (id == null)
+            if (nome == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Conta conta = BD.Conta.Find(id);
+            Conta conta = BD.Conta.FirstOrDefault(s => s.Nome == nome);
             if (conta == null)
             {
                 return HttpNotFound();
@@ -156,6 +156,8 @@ namespace _25_Abril.Controllers
                 Conta conta = BD.Conta.FirstOrDefault(s => s.Nome == Nome && s.Password == Password);
                 if(conta != null)
                 {
+                    Session["User"] = conta.Nome;
+                    Session["UserImage"] = conta.Image;
                     return RedirectToAction("Details", new { nome = conta.Nome });
                 }
             }

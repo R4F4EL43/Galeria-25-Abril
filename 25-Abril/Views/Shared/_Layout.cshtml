@@ -12,18 +12,44 @@
     <header>
         <div class="topnav">
             <a href="@Url.Action("Home", "Home")" style="padding: 2px" ;>
-                <img src="~/Imagens/Projeto/Logo.png" alt="Not Found" class="LogoIMG">
+                <img src="~/Imagens/Logo.png" alt="Not Found" class="LogoIMG">
             </a>
             <a href="@Url.Action("Home", "Home")">Home</a>
             <a href="@Url.Action("Index", "Artes")">Projetos</a>
             <a href="@Url.Action("About", "Home")">About</a>
 
             <div class="topnav-right">
-                <a href="@Url.Action("Create", "Contas")" style="padding:0;">
-                    <center>
-                        <img src="~/Imagens/Projeto/Anonimo.png" alt="Not Found" class="UserIMG">
-                    </center>
-                </a>
+
+                @if (Session["User"] != null)
+                {
+                    if (Session["UserImage"] != null)
+                    {
+                        <a href="@Url.Action("Details", "Contas", new {nome = Session["User"].ToString()})" style="padding:0;">
+                            <center>
+                                <img src=@Session["UserImage"].ToString() alt="Not Found" class="UserIMG">
+                            </center>
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Details", "Contas", new {nome = Session["User"].ToString()})" style="padding:0;">
+                            <center>
+                                <img src="~/Imagens/Users/LoggedUser.png" alt="Not Found" class="UserIMG">
+                            </center>
+                        </a>
+                    }
+
+                }
+                else
+                {
+                    <a href="@Url.Action("Create", "Contas")" style="padding:0;">
+                        <center>
+                            <img src="~/Imagens/Users/Anonimo.png" alt="Not Found" class="UserIMG">
+                        </center>
+                    </a>
+                }
+
+
             </div>
         </div>
     </header>

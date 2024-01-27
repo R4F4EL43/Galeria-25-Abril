@@ -29,22 +29,22 @@
 
     <div class="DivMain">
 
-        @foreach(_25_Abril.Models.Arte arte in Model.Artes)
+        @foreach (_25_Abril.Models.Arte arte in Model.Artes)
         {
             <div class="ArtProject">
-                @*Alterar o caminho da imagem para "Images/Projetos/" + @arte.caminho*@
-                <img src="~/Imagens/Projeto/LoggedUser.png" alt="">
+                <img src=@arte.Caminho alt="">
                 <div class="Titulo">
                     @arte.Nome_Arte
                 </div>
                 <div class="Descricao">
                     @arte.Descricao
                 </div>
-                
+
                 <div style="display : flex">
                     <div style="text-align : left; flex : 1">
+
                         @Html.ActionLink("Edit", "Edit", new { id = arte.ID_Arte })
-                        @Html.ActionLink("Details", "Details", new { id = arte.ID_Arte })
+                        @Html.ActionLink("Details", "Details", new { nome = arte.Nome_Arte })
                         @Html.ActionLink("Delete", "Delete", new { id = arte.ID_Arte })
                     </div>
                     <div style=" text-align : right">
@@ -52,81 +52,33 @@
                             @arte.Conta.Nome
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
+
             <div class="ArtProject">
-                @*Alterar o caminho da imagem para "Images/Projetos/" + @arte.caminho*@
-                <img src="~/Imagens/Projeto/LoggedUser.png" alt="">
+                <img src="~/Imagens/Projetos/Ponte25Abril.png" alt="">
                 <div class="Titulo">
                     @arte.Nome_Arte
                 </div>
                 <div class="Descricao">
                     @arte.Descricao
                 </div>
-                <div class="Autor">
-                    @arte.Conta.Nome
+
+                <div style="display : flex">
+                    <div style="text-align : left; flex : 1">
+
+                        @Html.ActionLink("Edit", "Edit", new { id = arte.ID_Arte })
+                        @Html.ActionLink("Details", "Details", new { nome = arte.Nome_Arte })
+                        @Html.ActionLink("Delete", "Delete", new { id = arte.ID_Arte })
+                    </div>
+                    <div style=" text-align : right">
+                        <div class="Autor">
+                            @arte.Conta.Nome
+                        </div>
+                    </div>
+
                 </div>
-                <div style="display : inline">
-                    @Html.ActionLink("Edit", "Edit", new { id = arte.ID_Arte })
-                    @Html.ActionLink("Details", "Details", new { id = arte.ID_Arte })
-                    @Html.ActionLink("Delete", "Delete", new { id = arte.ID_Arte })
-                </div>
-            </div>
-            <div class="ArtProject">
-                @*Alterar o caminho da imagem para "Images/Projetos/" + @arte.caminho*@
-                <img src="~/Imagens/Projeto/LoggedUser.png" alt="">
-                <div class="Titulo">
-                    @arte.Nome_Arte
-                </div>
-                <div class="Descricao">
-                    @arte.Descricao
-                </div>
-                <div class="Autor">
-                    @arte.Conta.Nome
-                </div>
-                <div style="display : inline">
-                    @Html.ActionLink("Edit", "Edit", new { id = arte.ID_Arte })
-                    @Html.ActionLink("Details", "Details", new { id = arte.ID_Arte })
-                    @Html.ActionLink("Delete", "Delete", new { id = arte.ID_Arte })
-                </div>
-            </div>
-            <div class="ArtProject">
-                @*Alterar o caminho da imagem para "Images/Projetos/" + @arte.caminho*@
-                <img src="~/Imagens/Projeto/LoggedUser.png" alt="">
-                <div class="Titulo">
-                    @arte.Nome_Arte
-                </div>
-                <div class="Descricao">
-                    @arte.Descricao
-                </div>
-                <div class="Autor">
-                    @arte.Conta.Nome
-                </div>
-                <div style="display : inline">
-                    @Html.ActionLink("Edit", "Edit", new { id = arte.ID_Arte })
-                    @Html.ActionLink("Details", "Details", new { id = arte.ID_Arte })
-                    @Html.ActionLink("Delete", "Delete", new { id = arte.ID_Arte })
-                </div>
-            </div>
-            <div class="ArtProject">
-                @*Alterar o caminho da imagem para "Images/Projetos/" + @arte.caminho*@
-                <img src="~/Imagens/Projeto/LoggedUser.png" alt="">
-                <div class="Titulo">
-                    @arte.Nome_Arte
-                </div>
-                <div class="Descricao">
-                    @arte.Descricao
-                </div>
-                <div class="Autor">
-                    @arte.Conta.Nome
-                </div>
-                <div style="display : inline">
-                    @Html.ActionLink("Edit", "Edit", new { id = arte.ID_Arte })
-                    @Html.ActionLink("Details", "Details", new { id = arte.ID_Arte })
-                    @Html.ActionLink("Delete", "Delete", new { id = arte.ID_Arte })
-                </div>
-                
             </div>
         }
 

@@ -18,12 +18,14 @@
 <body class="Background">
 
     <div class="DivMain" style="justify-content: start; position: relative;">
+
         <div class="DivProfile">
-            <img src="~/Imagens/Projeto/Logo.png" alt="" class="ProfileIMG">
+            <img src=@Model.Conta.Image alt="" class="ProfileIMG">
         </div>
 
+
         <button class="EditButton">
-            Edit Profile
+            @Html.ActionLink("Edit", "Contas", new { nome = Model.Conta.Nome }, new { @class = "EditButton" })
         </button>
 
         <div class="ProfileInfo">
@@ -51,8 +53,7 @@
             if (arte.Conta_ID == Model.Conta.ID_Conta)
             {
                 <div class="ArtProject">
-                    @*Alterar o caminho da imagem para "Images/Projetos/" + @arte.caminho*@
-                    <img src="~/Imagens/Projeto/Background.png" alt="">
+                    <img src=@arte.Caminho alt="NotFound">
                     <div class="Titulo">
                         @arte.Nome_Arte
                     </div>

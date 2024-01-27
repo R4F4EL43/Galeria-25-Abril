@@ -28,6 +28,7 @@ namespace _25_Abril.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public bool IsAdmin { get; set; }
+        public string Image { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Aluno> Aluno { get; set; }

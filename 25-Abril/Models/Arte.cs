@@ -27,6 +27,7 @@ namespace _25_Abril.Models
         public bool Aceite { get; set; }
         public int TipoArte_ID { get; set; }
         public int Conta_ID { get; set; }
+        public string Caminho { get; set; }
     
         public virtual Conta Conta { get; set; }
         public virtual Tipo_de_Arte Tipo_de_Arte { get; set; }

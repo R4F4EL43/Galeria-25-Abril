@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\rafae\Desktop\25-Abril\25-Abril\Models\Models25Abril.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\rafae\Source\Repos\R4F4EL43\Galeria-25-Abril\25-Abril\Models\Models25Abril.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

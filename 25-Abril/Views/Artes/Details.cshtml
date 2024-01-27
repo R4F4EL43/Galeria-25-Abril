@@ -5,12 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
-
 <div>
-    <h4>Arte</h4>
-    <hr />
     <dl class="dl-horizontal">
+        <img src=@Model.Caminho alt="Not Found" />
+
         <dt>
             @Html.DisplayNameFor(model => model.Nome_Arte)
         </dt>
