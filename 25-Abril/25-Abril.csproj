@@ -129,7 +129,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArtesController.cs" />
     <Compile Include="Controllers\ContasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -215,6 +214,8 @@
       <DependentUpon>Models25Abril.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ArtesTipoArte_ViewModel.cs" />
+    <Compile Include="ViewModels\ContaArte_ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\About\About.css" />
@@ -241,10 +242,11 @@
     <Content Include="Content\Projetos\Projetos.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Imagens\Projeto\Anonimo.png" />
-    <Content Include="Imagens\Projeto\Background.png" />
-    <Content Include="Imagens\Projeto\LoggedUser.png" />
-    <Content Include="Imagens\Projeto\Logo.png" />
+    <Content Include="Imagens\Projetos\Ponte25Abril.png" />
+    <Content Include="Imagens\Users\Anonimo.png" />
+    <Content Include="Imagens\Background.png" />
+    <Content Include="Imagens\Users\LoggedUser.png" />
+    <Content Include="Imagens\Logo.png" />
     <Content Include="Models\Models25Abril.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Models25Abril.edmx</DependentUpon>

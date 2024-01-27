@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using _25_Abril.Models;
+using _25_Abril.ViewModels;
 
 namespace _25_Abril.Controllers
 {
@@ -17,8 +18,14 @@ namespace _25_Abril.Controllers
         // GET: Artes
         public ActionResult Index()
         {
-            var arte = db.Arte.Include(a => a.Conta).Include(a => a.Tipo_de_Arte);
-            return View(arte.ToList());
+            List<Arte> artes = db.Arte.ToList();
+            List<Tipo_de_Arte> tipos = db.Tipo_de_Arte.ToList();
+
+            ArtesTipoArte_ViewModel arteTipos = new ArtesTipoArte_ViewModel();
+            arteTipos.Artes = artes;
+            arteTipos.Tipos = tipos;
+
+            return View(arteTipos);
         }
 
         // GET: Artes/Details/5

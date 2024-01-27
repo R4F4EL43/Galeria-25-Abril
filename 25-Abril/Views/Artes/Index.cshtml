@@ -1,58 +1,139 @@
-﻿@model IEnumerable<_25_Abril.Models.Arte>
+﻿@model _25_Abril.ViewModels.ArtesTipoArte_ViewModel
 
 @{
-    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projetos</title>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome_Arte)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Descricao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Aceite)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Conta.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tipo_de_Arte.Tipo_Arte)
-        </th>
-        <th></th>
-    </tr>
+    @Styles.Render("~/Content/Projetos")
+</head>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome_Arte)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descricao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Aceite)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Conta.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tipo_de_Arte.Tipo_Arte)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID_Arte }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID_Arte }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID_Arte })
-        </td>
-    </tr>
-}
 
-</table>
+<body class="Background">
+
+    <div class="DivFilters">
+        @foreach(_25_Abril.Models.Tipo_de_Arte tipo in Model.Tipos) 
+        {
+            <div class="Filters">
+                <input type="checkbox" id="checkbox" class="Checkbox">
+                <label for="checkbox">@tipo.Tipo_Arte</label>
+            </div>
+        }
+    </div>
+
+    <div class="DivMain">
+
+        @foreach(_25_Abril.Models.Arte arte in Model.Artes)
+        {
+            <div class="ArtProject">
+                @*Alterar o caminho da imagem para "Images/Projetos/" + @arte.caminho*@
+                <img src="~/Imagens/Projeto/LoggedUser.png" alt="">
+                <div class="Titulo">
+                    @arte.Nome_Arte
+                </div>
+                <div class="Descricao">
+                    @arte.Descricao
+                </div>
+                
+                <div style="display : flex">
+                    <div style="text-align : left; flex : 1">
+                        @Html.ActionLink("Edit", "Edit", new { id = arte.ID_Arte })
+                        @Html.ActionLink("Details", "Details", new { id = arte.ID_Arte })
+                        @Html.ActionLink("Delete", "Delete", new { id = arte.ID_Arte })
+                    </div>
+                    <div style=" text-align : right">
+                        <div class="Autor">
+                            @arte.Conta.Nome
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="ArtProject">
+                @*Alterar o caminho da imagem para "Images/Projetos/" + @arte.caminho*@
+                <img src="~/Imagens/Projeto/LoggedUser.png" alt="">
+                <div class="Titulo">
+                    @arte.Nome_Arte
+                </div>
+                <div class="Descricao">
+                    @arte.Descricao
+                </div>
+                <div class="Autor">
+                    @arte.Conta.Nome
+                </div>
+                <div style="display : inline">
+                    @Html.ActionLink("Edit", "Edit", new { id = arte.ID_Arte })
+                    @Html.ActionLink("Details", "Details", new { id = arte.ID_Arte })
+                    @Html.ActionLink("Delete", "Delete", new { id = arte.ID_Arte })
+                </div>
+            </div>
+            <div class="ArtProject">
+                @*Alterar o caminho da imagem para "Images/Projetos/" + @arte.caminho*@
+                <img src="~/Imagens/Projeto/LoggedUser.png" alt="">
+                <div class="Titulo">
+                    @arte.Nome_Arte
+                </div>
+                <div class="Descricao">
+                    @arte.Descricao
+                </div>
+                <div class="Autor">
+                    @arte.Conta.Nome
+                </div>
+                <div style="display : inline">
+                    @Html.ActionLink("Edit", "Edit", new { id = arte.ID_Arte })
+                    @Html.ActionLink("Details", "Details", new { id = arte.ID_Arte })
+                    @Html.ActionLink("Delete", "Delete", new { id = arte.ID_Arte })
+                </div>
+            </div>
+            <div class="ArtProject">
+                @*Alterar o caminho da imagem para "Images/Projetos/" + @arte.caminho*@
+                <img src="~/Imagens/Projeto/LoggedUser.png" alt="">
+                <div class="Titulo">
+                    @arte.Nome_Arte
+                </div>
+                <div class="Descricao">
+                    @arte.Descricao
+                </div>
+                <div class="Autor">
+                    @arte.Conta.Nome
+                </div>
+                <div style="display : inline">
+                    @Html.ActionLink("Edit", "Edit", new { id = arte.ID_Arte })
+                    @Html.ActionLink("Details", "Details", new { id = arte.ID_Arte })
+                    @Html.ActionLink("Delete", "Delete", new { id = arte.ID_Arte })
+                </div>
+            </div>
+            <div class="ArtProject">
+                @*Alterar o caminho da imagem para "Images/Projetos/" + @arte.caminho*@
+                <img src="~/Imagens/Projeto/LoggedUser.png" alt="">
+                <div class="Titulo">
+                    @arte.Nome_Arte
+                </div>
+                <div class="Descricao">
+                    @arte.Descricao
+                </div>
+                <div class="Autor">
+                    @arte.Conta.Nome
+                </div>
+                <div style="display : inline">
+                    @Html.ActionLink("Edit", "Edit", new { id = arte.ID_Arte })
+                    @Html.ActionLink("Details", "Details", new { id = arte.ID_Arte })
+                    @Html.ActionLink("Delete", "Delete", new { id = arte.ID_Arte })
+                </div>
+                
+            </div>
+        }
+
+
+
+    </div>
+</body>
+
+
+</html>

@@ -11,12 +11,12 @@ using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using _25_Abril.Models;
+using _25_Abril.ViewModels;
 
 namespace _25_Abril.Controllers
 {
     public class ContasController : Controller
     {
-        SqlConnection Connection = new SqlConnection(@"Server=.\SQLEXPRESS;Database=25-Abril;Trusted_Connection=True;");
         private Entities25Abril BD = new Entities25Abril();
 
         // GET: Contas
@@ -37,7 +37,19 @@ namespace _25_Abril.Controllers
             {
                 return HttpNotFound();
             }
-            return View(conta);
+
+            List<Arte> artes = new List<Arte>();
+            foreach(Arte arte in BD.Arte)
+            {
+                if (arte.Conta_ID == conta.ID_Conta)
+                    artes.Add(arte);
+            }
+
+            ContaArte_ViewModel model = new ContaArte_ViewModel();
+            model.Conta = conta;
+            model.Artes = artes;
+            
+            return View(model);
         }
 
         // GET: Contas/Create
@@ -51,16 +63,21 @@ namespace _25_Abril.Controllers
         // Para obter mais detalhes, confira https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Nome,Email,Password")] Conta conta)
+        public ActionResult Create(string Nome, string Email, string Password)
         {
-            if (ModelState.IsValid)
+            if (Nome != null && Email != null && Password != null)
             {
-                BD.addConta(conta.Nome, conta.Email, conta.Password, false);
-                BD.SaveChanges();
-                return RedirectToAction("Index");
+                if(BD.Conta.FirstOrDefault(s => s.Nome == Nome && s.Email == Email && s.Password == Password) == null)
+                {
+                    BD.addConta(Nome, Email, Password, false);
+                    BD.SaveChanges();
+                    
+                    if (BD.Conta.FirstOrDefault(s => s.Nome == Nome && s.Email == Email && s.Password == Password) != null)
+                        return RedirectToAction("Details", new { nome = Nome });
+                }                
             }
 
-            return View(conta);
+            return View();
         }
 
         // GET: Contas/Edit/5
