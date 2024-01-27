@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Runtime.Remoting.Messaging;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using _25_Abril.Models;
@@ -25,13 +26,13 @@ namespace _25_Abril.Controllers
         }
 
         // GET: Contas/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(string nome)
         {
-            if (id == null)
+            if (nome == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Conta conta = BD.Conta.Find(id);
+            Conta conta = BD.Conta.FirstOrDefault(s => s.Nome == nome);
             if (conta == null)
             {
                 return HttpNotFound();
@@ -131,31 +132,19 @@ namespace _25_Abril.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(string user, string pass)
+        public ActionResult Login(string Nome, string Password)
         {
-            Connection.Open();
-            //BD.Conta.Find(user, pass);
-            SqlCommand cmd = new SqlCommand("getConta", Connection);
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            cmd.Parameters.AddWithValue("@conta", user);
-            cmd.Parameters.AddWithValue("@password", pass);
-
-            SqlDataReader rdConta = cmd.ExecuteReader();
-
-            Conta conta = new Conta();
-            while (rdConta.Read())
+            if(Nome != null && Password != null)
             {
-                conta.Nome = rdConta.GetString(1);
-                conta.Email = rdConta.GetString(2);
-                conta.Password = rdConta.GetString(3);
-                conta.IsAdmin = rdConta.GetBoolean(4);
+                Conta conta = BD.Conta.FirstOrDefault(s => s.Nome == Nome && s.Password == Password);
+                if(conta != null)
+                {
+                    return RedirectToAction("Details", new { nome = conta.Nome });
+                }
             }
-            rdConta.Close();
-            Connection.Close();
 
 
-            return View(conta);
+            return RedirectToAction("Index");
         }
 
         
