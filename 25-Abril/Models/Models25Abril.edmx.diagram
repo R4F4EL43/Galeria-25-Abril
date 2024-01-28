@@ -25,6 +25,10 @@
         <EntityTypeShape EntityType="AbrilModel.FavArte" Width="1.5" PointX="6.375" PointY="0.75" />
         <EntityTypeShape EntityType="AbrilModel.sysdiagram" Width="1.5" PointX="8.375" PointY="0.75" />
         <AssociationConnector Association="AbrilModel.FK_FavArtes_Arte" />
+        <EntityTypeShape EntityType="AbrilModel.PedidosAdmin" Width="1.5" PointX="4" PointY="8.625" />
+        <EntityTypeShape EntityType="AbrilModel.TipoPedido" Width="1.5" PointX="1.75" PointY="11.125" />
+        <AssociationConnector Association="AbrilModel.FK_PedidosAdmin_Conta" />
+        <AssociationConnector Association="AbrilModel.FK_PedidosAdmin_TipoPedido" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

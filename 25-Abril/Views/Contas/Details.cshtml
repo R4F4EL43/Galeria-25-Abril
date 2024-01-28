@@ -5,16 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<head>
-    <script>
-        function Logout() {
-            @Session["User"] = null;
-            @Session["UserImage"] = null;
-            @Url.Action("Index", "Home");
-        }
-    </script>
-</head>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,8 +25,7 @@
 
         @Html.ActionLink("Editar Perfil", "Edit", "Contas", new { nome = Model.Conta.Nome }, new { @class = "EditButton" })
 
-    <button class="LogoutButton" onclick="Logout()">Logout</button>
-        @*@Html.ActionLink("Logout ", "Index", "Home", new { @class = "LogoutButton" })*@
+        @Html.ActionLink("Logout", "Logout", "Contas", new { @class = "LogoutButton" })
 
 
         <div class="ProfileInfo">
@@ -71,9 +60,7 @@
                         @arte.Descricao
                     </div>
                     <div style="display : flex">
-                        @Html.ActionLink("Edit", "Artes", new { nome = arte.Nome_Arte })
-                        @Html.ActionLink("Details", "Artes", new { nome = arte.Nome_Arte })
-                        @Html.ActionLink("Delete", "Artes", new { nome = arte.Nome_Arte })
+                        @Html.ActionLink("Comentarios", "Comentarios", "Contas", new { nome = @arte.Nome_Arte })
                     </div>
 
 

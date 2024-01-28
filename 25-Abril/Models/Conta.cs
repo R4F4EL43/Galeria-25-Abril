@@ -21,6 +21,7 @@ namespace _25_Abril.Models
             this.Arte = new HashSet<Arte>();
             this.Comentario = new HashSet<Comentario>();
             this.Gosto = new HashSet<Gosto>();
+            this.PedidosAdmins = new HashSet<PedidosAdmin>();
         }
     
         public int ID_Conta { get; set; }
@@ -38,5 +39,7 @@ namespace _25_Abril.Models
         public virtual ICollection<Comentario> Comentario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gosto> Gosto { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PedidosAdmin> PedidosAdmins { get; set; }
     }
 }

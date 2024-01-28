@@ -173,13 +173,101 @@ namespace _25_Abril.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Logout()
+        {
+            Session["User"] = null;
+            Session["UserImage"] = null;
+            return RedirectToAction("Index", "Home");
+        }
+
 
         public ActionResult Admin()
         {
-            return View();
+            PedidoTipoPedido_ViewModel model = new PedidoTipoPedido_ViewModel();
+            if (BD.PedidosAdmins != null)
+                model.Pedidos = BD.PedidosAdmins.ToList();
+
+            if (BD.TipoPedidoes != null)
+                model.Tipos = BD.TipoPedidoes.ToList();
+
+
+            return View(model);
+        }
+
+        public ActionResult Comentarios(string nome)
+        {
+            if (nome == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Arte arte = BD.Arte.FirstOrDefault(s => s.Nome_Arte == nome);
+            if (arte == null)
+            {
+                return HttpNotFound();
+            }
+
+            List<Comentario> comentarios = new List<Comentario>();
+            if (BD.Comentario.ToList() != null)
+            {
+                foreach (Comentario com in BD.Comentario.ToList())
+                {
+                    if (com.Arte_ID == arte.ID_Arte)
+                        comentarios.Add(com);
+                }
+            }
+            Session["CurrentArte"] = arte.ID_Arte;
+
+            return View(comentarios);
         }
 
         
+        /////////////////////////////////////////////////////////////
         
+
+
+        public ActionResult AcceptPedido()
+        {
+            PedidosAdmin pedido = BD.PedidosAdmins.Find(1);
+            //if (pedido == null)
+            //{
+            //    return HttpNotFound();
+            //}
+
+            return View(pedido);
+        }
+
+        public ActionResult RefusePedido()
+        {
+            PedidosAdmin pedido = BD.PedidosAdmins.Find(1);
+            //if (pedido == null)
+            //{
+            //    return HttpNotFound();
+            //}
+
+            return View(pedido);
+        }
+
+        public ActionResult AcceptComentario(string nome)
+        {
+            PedidosAdmin pedido = BD.PedidosAdmins.Find(1);
+            //if (pedido == null)
+            //{
+            //    return HttpNotFound();
+            //}
+
+            return View(pedido);
+        }
+
+        public ActionResult RefuseComentario(string nome)
+        {
+            PedidosAdmin pedido = BD.PedidosAdmins.Find(1);
+            //if (pedido == null)
+            //{
+            //    return HttpNotFound();
+            //}
+
+            return View(pedido);
+        }
+
     }
 }

@@ -210,7 +210,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Models25Abril.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\PedidosAdmin.cs">
+      <DependentUpon>Models25Abril.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>Models25Abril.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TipoPedido.cs">
       <DependentUpon>Models25Abril.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Tipo_de_Arte.cs">
@@ -224,6 +230,7 @@
     <Compile Include="ViewModels\ArtesTipoArte_ViewModel.cs" />
     <Compile Include="ViewModels\ContaArte_ViewModel.cs" />
     <Compile Include="ViewModels\FavArtes_ViewModel.cs" />
+    <Compile Include="ViewModels\PedidoTipoPedido_ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\About\About.css" />
@@ -299,6 +306,7 @@
     <Content Include="Views\Contas\Details.cshtml" />
     <Content Include="Views\Contas\Edit.cshtml" />
     <Content Include="Views\Contas\Admin.cshtml" />
+    <Content Include="Views\Contas\Comentarios.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

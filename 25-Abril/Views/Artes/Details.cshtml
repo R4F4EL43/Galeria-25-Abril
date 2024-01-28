@@ -61,8 +61,6 @@
         {
             @Html.AntiForgeryToken()
                 <div style="width:95%; margin-left:5%; display:flex">
-                    @*@Html.EditorFor(model => model.Comentario.ComentarioTexto, new { @id = "ComentarioTexto" })*@
-
                     <input type="text" name="ComentarioTexto" id="ComentarioTexto" class="NewComentario" style="width:100%" />
                     <input type="submit" value="AddComentario" id="btnEnviar" />
                 </div>
