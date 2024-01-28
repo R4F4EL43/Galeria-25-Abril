@@ -18,59 +18,26 @@
 <body class="Background">
 
     <div class="DivMain" style="justify-content: start; position: relative;">
+        <div class="">
+            <div class="PageItem">
 
-        <div class="DivProfile">
-            <img src=@Model.Conta.Image alt="" class="ProfileIMG">
-        </div>
-
-        @Html.ActionLink("Editar Perfil", "Edit", "Contas", new { nome = Model.Conta.Nome }, new { @class = "EditButton" })
-
-        @Html.ActionLink("Logout ", "Index", "Home", new { @class = "LogoutButton" })
-
-
-        <div class="ProfileInfo">
-
-            <div class="Info">
-                <span class="InfoLabel">Nome:</span>
-                <span>@Model.Conta.Nome</span>
             </div>
 
-            <div class="Info">
-                <span class="InfoLabel">Email: </span>
-                <span>@Model.Conta.Email</span>
+            <div class="PageItem">
+
             </div>
 
+            <div class="PageItem">
 
+            </div>
 
+            <div class="PageItem">
+
+            </div>
         </div>
+        
     </div>
 
-    <div class="DivMain">
-
-        @foreach (_25_Abril.Models.Arte arte in Model.Artes)
-        {
-            if (arte.Conta_ID == Model.Conta.ID_Conta)
-            {
-                <div class="ArtProject">
-                    <img src=@arte.Caminho alt="NotFound">
-                    <div class="Titulo">
-                        @arte.Nome_Arte
-                    </div>
-                    <div class="Descricao">
-                        @arte.Descricao
-                    </div>
-                    <div style="display : flex">
-                        @Html.ActionLink("Edit", "Artes", new { nome = arte.Nome_Arte })
-                        @Html.ActionLink("Details", "Artes", new { nome = arte.Nome_Arte })
-                        @Html.ActionLink("Delete", "Artes", new { nome = arte.Nome_Arte })
-                    </div>
-
-
-                </div>
-            }
-        }
-
-    </div>
 </body>
 
     </html>

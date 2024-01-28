@@ -10,11 +10,12 @@
 <body class="Background" style="align-items : center">
 
     <div class="DivMain" style="justify-content: start; position: relative; width: 100%; margin-left: 10%; margin-right: 10%;">
+        @Session["CurrentArte"] = @Model.Arte.ID_Arte;
         <div class="Titulo" style="font-size: 40px; margin-left:5%">
             @Model.Arte.Nome_Arte
         </div>
 
-        <img src=@Model.Arte.Caminho alt="Not Found" style="width : 80%; height : auto; margin-right: 10%; margin-left : 10%; border-radius : 8px"  />
+        <img src=@Model.Arte.Caminho alt="Not Found" style="width : 80%; height : auto; margin-right: 10%; margin-left : 10%; border-radius : 8px" />
 
         <div class="Descricao" style="font-size: 20px; margin-left:10%; width:80%">
             @Model.Arte.Descricao
@@ -54,14 +55,17 @@
 
                 }
 
+            </div>@*@Html.EditorFor(model => model.Comentario.ComentarioTexto, new { @class = "AddComentario", @id = "ComentarioTexto" })*@
+        }
+        @using (Html.BeginForm("AddComentario", "Artes", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div style="width:95%; margin-left:5%; display:flex">
+                <input type="text" id="ComentarioTexto" class="NewComentario" />
+                <input type="submit" value="AddComentario" />
             </div>
         }
-        <div style="width:95%; margin-left:5%; display:flex">
-            <input type="text" class="AddComentario" placeholder="Comentário">
-            <a href="@Url.Action("AddComentario", "Artes", new { nome = Model.Arte.Nome_Arte })" style="padding:0; font-size:20px">
-                &#10148;
-            </a>
-        </div>
+
 
         <p>
             @Html.ActionLink("Back to List", "Index")
