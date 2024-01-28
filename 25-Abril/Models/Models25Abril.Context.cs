@@ -35,6 +35,8 @@ namespace _25_Abril.Models
         public virtual DbSet<Gosto> Gosto { get; set; }
         public virtual DbSet<Tipo_de_Arte> Tipo_de_Arte { get; set; }
         public virtual DbSet<Turma> Turma { get; set; }
+        public virtual DbSet<FavArte> FavArtes { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     
         public virtual ObjectResult<Nullable<bool>> acptArte(string nome)
         {

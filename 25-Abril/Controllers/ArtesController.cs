@@ -16,23 +16,57 @@ namespace _25_Abril.Controllers
         private Entities25Abril db = new Entities25Abril();
 
         // GET: Artes
+        [HttpPost]
         public ActionResult Index()
         {
             List<Arte> artes = new List<Arte>();
-            foreach(Arte arte in db.Arte.ToList())
-            {                
-                if(db.Conta.FirstOrDefault(s => s.ID_Conta == arte.Conta_ID) != null)
+            if(db.Arte != null)
+            {
+                foreach (Arte arte in db.Arte.ToList())
                 {
-                    arte.Conta = db.Conta.FirstOrDefault(s => s.ID_Conta == arte.Conta_ID);
-                    artes.Add(arte);
+
+                    if (db.Conta.FirstOrDefault(s => s.ID_Conta == arte.Conta_ID) != null)
+                    {
+                        arte.Conta = db.Conta.FirstOrDefault(s => s.ID_Conta == arte.Conta_ID);
+                        artes.Add(arte);
+                    }
+
                 }
-                
             }
-            List<Tipo_de_Arte> tipos = db.Tipo_de_Arte.ToList();
+
+            List<Tipo_de_Arte> tiposArte = db.Tipo_de_Arte.ToList();
 
             ArtesTipoArte_ViewModel arteTipos = new ArtesTipoArte_ViewModel();
             arteTipos.Artes = artes;
-            arteTipos.Tipos = tipos;
+            arteTipos.Tipos = tiposArte;
+
+            return View(arteTipos);
+        }
+
+        public ActionResult Index(List<string> tipos)
+        {
+            List<Arte> artes = new List<Arte>();
+            if (db.Arte != null)
+            {
+                foreach (Arte arte in db.Arte.ToList())
+                {
+                    if (tipos == null || tipos.FirstOrDefault(s => s == arte.Tipo_de_Arte.Tipo_Arte) != null)
+                    {
+                        if (db.Conta.FirstOrDefault(s => s.ID_Conta == arte.Conta_ID) != null)
+                        {
+                            arte.Conta = db.Conta.FirstOrDefault(s => s.ID_Conta == arte.Conta_ID);
+                            artes.Add(arte);
+                        }
+                    }
+
+                }
+            }
+
+            List<Tipo_de_Arte> tiposArte = db.Tipo_de_Arte.ToList();
+
+            ArtesTipoArte_ViewModel arteTipos = new ArtesTipoArte_ViewModel();
+            arteTipos.Artes = artes;
+            arteTipos.Tipos = tiposArte;
 
             return View(arteTipos);
         }
@@ -51,7 +85,7 @@ namespace _25_Abril.Controllers
             }
 
             List<Comentario> comentarios = new List<Comentario>();
-            if(db.Comentario.ToList() != null)
+            if (db.Comentario.ToList() != null)
             {
                 foreach (Comentario comentario in db.Comentario.ToList())
                 {
@@ -59,13 +93,13 @@ namespace _25_Abril.Controllers
                         comentarios.Add(comentario);
                 }
             }
-            
+
 
             ArteComentarios_ViewModel arteComentario = new ArteComentarios_ViewModel();
             arteComentario.Arte = arte;
             arteComentario.Comentarios = comentarios;
 
-            
+
             return View(arteComentario);
         }
 
@@ -97,13 +131,13 @@ namespace _25_Abril.Controllers
         }
 
         // GET: Artes/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(string nome)
         {
-            if (id == null)
+            if (nome == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Arte arte = db.Arte.Find(id);
+            Arte arte = db.Arte.FirstOrDefault(s => s.Nome_Arte == nome);
             if (arte == null)
             {
                 return HttpNotFound();
@@ -112,6 +146,9 @@ namespace _25_Abril.Controllers
             ViewBag.TipoArte_ID = new SelectList(db.Tipo_de_Arte, "ID_Tipo", "Tipo_Arte", arte.TipoArte_ID);
             return View(arte);
         }
+
+
+
 
         // POST: Artes/Edit/5
         // Para proteger-se contra ataques de excesso de postagem, ative as propriedades específicas às quais deseja se associar. 

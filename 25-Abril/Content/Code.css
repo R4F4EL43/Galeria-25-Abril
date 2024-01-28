@@ -74,6 +74,7 @@
 }
 
 .UserIMG {
+    position:relative;
     padding: 0;
     height: 50px;
     margin: 0;
@@ -116,5 +117,32 @@
     width: 100%;
     text-align: right;
     text-decoration: underline;
-}body {
+}
+
+.Options {
+    width: 100%;
+    text-align: left;
+}
+
+.Dropdown {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.Dropdown-item {
+    display: none;
+    position: absolute;
+    background-color: rgb(255, 255, 255, 60%)
+}
+
+    .Dropdown-item a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+#dropdown-trigger:hover + .Dropdown-item {
+    display: block;
 }

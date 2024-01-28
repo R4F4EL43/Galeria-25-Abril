@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _25_Abril.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,9 +10,24 @@ namespace _25_Abril.Controllers
 {
     public class HomeController : Controller
     {
+        private Entities25Abril BD = new Entities25Abril();
+
         public ActionResult Index()
         {
-            return View();
+            List<FavArte> favArtes = new List<FavArte>();
+            if(BD.FavArtes != null)
+            {
+                foreach (FavArte fav in BD.FavArtes.ToList())
+                {
+                    if (BD.Arte.FirstOrDefault(s => s.ID_Arte == fav.Arte_ID) != null && BD.Conta.FirstOrDefault(s => s.ID_Conta == fav.Arte.Conta.ID_Conta) != null)
+                    {
+                        fav.Arte = BD.Arte.FirstOrDefault(s => s.ID_Arte == fav.Arte_ID);
+                        fav.Arte.Conta = BD.Conta.FirstOrDefault(s => s.ID_Conta == fav.Arte.Conta.ID_Conta);
+                        favArtes.Add(fav);
+                    }
+                }
+            }            
+            return View(favArtes);
         }
 
         public ActionResult About()
@@ -25,16 +41,6 @@ namespace _25_Abril.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
-            return View();
-        }
-
-        public ActionResult Home()
-        {
-            return View();
-        }
-
-        public ActionResult Projetos()
-        {
             return View();
         }
     }

@@ -55,6 +55,13 @@
           <Property Name="Image" Type="nvarchar(max)" Nullable="false" />
           <Property Name="IsAdmin" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="FavArtes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Arte_ID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Gosto">
           <Key>
             <PropertyRef Name="ID_Gosto" />
@@ -63,6 +70,16 @@
           <Property Name="Conta_ID" Type="int" Nullable="false" />
           <Property Name="Arte_ID" Type="int" Nullable="false" />
           <Property Name="Data" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Tipo de Arte">
           <Key>
@@ -124,6 +141,18 @@
             </Principal>
             <Dependent Role="Comentario">
               <PropertyRef Name="Conta_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FavArtes_Arte">
+          <End Role="Arte" Type="Self.Arte" Multiplicity="1" />
+          <End Role="FavArtes" Type="Self.FavArtes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Arte">
+              <PropertyRef Name="ID_Arte" />
+            </Principal>
+            <Dependent Role="FavArtes">
+              <PropertyRef Name="Arte_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -317,7 +346,9 @@
           <EntitySet Name="Arte" EntityType="Self.Arte" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comentario" EntityType="Self.Comentario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Conta" EntityType="Self.Conta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FavArtes" EntityType="Self.FavArtes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gosto" EntityType="Self.Gosto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tipo de Arte" EntityType="Self.Tipo de Arte" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Turma" EntityType="Self.Turma" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Aluno_Conta" Association="Self.FK_Aluno_Conta">
@@ -335,6 +366,10 @@
           <AssociationSet Name="FK_Comentario_Conta" Association="Self.FK_Comentario_Conta">
             <End Role="Conta" EntitySet="Conta" />
             <End Role="Comentario" EntitySet="Comentario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FavArtes_Arte" Association="Self.FK_FavArtes_Arte">
+            <End Role="Arte" EntitySet="Arte" />
+            <End Role="FavArtes" EntitySet="FavArtes" />
           </AssociationSet>
           <AssociationSet Name="FK_Like_Arte" Association="Self.FK_Like_Arte">
             <End Role="Arte" EntitySet="Arte" />
@@ -387,13 +422,14 @@
           <NavigationProperty Name="Comentario" Relationship="Self.FK_Comentario_Arte" FromRole="Arte" ToRole="Comentario" />
           <NavigationProperty Name="Gosto" Relationship="Self.FK_Like_Arte" FromRole="Arte" ToRole="Gosto" />
           <Property Name="Caminho" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FavArtes" Relationship="AbrilModel.FK_FavArtes_Arte" FromRole="Arte" ToRole="FavArte" />
         </EntityType>
         <EntityType Name="Comentario">
           <Key>
             <PropertyRef Name="ID_Comentario" />
           </Key>
           <Property Name="ID_Comentario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Comentario1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ComentarioTexto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Data" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Aceite" Type="Boolean" Nullable="false" />
           <Property Name="Conta_ID" Type="Int32" Nullable="false" />
@@ -746,6 +782,12 @@
             <Parameter Name="NEWnome" Mode="In" Type="String" />
             <Parameter Name="ano" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="FavArtes" EntityType="AbrilModel.FavArte" />
+          <EntitySet Name="sysdiagrams" EntityType="AbrilModel.sysdiagram" />
+          <AssociationSet Name="FK_FavArtes_Arte" Association="AbrilModel.FK_FavArtes_Arte">
+            <End Role="Arte" EntitySet="Arte" />
+            <End Role="FavArte" EntitySet="FavArtes" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="getAlunos_Result">
           <Property Type="Int32" Name="ID_Aluno" Nullable="false" />
@@ -840,6 +882,36 @@
           <Property Type="String" Name="Nome" Nullable="false" MaxLength="50" />
           <Property Type="Int32" Name="Ano_ID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="FavArte">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Arte_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Arte" Relationship="AbrilModel.FK_FavArtes_Arte" FromRole="FavArte" ToRole="Arte" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_FavArtes_Arte">
+          <End Type="AbrilModel.Arte" Role="Arte" Multiplicity="1" />
+          <End Type="AbrilModel.FavArte" Role="FavArte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Arte">
+              <PropertyRef Name="ID_Arte" />
+            </Principal>
+            <Dependent Role="FavArte">
+              <PropertyRef Name="Arte_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -881,7 +953,7 @@
             <EntityTypeMapping TypeName="AbrilModel.Comentario">
               <MappingFragment StoreEntitySet="Comentario">
                 <ScalarProperty Name="ID_Comentario" ColumnName="ID_Comentario" />
-                <ScalarProperty Name="Comentario1" ColumnName="Comentario" />
+                <ScalarProperty Name="ComentarioTexto" ColumnName="Comentario" />
                 <ScalarProperty Name="Data" ColumnName="Data" />
                 <ScalarProperty Name="Aceite" ColumnName="Aceite" />
                 <ScalarProperty Name="Conta_ID" ColumnName="Conta_ID" />
@@ -1100,6 +1172,25 @@
           <FunctionImportMapping FunctionImportName="updConta" FunctionName="AbrilModel.Store.updConta" />
           <FunctionImportMapping FunctionImportName="updTipoArte" FunctionName="AbrilModel.Store.updTipoArte" />
           <FunctionImportMapping FunctionImportName="updTurma" FunctionName="AbrilModel.Store.updTurma" />
+          <EntitySetMapping Name="FavArtes">
+            <EntityTypeMapping TypeName="AbrilModel.FavArte">
+              <MappingFragment StoreEntitySet="FavArtes">
+              <ScalarProperty Name="Arte_ID" ColumnName="Arte_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="AbrilModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

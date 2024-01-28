@@ -39,11 +39,14 @@ namespace _25_Abril.Controllers
             }
 
             List<Arte> artes = new List<Arte>();
-            foreach(Arte arte in BD.Arte)
+            if(BD.Arte != null)
             {
-                if (arte.Conta_ID == conta.ID_Conta)
-                    artes.Add(arte);
-            }
+                foreach (Arte arte in BD.Arte)
+                {
+                    if (arte.Conta_ID == conta.ID_Conta)
+                        artes.Add(arte);
+                }
+            }            
 
             ContaArte_ViewModel model = new ContaArte_ViewModel();
             model.Conta = conta;
@@ -73,7 +76,11 @@ namespace _25_Abril.Controllers
                     BD.SaveChanges();
                     
                     if (BD.Conta.FirstOrDefault(s => s.Nome == Nome && s.Email == Email && s.Password == Password) != null)
+                    {
+                        Session["User"] = Nome; 
                         return RedirectToAction("Details", new { nome = Nome });
+                    }
+                        
                 }                
             }
 
