@@ -10,7 +10,7 @@
 <body class="Background" style="align-items : center">
 
     <div class="DivMain" style="justify-content: start; position: relative; width: 100%; margin-left: 10%; margin-right: 10%;">
-        @Session["CurrentArte"] = @Model.Arte.ID_Arte;
+
         <div class="Titulo" style="font-size: 40px; margin-left:5%">
             @Model.Arte.Nome_Arte
         </div>
@@ -55,15 +55,18 @@
 
                 }
 
-            </div>@*@Html.EditorFor(model => model.Comentario.ComentarioTexto, new { @class = "AddComentario", @id = "ComentarioTexto" })*@
+            </div>
         }
-        @using (Html.BeginForm("AddComentario", "Artes", FormMethod.Post))
+        @using (Html.BeginForm("AddComentario", "Artes", FormMethod.Post, new { style = "width: 95%;" }))
         {
             @Html.AntiForgeryToken()
-            <div style="width:95%; margin-left:5%; display:flex">
-                <input type="text" id="ComentarioTexto" class="NewComentario" />
-                <input type="submit" value="AddComentario" />
-            </div>
+                <div style="width:95%; margin-left:5%; display:flex">
+                    @*@Html.EditorFor(model => model.Comentario.ComentarioTexto, new { @id = "ComentarioTexto" })*@
+
+                    <input type="text" name="ComentarioTexto" id="ComentarioTexto" class="NewComentario" style="width:100%" />
+                    <input type="submit" value="AddComentario" id="btnEnviar" />
+                </div>
+
         }
 
 
