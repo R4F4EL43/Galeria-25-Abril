@@ -63,6 +63,7 @@ namespace _25_Abril.Controllers
             }
 
             List<Tipo_de_Arte> tiposArte = db.Tipo_de_Arte.ToList();
+            
 
             ArtesTipoArte_ViewModel arteTipos = new ArtesTipoArte_ViewModel();
             arteTipos.Artes = artes;
@@ -87,17 +88,18 @@ namespace _25_Abril.Controllers
             List<Comentario> comentarios = new List<Comentario>();
             if (db.Comentario.ToList() != null)
             {
-                foreach (Comentario comentario in db.Comentario.ToList())
+                foreach (Comentario com in db.Comentario.ToList())
                 {
-                    if (comentario.Arte_ID == arte.ID_Arte)
-                        comentarios.Add(comentario);
+                    if (com.Arte_ID == arte.ID_Arte)
+                        comentarios.Add(com);
                 }
             }
-
+            Comentario comentario = new Comentario();
 
             ArteComentarios_ViewModel arteComentario = new ArteComentarios_ViewModel();
             arteComentario.Arte = arte;
             arteComentario.Comentarios = comentarios;
+            arteComentario.Comentario = comentario;
 
 
             return View(arteComentario);
@@ -201,6 +203,23 @@ namespace _25_Abril.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddComentario(string ComentarioTexto)
+        {
+            if(ComentarioTexto != null)
+            {
+                Comentario comentario = new Comentario();
+                Conta conta = new Conta();
+                if (Session["User"] == null)
+                    conta = db.Conta.FirstOrDefault(s => s.Nome == "Anonimo");
+                else
+                    conta = db.Conta.FirstOrDefault(s => s.Nome == Session["User"].ToString());
+                db.addComentario(ComentarioTexto, DateTime.Today, conta.ID_Conta, Convert.ToInt16(@Session["CurrentArte"].ToString()));
+            }
+            return RedirectToAction("Details", new {nome = db.Arte.FirstOrDefault(s => s.ID_Arte == Convert.ToInt16(@Session["CurrentArte"].ToString())).Nome_Arte});
         }
     }
 }

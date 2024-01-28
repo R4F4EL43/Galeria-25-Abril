@@ -227,6 +227,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\About\About.css" />
+    <Content Include="Content\Account\Admin.css" />
     <Content Include="Content\Account\Login.css" />
     <Content Include="Content\Account\Profile.css" />
     <Content Include="Content\Code.css" />

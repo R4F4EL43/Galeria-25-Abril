@@ -11,5 +11,6 @@ namespace _25_Abril.ViewModels
     {
         public Arte Arte { get; set; }
         public List<Comentario> Comentarios { get; set; }
+        public Comentario Comentario { get; set; }
     }
 }

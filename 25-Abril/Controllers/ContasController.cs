@@ -173,6 +173,12 @@ namespace _25_Abril.Controllers
             return RedirectToAction("Index");
         }
 
+
+        public ActionResult Admin()
+        {
+            return View();
+        }
+
         
         
     }
