@@ -37,6 +37,8 @@ namespace _25_Abril.Models
         public virtual DbSet<Turma> Turma { get; set; }
         public virtual DbSet<FavArte> FavArtes { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<PedidosAdmin> PedidosAdmins { get; set; }
+        public virtual DbSet<TipoPedido> TipoPedidoes { get; set; }
     
         public virtual ObjectResult<Nullable<bool>> acptArte(string nome)
         {
@@ -73,7 +75,7 @@ namespace _25_Abril.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("addAno", anoParameter);
         }
     
-        public virtual int addArte(string nome, string descricao, Nullable<int> conta, Nullable<int> tipo, string caminho)
+        public virtual int addArte(string nome, string descricao, string conta, string tipo, string caminho)
         {
             var nomeParameter = nome != null ?
                 new ObjectParameter("nome", nome) :
@@ -83,13 +85,13 @@ namespace _25_Abril.Models
                 new ObjectParameter("descricao", descricao) :
                 new ObjectParameter("descricao", typeof(string));
     
-            var contaParameter = conta.HasValue ?
+            var contaParameter = conta != null ?
                 new ObjectParameter("conta", conta) :
-                new ObjectParameter("conta", typeof(int));
+                new ObjectParameter("conta", typeof(string));
     
-            var tipoParameter = tipo.HasValue ?
+            var tipoParameter = tipo != null ?
                 new ObjectParameter("tipo", tipo) :
-                new ObjectParameter("tipo", typeof(int));
+                new ObjectParameter("tipo", typeof(string));
     
             var caminhoParameter = caminho != null ?
                 new ObjectParameter("Caminho", caminho) :
