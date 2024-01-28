@@ -101,7 +101,7 @@ namespace _25_Abril.Controllers
             arteComentario.Comentarios = comentarios;
             arteComentario.Comentario = comentario;
 
-
+            Session["CurrentArte"] = arte.ID_Arte;
             return View(arteComentario);
         }
 
@@ -207,9 +207,11 @@ namespace _25_Abril.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddComentario(string ComentarioTexto)
+        public ActionResult AddComentario(FormCollection form)
         {
-            if(ComentarioTexto != null)
+            string ComentarioTexto = form["ComentarioTexto"];
+
+            if (ComentarioTexto != null)
             {
                 Comentario comentario = new Comentario();
                 Conta conta = new Conta();
@@ -219,7 +221,8 @@ namespace _25_Abril.Controllers
                     conta = db.Conta.FirstOrDefault(s => s.Nome == Session["User"].ToString());
                 db.addComentario(ComentarioTexto, DateTime.Today, conta.ID_Conta, Convert.ToInt16(@Session["CurrentArte"].ToString()));
             }
-            return RedirectToAction("Details", new {nome = db.Arte.FirstOrDefault(s => s.ID_Arte == Convert.ToInt16(@Session["CurrentArte"].ToString())).Nome_Arte});
+            int id = Convert.ToInt32(Session["CurrentArte"].ToString());
+            return RedirectToAction("Details", "Artes", new { nome = db.Arte.FirstOrDefault(s => s.ID_Arte == id).Nome_Arte });
         }
     }
 }
