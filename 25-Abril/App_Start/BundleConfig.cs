@@ -34,11 +34,7 @@ namespace _25_Abril
 
             bundles.Add(new StyleBundle("~/Content/Home").Include(
                      "~/Content/Home/Home.css",
-                     "~/Content/Code.css"));
-
-            bundles.Add(new StyleBundle("~/Content/Profile").Include(
-                     "~/Content/Account/Profile.css",
-                     "~/Content/Code.css"));
+                     "~/Content/Code.css"));            
 
             bundles.Add(new StyleBundle("~/Content/Projetos").Include(
                      "~/Content/Projetos/Projetos.css",
@@ -50,7 +46,16 @@ namespace _25_Abril
 
             bundles.Add(new StyleBundle("~/Content/About").Include(
                      "~/Content/Projetos/Projetos.css",
-                     "~/Content/"));
+                     "~/Content/Code.css"));
+
+            bundles.Add(new StyleBundle("~/Content/Comentarios").Include(
+                     "~/Content/Projetos/Comentarios.css",
+                     "~/Content/Projetos/Projetos.css",
+                     "~/Content/Code.css"));
+
+            bundles.Add(new StyleBundle("~/Content/Profile").Include(
+                     "~/Content/Account/Profile.css",
+                     "~/Content/Code.css"));
 
         }
     }

@@ -22,6 +22,9 @@
         <AssociationConnector Association="AbrilModel.FK_Like_Arte" ManuallyRouted="false" />
         <AssociationConnector Association="AbrilModel.FK_Comentario_Conta" ManuallyRouted="false" />
         <AssociationConnector Association="AbrilModel.FK_Like_Conta" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AbrilModel.FavArte" Width="1.5" PointX="6.375" PointY="0.75" />
+        <EntityTypeShape EntityType="AbrilModel.sysdiagram" Width="1.5" PointX="8.375" PointY="0.75" />
+        <AssociationConnector Association="AbrilModel.FK_FavArtes_Arte" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

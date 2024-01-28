@@ -3,34 +3,67 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    @Styles.Render("~/Content/Comentarios")
 }
 
-<body class="Background" style="width:80%; margin-left:10%; margin-right:10%">
+<body class="Background" style="align-items : center">
 
-    <div class="DivMain" style="justify-content: start; position: relative;">
-        <dd>
-            @Html.DisplayFor(model => model.Arte.Nome_Arte)
-        </dd>
-
-        <img src=@Model.Arte.Caminho alt="Not Found" style="width : 80%; height : auto; margin-right: 10%; margin-left : 10%" />
-
-        <dd>
-            @Html.DisplayFor(model => model.Arte.Descricao)
-        </dd>
-
-        <dd>
-            @Html.DisplayFor(model => model.Arte.Conta.Nome)
-        </dd>
-
-        <dd>
-            @Html.DisplayFor(model => model.Arte.Tipo_de_Arte.Tipo_Arte)
-        </dd>
-
-        <div>
-
+    <div class="DivMain" style="justify-content: start; position: relative; width: 100%; margin-left: 10%; margin-right: 10%;">
+        <div class="Titulo" style="font-size: 40px; margin-left:5%">
+            @Model.Arte.Nome_Arte
         </div>
+
+        <img src=@Model.Arte.Caminho alt="Not Found" style="width : 80%; height : auto; margin-right: 10%; margin-left : 10%; border-radius : 8px"  />
+
+        <div class="Descricao" style="font-size: 20px; margin-left:10%; width:80%">
+            @Model.Arte.Descricao
+        </div>
+
+        <div class="Autor" style="font-size: 25px; margin-right:10%">
+            @Model.Arte.Conta.Nome
+        </div>
+
+        @if (Model.Comentarios.Count != 0)
+        {
+            <div style="width: 90%; margin-left: 5%; margin-right: 5%;">
+
+                @foreach (_25_Abril.Models.Comentario comentario in Model.Comentarios)
+                {
+                    if (comentario.Aceite)
+                    {
+                        <div class="Comentario">
+                            <div class="ComentarioTop">
+                                <img src="@comentario.Conta.Image" alt="Not Found" class="UserImage">
+                                <div class="User">
+                                    @comentario.Conta.Nome
+                                </div>
+
+                            </div>
+                            <div class="DetalhesComentario">
+                                <div class="Data">
+                                    @comentario.Data
+                                </div>
+                                <div class="ComentarioText">
+                                    @comentario.ComentarioTexto
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+
+                }
+
+            </div>
+        }
+        <div style="width:95%; margin-left:5%; display:flex">
+            <input type="text" class="AddComentario" placeholder="Comentário">
+            <a href="@Url.Action("AddComentario", "Artes", new { nome = Model.Arte.Nome_Arte })" style="padding:0; font-size:20px">
+                &#10148;
+            </a>
+        </div>
+
         <p>
-            @Html.ActionLink("Edit", "Edit", new { nome = Model.Arte.Nome_Arte }) |
             @Html.ActionLink("Back to List", "Index")
         </p>
     </div>

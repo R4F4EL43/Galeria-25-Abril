@@ -1,93 +1,86 @@
-﻿@model IEnumerable<_25_Abril.Models.Arte>
+﻿@model List<_25_Abril.Models.FavArte>
 
 @{
     ViewBag.Title = "Home Page";
 }
 
-<main>
+<body class="Background">
 
-    <body class="Background">
-
-        <div class="DivMain">
-
-                @if (Model != null)
-                {
-                    foreach (var item in Model)
-                    {
-                        <div class="ArtProject">
-                            <img src="~/Imagens/Projeto/Background.png" alt="">
-                            <div class="Titulo">
-                                @Html.DisplayFor(modelItem => item.Nome_Arte)
-                            </div>
-                            <div class="Descricao">
-                                @Html.DisplayFor(modelItem => item.Descricao)
-                            </div>
-                            <div class="Autor">
-                                @Html.DisplayFor(modelItem => item.Conta.Nome)
-                            </div>
-                            @Html.ActionLink("Details", "Details", new { id = item.ID_Arte }) |
-                        </div>
-
-                        
-                    }
-                }
-
-
-            @*<div class="ArtProject">
-                <img src="~/Imagens/Projeto/Background.png" alt="">
-                <div class="Titulo">
-                    Ponte 25 de Abril
-                </div>
-                <div class="Descricao">
-                    A melhor ponte 25 de abril de sempre, é verdade!
-                </div>
-                <div class="Autor">
-                    Arquiteto
-                </div>
-            </div>
-
-            <div class="ArtProject">
-                <img src="~/Imagens/Projeto/Background.png" alt="">
-                <div class="Titulo">
-                    Ponte 25 de Abril
-                </div>
-                <div class="Descricao">
-                    A melhor ponte 25 de abril de sempre, é verdade!
-                </div>
-                <div class="Autor">
-                    Arquiteto
-                </div>
-            </div>
-
-            <div class="ArtProject">
-                <img src="~/Imagens/Projeto/Background.png" alt="">
-                <div class="Titulo">
-                    Ponte 25 de Abril
-                </div>
-                <div class="Descricao">
-                    A melhor ponte 25 de abril de sempre, é verdade!
-                </div>
-                <div class="Autor">
-                    Arquiteto
-                </div>
-            </div>
-
-            <div class="ArtProject">
-                <img src="~/Imagens/Projeto/Background.png" alt="">
-                <div class="Titulo">
-                    Ponte 25 de Abril
-                </div>
-                <div class="Descricao">
-                    A melhor ponte 25 de abril de sempre, é verdade!
-                </div>
-                <div class="Autor">
-                    Arquiteto
-                </div>
-            </div>*@
-
+    <div class="DivMain">
+        <div style="width:100%; text-align : center; font-size:45px; font-weight:700;">
+            Projetos em Destaque
         </div>
 
-    </body>
+        @if (Model != null)
+        {
+            foreach (_25_Abril.Models.FavArte favArte in Model)
+            {
+                <div class="ArtProject">
+                    <img src=@favArte.Arte.Caminho alt="">
+                    <div class="Titulo">
+                        @favArte.Arte.Nome_Arte
+                    </div>
+                    <div class="Descricao">
+                        @favArte.Arte.Descricao
+                    </div>
+                    <div class="Autor">
+                        @favArte.Arte.Conta.Nome
+                    </div>
+                    <a href="@Url.Action("Details", "Artes", new { nome = favArte.Arte.Nome_Arte })">
+                        <span> 💬 </span>
+                    </a>
+                </div>
 
-    </html>
-</main>
+                <div class="ArtProject">
+                    <img src=@favArte.Arte.Caminho alt="">
+                    <div class="Titulo">
+                        @favArte.Arte.Nome_Arte
+                    </div>
+                    <div class="Descricao">
+                        @favArte.Arte.Descricao
+                    </div>
+                    <div class="Autor">
+                        @favArte.Arte.Conta.Nome
+                    </div>
+                    <a href="@Url.Action("Details", "Artes", new { nome = favArte.Arte.Nome_Arte })">
+                        <span> 💬 </span>
+                    </a>
+                </div>
+
+                <div class="ArtProject">
+                    <img src=@favArte.Arte.Caminho alt="">
+                    <div class="Titulo">
+                        @favArte.Arte.Nome_Arte
+                    </div>
+                    <div class="Descricao">
+                        @favArte.Arte.Descricao
+                    </div>
+                    <div class="Autor">
+                        @favArte.Arte.Conta.Nome
+                    </div>
+                    <a href="@Url.Action("Details", "Artes", new { nome = favArte.Arte.Nome_Arte })">
+                        <span> 💬 </span>
+                    </a>
+                </div>
+
+                <div class="ArtProject">
+                    <img src=@favArte.Arte.Caminho alt="">
+                    <div class="Titulo">
+                        @favArte.Arte.Nome_Arte
+                    </div>
+                    <div class="Descricao">
+                        @favArte.Arte.Descricao
+                    </div>
+                    <div class="Autor">
+                        @favArte.Arte.Conta.Nome
+                    </div>
+                    <a href="@Url.Action("Details", "Artes", new { nome = favArte.Arte.Nome_Arte })">
+                        <span> 💬 </span>
+                    </a>
+                </div>
+            }
+        }
+
+    </div>
+
+</body>

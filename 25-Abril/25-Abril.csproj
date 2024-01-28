@@ -150,6 +150,9 @@
     <Compile Include="Models\Conta.cs">
       <DependentUpon>Models25Abril.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FavArte.cs">
+      <DependentUpon>Models25Abril.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\getAlunos_Result.cs">
       <DependentUpon>Models25Abril.tt</DependentUpon>
     </Compile>
@@ -207,6 +210,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Models25Abril.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>Models25Abril.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Tipo_de_Arte.cs">
       <DependentUpon>Models25Abril.tt</DependentUpon>
     </Compile>
@@ -217,6 +223,7 @@
     <Compile Include="ViewModels\ArteComentarios_ViewModel.cs" />
     <Compile Include="ViewModels\ArtesTipoArte_ViewModel.cs" />
     <Compile Include="ViewModels\ContaArte_ViewModel.cs" />
+    <Compile Include="ViewModels\FavArtes_ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\About\About.css" />
@@ -224,6 +231,7 @@
     <Content Include="Content\Account\Profile.css" />
     <Content Include="Content\Code.css" />
     <Content Include="Content\Home\Home.css" />
+    <Content Include="Content\Projetos\Comentarios.css" />
     <Content Include="Content\Projetos\Projetos.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -280,8 +288,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Home.cshtml" />
-    <Content Include="Views\About\About.cshtml" />
     <Content Include="Views\Artes\Create.cshtml" />
     <Content Include="Views\Artes\Delete.cshtml" />
     <Content Include="Views\Artes\Details.cshtml" />
@@ -291,8 +297,7 @@
     <Content Include="Views\Contas\Delete.cshtml" />
     <Content Include="Views\Contas\Details.cshtml" />
     <Content Include="Views\Contas\Edit.cshtml" />
-    <Content Include="Views\Contas\Index.cshtml" />
-    <Content Include="Views\Artes\_PartialPage1.cshtml" />
+    <Content Include="Views\Contas\Admin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,16 +13,17 @@
     <title>Projetos</title>
 
     @Styles.Render("~/Content/Projetos")
+
 </head>
 
 
 <body class="Background">
 
     <div class="DivFilters">
-        @foreach(_25_Abril.Models.Tipo_de_Arte tipo in Model.Tipos) 
+        @foreach (_25_Abril.Models.Tipo_de_Arte tipo in Model.Tipos)
         {
             <div class="Filters">
-                <input type="checkbox" id="checkbox" class="Checkbox">
+                <input type="checkbox" id=@tipo.Tipo_Arte class="Checkbox" onclick="AplyFilters(@tipo.Tipo_Arte)">
                 <label for="checkbox">@tipo.Tipo_Arte</label>
             </div>
         }
@@ -31,72 +33,41 @@
 
         @foreach (_25_Abril.Models.Arte arte in Model.Artes)
         {
-            <div class="ArtProject">
-                <img src=@arte.Caminho alt="">
-                <div class="Titulo">
-                    @arte.Nome_Arte
-                </div>
-                <div class="Descricao">
-                    @arte.Descricao
-                </div>
-
-                <div style="display : flex">
-                    <div style="text-align : left; flex : 1">
-                        @Html.ActionLink("Details", "Details", new { nome = arte.Nome_Arte })
+            if (arte.Aceite)
+            {
+                <div class="ArtProject">
+                    <img src=@arte.Caminho alt="" style="max-height:280px">
+                    <div class="Titulo">
+                        @arte.Nome_Arte
                     </div>
-                    <div style=" text-align : right">
-                        <div class="Autor">
-                            @arte.Conta.Nome
-                        </div>
+                    @{
+                        string descricao = arte.Descricao;
+
+                        if (descricao.Length > 100)
+                        {
+                            int ultimoEspaco = descricao.LastIndexOf(' ', 100);
+
+                            if (ultimoEspaco != -1)
+                            {
+                                descricao = descricao.Substring(0, ultimoEspaco);
+                            }
+                            descricao += "...";
+                        }
+                    }
+                    <div class="Descricao">
+                        @descricao
                     </div>
-
-                </div>
-            </div>
-
-            <div class="ArtProject">
-                <img src=@arte.Caminho alt="">
-                <div class="Titulo">
-                    @arte.Nome_Arte
-                </div>
-                <div class="Descricao">
-                    @arte.Descricao
-                </div>
-
-                <div style="display : flex">
-                    <div style="text-align : left; flex : 1">
-                        @Html.ActionLink("Details", "Details", new { nome = arte.Nome_Arte })
+                    <div class="Autor">
+                        @arte.Conta.Nome
                     </div>
-                    <div style=" text-align : right">
-                        <div class="Autor">
-                            @arte.Conta.Nome
-                        </div>
+                    <div style="width:100%; text-align:left; font-size:20px">
+                        <a href="@Url.Action("Details", "Artes", new { nome = arte.Nome_Arte })">
+                            <span> 💬 </span>
+                        </a>
                     </div>
-
                 </div>
-            </div>
+            }
 
-
-            <div class="ArtProject">
-                <img src=@arte.Caminho alt="">
-                <div class="Titulo">
-                    @arte.Nome_Arte
-                </div>
-                <div class="Descricao">
-                    @arte.Descricao
-                </div>
-
-                <div style="display : flex">
-                    <div style="text-align : left; flex : 1">
-                        @Html.ActionLink("Details", "Details", new { nome = arte.Nome_Arte })
-                    </div>
-                    <div style=" text-align : right">
-                        <div class="Autor">
-                            @arte.Conta.Nome
-                        </div>
-                    </div>
-
-                </div>
-            </div>
         }
 
 
