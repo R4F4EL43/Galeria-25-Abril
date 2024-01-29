@@ -12,6 +12,7 @@ using System.Web;
 using System.Web.Mvc;
 using _25_Abril.Models;
 using _25_Abril.ViewModels;
+using Microsoft.Ajax.Utilities;
 
 namespace _25_Abril.Controllers
 {
@@ -39,19 +40,19 @@ namespace _25_Abril.Controllers
             }
 
             List<Arte> artes = new List<Arte>();
-            if(BD.Arte != null)
+            if (BD.Arte != null)
             {
                 foreach (Arte arte in BD.Arte)
                 {
                     if (arte.Conta_ID == conta.ID_Conta)
                         artes.Add(arte);
                 }
-            }            
+            }
 
             ContaArte_ViewModel model = new ContaArte_ViewModel();
             model.Conta = conta;
             model.Artes = artes;
-            
+
             return View(model);
         }
 
@@ -70,18 +71,18 @@ namespace _25_Abril.Controllers
         {
             if (Nome != null && Email != null && Password != null)
             {
-                if(BD.Conta.FirstOrDefault(s => s.Nome == Nome && s.Email == Email && s.Password == Password) == null)
+                if (BD.Conta.FirstOrDefault(s => s.Nome == Nome && s.Email == Email && s.Password == Password) == null)
                 {
                     BD.addConta(Nome, Email, Password, false);
                     BD.SaveChanges();
-                    
+
                     if (BD.Conta.FirstOrDefault(s => s.Nome == Nome && s.Email == Email && s.Password == Password) != null)
                     {
-                        Session["User"] = Nome; 
+                        Session["User"] = Nome;
                         return RedirectToAction("Details", new { nome = Nome });
                     }
-                        
-                }                
+
+                }
             }
 
             return View();
@@ -158,10 +159,10 @@ namespace _25_Abril.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(string Nome, string Password)
         {
-            if(Nome != null && Password != null)
+            if (Nome != null && Password != null)
             {
                 Conta conta = BD.Conta.FirstOrDefault(s => s.Nome == Nome && s.Password == Password);
-                if(conta != null)
+                if (conta != null)
                 {
                     Session["User"] = conta.Nome;
                     Session["UserImage"] = conta.Image;
@@ -215,59 +216,117 @@ namespace _25_Abril.Controllers
                         comentarios.Add(com);
                 }
             }
+            Comentario comentario = new Comentario();
+
+            ArteComentarios_ViewModel arteComentario = new ArteComentarios_ViewModel();
+            arteComentario.Arte = arte;
+            arteComentario.Comentarios = comentarios;
+            arteComentario.Comentario = comentario;
+
             Session["CurrentArte"] = arte.ID_Arte;
+            return View(arteComentario);
+        }
 
-            return View(comentarios);
+        public ActionResult AcceptComentario(int id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Comentario comentario = BD.Comentario.Find(id);
+            if (comentario == null)
+                return HttpNotFound();
+
+            //BD.acptComentario(id);
+            BD.SaveChanges();
+
+            Arte arte = new Arte();
+            arte = BD.Arte.FirstOrDefault(s => s.ID_Arte == comentario.Arte_ID);
+            return RedirectToAction("Comentarios", "Contas", new { nome = arte.Nome_Arte });
+        }
+
+        public ActionResult RefuseComentario(int id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Comentario comentario = BD.Comentario.Find(id);
+            if (comentario == null)
+                return HttpNotFound();
+
+            //BD.rfvComentario(id);
+            BD.SaveChanges();
+
+            Arte arte = BD.Arte.FirstOrDefault(s => s.ID_Arte == comentario.Arte_ID);
+            return RedirectToAction("Comentarios", "Contas", new { nome = arte.Nome_Arte });
+        }
+
+
+        public ActionResult AcceptArt(string nome)
+        {
+            if (nome == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Arte arte = BD.Arte.FirstOrDefault(s => s.Nome_Arte == nome);
+            if (arte == null)
+                return HttpNotFound();
+
+            BD.rfvArte(arte.Nome_Arte);
+            BD.SaveChanges();
+
+            return RedirectToAction("Comentarios", "Contas", new { nome = arte.Nome_Arte });
+        }
+
+        public ActionResult RefuseArt(string nome)
+        {
+            if(nome == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Arte arte = BD.Arte.FirstOrDefault(s => s.Nome_Arte == nome);
+            if (arte == null)
+                return HttpNotFound();
+
+            BD.acptArte(arte.Nome_Arte);
+            BD.SaveChanges();
+
+
+            return RedirectToAction("Comentarios", "Contas", new { nome = arte.Nome_Arte });
+        }
+
+        public ActionResult TiposArte()
+        {
+            List<Tipo_de_Arte> tipos = new List<Tipo_de_Arte>();
+            tipos = BD.Tipo_de_Arte.ToList();
+
+            return View(tipos);
+        }
+
+        public ActionResult CreateTipo(string tipo)
+        {
+            if(tipo == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            BD.addTipoArte(tipo);
+            BD.SaveChanges();
+
+            return RedirectToAction("TiposArte", "Contas");
+        }
+
+        public ActionResult DelTipo(string tipo)
+        {
+            if (tipo == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Tipo_de_Arte tipoArte = BD.Tipo_de_Arte.FirstOrDefault(s => s.Tipo_Arte == tipo);
+            if(BD.Arte.FirstOrDefault(s => s.TipoArte_ID == tipoArte.ID_Tipo) == null)
+            {
+                BD.delTipoArte(tipo);
+                BD.SaveChanges();
+            }
+            
+
+            return RedirectToAction("TiposArte", "Contas");
         }
 
         
-        /////////////////////////////////////////////////////////////
-        
-
-
-        public ActionResult AcceptPedido()
-        {
-            PedidosAdmin pedido = BD.PedidosAdmins.Find(1);
-            //if (pedido == null)
-            //{
-            //    return HttpNotFound();
-            //}
-
-            return View(pedido);
-        }
-
-        public ActionResult RefusePedido()
-        {
-            PedidosAdmin pedido = BD.PedidosAdmins.Find(1);
-            //if (pedido == null)
-            //{
-            //    return HttpNotFound();
-            //}
-
-            return View(pedido);
-        }
-
-        public ActionResult AcceptComentario(string nome)
-        {
-            PedidosAdmin pedido = BD.PedidosAdmins.Find(1);
-            //if (pedido == null)
-            //{
-            //    return HttpNotFound();
-            //}
-
-            return View(pedido);
-        }
-
-        public ActionResult RefuseComentario(string nome)
-        {
-            PedidosAdmin pedido = BD.PedidosAdmins.Find(1);
-            //if (pedido == null)
-            //{
-            //    return HttpNotFound();
-            //}
-
-            return View(pedido);
-        }
-
     }
 }

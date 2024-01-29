@@ -219,7 +219,7 @@ namespace _25_Abril.Controllers
                     conta = db.Conta.FirstOrDefault(s => s.Nome == "Anonimo");
                 else
                     conta = db.Conta.FirstOrDefault(s => s.Nome == Session["User"].ToString());
-                db.addComentario(ComentarioTexto, DateTime.Today, conta.ID_Conta, Convert.ToInt16(@Session["CurrentArte"].ToString()));
+                db.addComentario(ComentarioTexto, DateTime.Today, conta.ID_Conta, Convert.ToInt32(@Session["CurrentArte"].ToString()));
             }
             int id = Convert.ToInt32(Session["CurrentArte"].ToString());
             return RedirectToAction("Details", "Artes", new { nome = db.Arte.FirstOrDefault(s => s.ID_Arte == id).Nome_Arte });
