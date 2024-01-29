@@ -45,13 +45,14 @@
         </div>
     </div>
 
-    <div class="DivMain">
+    <button style="margin-left:3%; font-size:25px">
         <a href="@Url.Action("UploadArte", "Contas", FormMethod.Post)">
             <span>&#8593; Upload</span>
         </a>
-        
+    </button>
+    
+    <div class="DivMain">
 
-        
 
         @foreach (_25_Abril.Models.Arte arte in Model.Artes)
         {
@@ -66,11 +67,11 @@
                         @arte.Descricao
                     </div>
                     <div style="display : flex">
-                        @*<a href="@Url.Action("Comentarios", "Contas", new { nome = @arte.Nome_Arte })">
-                            <span> Comentarios </span>
-                        </a>*@
-                        <a href="@Url.Action("DelArte", "Contas", new { nome = @arte.Nome_Arte })">
-                            <span>&#128465;</span>
+                        <a href="@Url.Action("Comentarios", "Contas", new { nome = @arte.Nome_Arte })" style="width:60px; text-align:center">
+                            <span> 💬 </span>
+                            </a>
+                        <a href="@Url.Action("DelArte", "Contas", new { nome = @arte.Nome_Arte })" style="width: 60px; text-align: center">
+                            <span> &#128465; </span>
                         </a>
 
                     </div>

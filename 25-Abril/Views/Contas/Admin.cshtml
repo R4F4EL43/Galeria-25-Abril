@@ -1,4 +1,4 @@
-﻿@model List<_25_Abril.Models.PedidosAdmin>
+﻿@model _25_Abril.ViewModels.Admin_ViewModel
 
 @{
     ViewBag.Title = "Profile";
@@ -22,97 +22,281 @@
 
         th,
         td {
+            font-size: 25px;
             padding: 8px;
             text-align: left;
         }
 
         .title {
-            width: 70%;
+            font-size: 40px;
+            width: 20%;
+        }
+
+        .foto {
+            font-size: 40px;
+            width: 20%;
         }
 
         .category {
-            width: auto;
+            font-size: 40px;
+            width: 20%;
         }
 
         .options {
+            font-size: 40px;
             text-align: center;
             width: 10%;
         }
 
         .TabPages {
-            width: 20%;
+            width: 15%;
         }
 
         .Page {
+            margin-left:5%;
             width: 79%;
         }
+
+        .smallUserIMG {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+        }
+
+        .ArteIMG {
+            width: 120px;
+            max-height: 60px;
+            border-radius: 4px;
+        }
+
+        .PageItem{
+            border-radius:8px;
+            font-size:27px;
+            align-items: center;
+            width:100%;
+            height:70px;
+            padding:20px;
+        }
+        .PageItem:hover{
+            background: rgb(200,200,200, 60%);
+        }
+
     </style>
 </head>
 
 <body class="Background">
 
     <div class="DivMain" style="justify-content: start; position: relative;">
-        <div class="TabPages">
+        <div class="TabPages" style="height:100%">
             <div class="PageItem">
-
+                <a href="@Url.Action("Admin", "Contas", new {tipo = "artes"})">
+                    <span>
+                        Projetos Pendentes
+                    </span>
+                </a>
             </div>
 
             <div class="PageItem">
-
+                <a href="@Url.Action("Admin", "Contas", new {tipo = "tipos"})">
+                    <span>
+                        Gerir Tipos de Arte
+                    </span>
+                </a>
             </div>
 
             <div class="PageItem">
-
+                <a href="@Url.Action("Admin", "Contas", new {tipo = "contas"})">
+                    <span>
+                        Contas
+                    </span>
+                </a>
             </div>
 
             <div class="PageItem">
-
+                <a href="@Url.Action("Admin", "Contas", new {tipo = "destaques"})">
+                    <span>
+                        Contas
+                    </span>
+                </a>
             </div>
+
+
+
         </div>
 
         <div class="Page">
-            <table style="width:100%">
+            @switch (Model.tipo)
+            {
+                case "arte":
+                    <table style="width:100%">
+                        <thead>
+                        <th class="title">Conta</th>
+                        <th class="foto">Imagem</th>
+                        <th class="category">Nome de Arte</th>
+                        <th class="options">Opções</th>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                foreach (_25_Abril.Models.Arte arte in Model.Artes)
+                                {
+                                    if (arte.Aceite == false)
+                                    {
+                                        <tr>
+                                            <td style="align-content:center"><img src="@arte.Conta.Image" class="smallUserIMG" /> @arte.Conta.Nome</td>
+                                            <td><img src="@arte.Caminho" class="ArteIMG" /></td>
+                                            <td>@arte.Nome_Arte</td>
 
-                <thead>
-                @*<th class="title">Tipo de Pedido</th>*@
-                <th class="title">Conta</th>
-                <th class="category">Valor Antigo</th>
-                <th class="category">Valor Novo</th>
-                <th class="options">Opções</th>
-                </thead>
+                                            <td style="display:inline">
+                                                @using (Html.BeginForm("AcceptPedido", "Contas", FormMethod.Post, new { style = "width: auto; text-align : center" }))
+                                                {
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="submit" value=&#10004; id="AcceptPedido" name="AcceptPedido" style="width:40px" />
+                                                }
+                                                @using (Html.BeginForm("RefusePedido", "Contas", FormMethod.Post, new { style = "width: auto; text-align : center" }))
+                                                {
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="submit" value=&#10060; id="RefusePedido" name="RefusePedido" style="width:40px" />
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+
+                                }
+                            }
 
 
+                        </tbody>
+                    </table>
+                    break;
 
-                <tbody>
-                    @if (Model != null)
+
+                case "tipos":
+                    using (Html.BeginForm("CreateTipo", "Contas", FormMethod.Post, new { style = "width: auto; text-align : left" }))
                     {
-                        foreach (_25_Abril.Models.PedidosAdmin pedido in Model)
-                        {
-                            <tr>
-                                <td>@pedido.Conta.Nome</td>
-                                <td>@pedido.Valor_Antigo</td>
-                                <td>@pedido.Valor_Novo</td>
-
-                                <td style="display:inline">
-                                    @using (Html.BeginForm("AcceptPedido", "Contas", FormMethod.Post, new { style = "width: auto; text-align : right" }))
-                                    {
-                                        @Html.AntiForgeryToken()
-                                        <input type="submit" value=&#10004; id="AcceptPedido" name="AcceptPedido" style="width:40px" />
-                                    }
-                                    @using (Html.BeginForm("RefusePedido", "Contas", FormMethod.Post, new { style = "width: auto; text-align : right" }))
-                                    {
-                                        @Html.AntiForgeryToken()
-                                        <input type="submit" value=&#10060; id="RefusePedido" name="RefusePedido" style="width:40px" />
-                                    }
-                                </td>
-                            </tr>
-                        }
+                        @Html.AntiForgeryToken()
+                        <input type="text" id="tipo" name="tipo" />
+                        <input type="submit" value=&#10004; id="CreateTipo" name="CreateTipo" />
                     }
+                    <table style="width:100%">
+                        <thead>
+                        <th class="title">Tipo</th>
+                        <th class="options">Opções</th>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                foreach (_25_Abril.Models.Tipo_de_Arte tipo in Model.Tipos)
+                                {
+                                    <tr>
+                                        <td>@tipo.Tipo_Arte"</td>
+
+                                        <td style="display:inline">
+
+                                            @using (Html.BeginForm("DelTipo", "Contas", FormMethod.Post))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" id="tipo" name="tipo" value="@tipo.Tipo_Arte" />
+                                                <input type="submit" value=&#10060; id="DelTipo" name="DelTipo" style="width:40px" />
+                                            }
+                                        </td>
+                                    </tr>
+
+                                }
+                            }
 
 
-                </tbody>
+                        </tbody>
+                    </table>
+                    break;
 
-            </table>
+
+                case "contas":
+                    <table style="width:100%">
+                        <thead>
+                        <th class="title">Conta</th>
+                        <th class="category">Email</th>
+                        <th class="category">Admin</th>
+                        <th class="options">Opções</th>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                foreach (_25_Abril.Models.Conta conta in Model.Contas)
+                                {
+                                    <tr>
+                                        <td>@conta.Nome</td>
+                                        <td>@conta.Email</td>
+                                        <td>@conta.IsAdmin.ToString()</td>
+
+                                        <td style="display:inline">
+
+                                            @using (Html.BeginForm("DelConta", "Contas", FormMethod.Post))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" id="nome" name="nome" value="@conta.Nome" />
+                                                <input type="submit" value=&#10060; id="DelConta" name="DelConta" style="width:40px" />
+                                            }
+                                        </td>
+                                    </tr>
+
+                                }
+                            }
+
+
+                        </tbody>
+                    </table>
+                    break;
+
+                case "destaques":
+                    using (Html.BeginForm("CreateDestaque", "Contas", FormMethod.Post, new { style = "width: auto; text-align : left" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="text" id="destaque" name="destaque" />
+                        <input type="submit" value=&#10004; id="CreateDestaque" name="CreateDestaque" />
+                    }
+                    <table style="width:100%">
+                        <thead>
+                        <th class="title">Imagem</th>
+                        <th class="category">Nome</th>
+                        <th class="category">Conta</th>
+                        <th class="options">Opções</th>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                foreach (_25_Abril.Models.FavArtes favArte in Model.FavArtes)
+                                {
+                                    <tr>
+                                        <td><img src="@favArte.Arte.Caminho" /></td>
+                                        <td>@favArte.Arte.Nome_Arte</td>
+                                        <td>@favArte.Arte.Conta.Nome</td>
+
+                                        <td style="display:inline">
+
+                                            @using (Html.BeginForm("DelDestaque", "Contas", FormMethod.Post))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" id="nome" name="nome" value="@favArte.ID" />
+                                                <input type="submit" value=&#10060; id="DelConta" name="DelConta" style="width:40px" />
+                                            }
+                                        </td>
+                                    </tr>
+
+                                }
+                            }
+
+
+                        </tbody>
+                    </table>
+                    break;
+
+
+
+            }
+
+
+
 
         </div>
 

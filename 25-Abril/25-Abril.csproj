@@ -229,6 +229,7 @@
       <DependentUpon>Models25Abril.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Admin_ViewModel.cs" />
     <Compile Include="ViewModels\ArteComentarios_ViewModel.cs" />
     <Compile Include="ViewModels\ArtesTipoArte_ViewModel.cs" />
     <Compile Include="ViewModels\ArteTipoArte_ViewModel.cs" />
