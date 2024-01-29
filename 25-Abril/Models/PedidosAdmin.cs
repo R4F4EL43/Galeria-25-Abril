@@ -20,9 +20,7 @@ namespace _25_Abril.Models
         public string Valor_Novo { get; set; }
         public System.DateTime Data { get; set; }
         public int Status { get; set; }
-        public int TipoPedido { get; set; }
     
         public virtual Conta Conta { get; set; }
-        public virtual TipoPedido TipoPedido1 { get; set; }
     }
 }

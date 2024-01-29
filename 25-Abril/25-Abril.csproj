@@ -222,9 +222,6 @@
     <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>Models25Abril.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TipoPedido.cs">
-      <DependentUpon>Models25Abril.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Tipo_de_Arte.cs">
       <DependentUpon>Models25Abril.tt</DependentUpon>
     </Compile>
@@ -236,7 +233,6 @@
     <Compile Include="ViewModels\ArtesTipoArte_ViewModel.cs" />
     <Compile Include="ViewModels\ContaArte_ViewModel.cs" />
     <Compile Include="ViewModels\FavArtes_ViewModel.cs" />
-    <Compile Include="ViewModels\PedidoTipoPedido_ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\About\About.css" />
