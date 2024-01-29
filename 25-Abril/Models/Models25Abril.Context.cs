@@ -37,7 +37,6 @@ namespace _25_Abril.Models
         public virtual DbSet<PedidosAdmin> PedidosAdmin { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Tipo_de_Arte> Tipo_de_Arte { get; set; }
-        public virtual DbSet<TipoPedido> TipoPedido { get; set; }
         public virtual DbSet<Turma> Turma { get; set; }
     
         public virtual ObjectResult<Nullable<bool>> acptArte(string nome)
@@ -534,20 +533,20 @@ namespace _25_Abril.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("stAdm", nomeParameter);
         }
-
-        //public virtual int stImage(string conta, string image)
-        //{
-        //    var contaParameter = conta != null ?
-        //        new ObjectParameter("conta", conta) :
-        //        new ObjectParameter("conta", typeof(string));
-
-        //    var imageParameter = image != null ?
-        //        new ObjectParameter("image", conta) :
-        //        new ObjectParameter("image", typeof(string));
-
-        //    return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("stImage", contaParameter, imageParameter);
-        //}
-
+    
+        public virtual int stImage(string conta, string imagem)
+        {
+            var contaParameter = conta != null ?
+                new ObjectParameter("conta", conta) :
+                new ObjectParameter("conta", typeof(string));
+    
+            var imagemParameter = imagem != null ?
+                new ObjectParameter("imagem", imagem) :
+                new ObjectParameter("imagem", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("stImage", contaParameter, imagemParameter);
+        }
+    
         public virtual int updAluno(Nullable<int> conta, Nullable<int> nEWconta, Nullable<int> turma)
         {
             var contaParameter = conta.HasValue ?

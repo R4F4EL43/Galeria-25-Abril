@@ -185,15 +185,12 @@ namespace _25_Abril.Controllers
 
         public ActionResult Admin()
         {
-            PedidoTipoPedido_ViewModel model = new PedidoTipoPedido_ViewModel();
+            List<PedidosAdmin> pedidos = new List<PedidosAdmin>();
             if (BD.PedidosAdmin != null)
-                model.Pedidos = BD.PedidosAdmin.ToList();
-
-            if (BD.PedidosAdmin != null)
-                model.Tipos = BD.TipoPedido.ToList();
+                pedidos = BD.PedidosAdmin.ToList();
 
 
-            return View(model);
+            return View(pedidos);
         }
 
         public ActionResult Comentarios(string nome)
@@ -351,7 +348,8 @@ namespace _25_Abril.Controllers
                 Conta conta = BD.Conta.FirstOrDefault(s => s.Nome == nome);
 
                 string data = DateTime.Today.Day.ToString() + DateTime.Today.Month.ToString() + DateTime.Today.Year.ToString();
-                string fichName = data + "-" + conta.Nome + "Image." + ficheiro.FileName.Split('.')[1];
+                string hora = DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString();
+                string fichName = data + hora + "-" + conta.Nome + "Image." + ficheiro.FileName.Split('.')[1];
 
                 string projectFolder = Server.MapPath("~/Imagens/Users/");
                 string filePath = Path.Combine(projectFolder, fichName);                

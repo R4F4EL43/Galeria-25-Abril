@@ -1,4 +1,4 @@
-﻿@model _25_Abril.ViewModels.PedidoTipoPedido_ViewModel
+﻿@model List<_25_Abril.Models.PedidosAdmin>
 
 @{
     ViewBag.Title = "Profile";
@@ -74,8 +74,8 @@
             <table style="width:100%">
 
                 <thead>
-                <th class="title">Tipo de Pedido</th>
-                <th class="category">Conta</th>
+                @*<th class="title">Tipo de Pedido</th>*@
+                <th class="title">Conta</th>
                 <th class="category">Valor Antigo</th>
                 <th class="category">Valor Novo</th>
                 <th class="options">Opções</th>
@@ -84,12 +84,11 @@
 
 
                 <tbody>
-                    @if (Model.Pedidos != null)
+                    @if (Model != null)
                     {
-                        foreach (_25_Abril.Models.PedidosAdmin pedido in Model.Pedidos)
+                        foreach (_25_Abril.Models.PedidosAdmin pedido in Model)
                         {
                             <tr>
-                                <td>@Model.Pedidos.FirstOrDefault(s => s.ID_Pedido == pedido.TipoPedido).TipoPedido</td>
                                 <td>@pedido.Conta.Nome</td>
                                 <td>@pedido.Valor_Antigo</td>
                                 <td>@pedido.Valor_Novo</td>
