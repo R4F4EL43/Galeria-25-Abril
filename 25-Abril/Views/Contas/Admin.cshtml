@@ -252,7 +252,13 @@
                     using (Html.BeginForm("CreateDestaque", "Contas", FormMethod.Post, new { style = "width: auto; text-align : left" }))
                     {
                         @Html.AntiForgeryToken()
-                        <input type="text" id="destaque" name="destaque" />
+                        <select id="nome" name="nome" style="margin-left:15px; font-size:20px;">
+                            <option value="">Selecione uma arte</option>
+                            @foreach (_25_Abril.Models.Arte arte in Model.Artes)
+                            {
+                                <option value="@arte.Nome_Arte">@arte.Nome_Arte</option>
+                            }
+                        </select>
                         <input type="submit" value=&#10004; id="CreateDestaque" name="CreateDestaque" />
                     }
                     <table style="width:100%">
@@ -268,7 +274,7 @@
                                 foreach (_25_Abril.Models.FavArtes favArte in Model.FavArtes)
                                 {
                                     <tr>
-                                        <td><img src="@favArte.Arte.Caminho" /></td>
+                                        <td><img src="@favArte.Arte.Caminho" class="ArteIMG" /></td>
                                         <td>@favArte.Arte.Nome_Arte</td>
                                         <td>@favArte.Arte.Conta.Nome</td>
 

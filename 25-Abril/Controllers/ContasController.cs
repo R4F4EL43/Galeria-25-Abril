@@ -209,7 +209,7 @@ namespace _25_Abril.Controllers
             List<FavArtes> favArtes = new List<FavArtes>();
             if (BD.FavArtes != null)
                 favArtes = BD.FavArtes.ToList();
-            model.Contas = favArtes;
+            model.FavArtes = favArtes;
 
             if (tipo == null)
                 tipo = "arte";
@@ -481,11 +481,31 @@ namespace _25_Abril.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             Arte arte = BD.Arte.FirstOrDefault(s => s.Nome_Arte == nome);
-            if (arte == null)
-                return HttpNotFound();
+            if (arte != null)
+            {
+                BD.addFav(nome);
+                BD.SaveChanges();
+            }
+            
+            return RedirectToAction("Admin", "Contas", new { tipo = "destaques" });
 
+        }
 
+        public ActionResult DelDestaque(string nome)
+        {
+            if (nome == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
+            Arte arte = BD.Arte.FirstOrDefault(s => s.Nome_Arte == nome);
+            FavArtes fav = BD.FavArtes.FirstOrDefault(s => s.Arte_ID == arte.ID_Arte);
+            if (fav != null)
+            {
+                BD.delFav(nome);
+                BD.SaveChanges();
+            }
+
+            
+            return RedirectToAction("Admin", "Contas", new { tipo = "destaques" });
         }
 
 
