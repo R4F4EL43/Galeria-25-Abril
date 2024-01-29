@@ -1,12 +1,9 @@
-﻿@model _25_Abril.ViewModels.PedidoTipoPedido_ViewModel
+﻿@model List<_25_Abril.Models.Tipo_de_Arte>
 
 @{
-    ViewBag.Title = "Profile";
+    ViewBag.Title = "TiposArte";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<!DOCTYPE html>
-<html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,6 +11,7 @@
     @Styles.Render("~/Content/Profile")
 
     <style>
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -26,26 +24,29 @@
             text-align: left;
         }
 
-            .title {
-                width: 70%;
-            }
-
-            .category {
-                width: auto;
-            }
-            .options {
-                text-align:center;
-                width: 10%;
-            }
-
-        .TabPages{
-            width:20%;
+        .title {
+            width: 70%;
         }
-        .Page{
-            width:79%;
+
+
+        .options {
+            text-align: center;
+            width: 10%;
+        }
+
+
+        .TabPages {
+            width: 20%;
+        }
+
+        .Page {
+            width: 79%;
         }
     </style>
 </head>
+
+<!DOCTYPE html>
+<html>
 
 <body class="Background">
 
@@ -69,38 +70,32 @@
         </div>
 
         <div class="Page">
+            <button onclick="ShowTxt()">Criar novo tipo</button>
+
+            @*Esconder e mostrar quando carrega no botao*@
+            @Html.ActionLink("Criar", "CreateTipo", "Contas");
             <table style="width:100%">
 
                 <thead>
-                <th class="title">Tipo de Pedido</th>
-                <th class="category">Conta</th>
-                <th class="category">Valor Antigo</th>
-                <th class="category">Valor Novo</th>
+                <th class="title">Tipo de Arte</th>
                 <th class="options">Opções</th>
                 </thead>
 
 
 
                 <tbody>
-                    @if (Model.Pedidos != null)
+                    @if (Model != null)
                     {
-                        foreach (_25_Abril.Models.PedidosAdmin pedido in Model.Pedidos)
+                        foreach (_25_Abril.Models.Tipo_de_Arte tipo in Model)
                         {
                             <tr>
-                                <td>@Model.Pedidos.FirstOrDefault(s => s.ID_Pedido == pedido.TipoPedido).TipoPedido</td>
-                                <td>@pedido.Conta.Nome</td>
-                                <td>@pedido.Valor_Antigo</td>
-                                <td>@pedido.Valor_Novo</td>
+                                <td>@tipo.Tipo_Arte</td>
 
                                 <td style="display:inline">
-                                    @using (Html.BeginForm("AcceptPedido", "Contas", FormMethod.Post, new { style = "width: auto; text-align : right" }))
+                                    @using (Html.BeginForm("DelTipo", "Contas", FormMethod.Post, new { style = "width: auto; text-align : right" }))
                                     {
                                         @Html.AntiForgeryToken()
-                                        <input type="submit" value=&#10004; id="AcceptPedido" name="AcceptPedido" style="width:40px"/>
-                                    }
-                                    @using (Html.BeginForm("RefusePedido", "Contas", FormMethod.Post, new { style = "width: auto; text-align : right" }))
-                                    {
-                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" value="@tipo.Tipo_Arte" id="tipo" name="tipo" />
                                         <input type="submit" value=&#10060; id="RefusePedido" name="RefusePedido" style="width:40px" />
                                     }
                                 </td>
@@ -118,5 +113,4 @@
     </div>
 
 </body>
-
 </html>

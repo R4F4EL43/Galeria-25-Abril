@@ -1,107 +1,79 @@
-﻿@model List<_25_Abril.Models.Comentario>
+﻿@model _25_Abril.ViewModels.ArteComentarios_ViewModel
 
 @{
-    ViewBag.Title = "Profile";
+    ViewBag.Title = "Comentarios";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    @Styles.Render("~/Content/Comentarios")
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<body class="Background" style="align-items : center">
 
-    @Styles.Render("~/Content/Profile")
+    <div class="DivMain" style="justify-content: start; position: relative; width: 100%; margin-left: 10%; margin-right: 10%;">
 
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        th,
-        td {
-            padding: 8px;
-            text-align: left;
-        }
-
-            .title {
-                width: 70%;
-                /* Ajuste conforme necessário para a coluna de título ocupar a maioria do espaço */
-            }
-
-            .category {
-                width: auto;
-            }
-            .options {
-                text-align:center;
-                width: 10%;
-            }
-
-        .Page{
-            width:100%;
-        }
-
-        .UserIMG{
-            border-radius:50%;
-            width:20px;
-            height:20px;
-        }
-    </style>
-</head>
-
-<body class="Background">
-
-    <div class="DivMain" style="justify-content: start; position: relative;">
-
-        <div class="Page">
-            <table style="width:100%">
-
-                <thead>
-                <th class="title">Comentario</th>
-                <th class="category">Conta</th>
-                <th class="category">Data</th>
-                <th class="options">Opções</th>
-                </thead>
-
-
-
-                <tbody>
-                    @if (Model != null)
-                    {
-                        foreach (_25_Abril.Models.Comentario comentario in Model)
-                        {
-                            <tr>
-                                <td>@comentario.ComentarioTexto</td>
-                                <td><img src="@comentario.Conta.Image" class="UserIMG"/>  comentario.Conta.Nome</td>
-                                <td>@comentario.Data</td>
-
-                                <td style="display:inline">
-                                    @using (Html.BeginForm("AcceptComentario", "Contas", FormMethod.Post, new { style = "width: auto; text-align : right" }))
-                                    {
-                                        @Html.AntiForgeryToken()
-                                        <input type="submit" value=&#10004; id="AcceptComentario" name="AcceptComentario" style="width:40px"/>
-                                    }
-                                    @using (Html.BeginForm("RefuseComentario", "Contas", FormMethod.Post, new { style = "width: auto; text-align : right" }))
-                                    {
-                                        @Html.AntiForgeryToken()
-                                        <input type="submit" value=&#10060; id="RefuseComentario" name="RefuseComentario" style="width:40px" />
-                                    }
-                                </td>
-                            </tr>
-                        }
-                    }
-
-
-                </tbody>
-
-            </table>
-
+        <div class="Titulo" style="font-size: 40px; margin-left:5%">
+            @Model.Arte.Nome_Arte
         </div>
 
-    </div>
+        <img src=@Model.Arte.Caminho alt="Not Found" style="width : 80%; height : auto; margin-right: 10%; margin-left : 10%; border-radius : 8px" />
 
+        <div class="Descricao" style="font-size: 20px; margin-left:10%; width:80%">
+            @Model.Arte.Descricao
+        </div>
+
+        <div class="Autor" style="font-size: 25px; margin-right:10%">
+            @Model.Arte.Conta.Nome
+        </div>
+
+        @if (Model.Comentarios.Count != 0)
+        {
+            <div style="width: 90%; margin-left: 5%; margin-right: 5%;">
+
+                @foreach (_25_Abril.Models.Comentario comentario in Model.Comentarios)
+                {
+                    <div class="Comentario">
+                        <div class="ComentarioTop">
+                            <img src="@comentario.Conta.Image" alt="Not Found" class="UserImage">
+                            <div class="User">
+                                @comentario.Conta.Nome
+                            </div>
+
+                        </div>
+                        <div class="DetalhesComentario">
+                            <div class="Data">
+                                @comentario.Data
+                            </div>
+                            <div class="ComentarioText">
+                                @comentario.ComentarioTexto
+                            </div>
+                        </div>
+                        <td>
+                            @using (Html.BeginForm("AcceptComentario", "Contas", FormMethod.Post, new { style = "width: auto; text-align : right" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" value="@comentario.ID_Comentario" id="id" , name="id" />
+                                <input type="submit" value=&#10004; id="AcceptComentario" name="AcceptComentario" style="width:40px" />
+                            }
+                            @using (Html.BeginForm("RefuseComentario", "Contas", FormMethod.Post, new { style = "width: auto; text-align : right" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" value="@comentario.ID_Comentario" id="id" , name="id" />
+                                <input type="submit" value=&#10060; id="RefuseComentario" name="RefuseComentario" style="width:40px" />
+                            }
+                        </td>
+
+                    </div>
+
+                }
+
+            </div>
+        }
+        
+
+
+        <p>
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+    </div>
 </body>
 
-</html>

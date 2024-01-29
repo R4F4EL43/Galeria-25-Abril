@@ -60,7 +60,16 @@
                         @arte.Descricao
                     </div>
                     <div style="display : flex">
-                        @Html.ActionLink("Comentarios", "Comentarios", "Contas", new { nome = @arte.Nome_Arte })
+                        <a href="@Url.Action("Comentarios", "Contas", new { nome = @arte.Nome_Arte })">
+                            <span> Comentarios </span>
+                        </a>
+                        <!--<a>
+                            <span> Comentarios </span>
+                        </a>-->
+                        @*<a href="@Html.Action("Comentarios", "Contas", new { nome = @arte.Nome_Arte })">
+
+        </a>*@
+
                     </div>
 
 
