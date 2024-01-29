@@ -77,9 +77,8 @@
           </Key>
           <Property Name="ID_Pedido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Conta_ID" Type="int" Nullable="false" />
-          <Property Name="Valor Antigo" Type="varchar(max)" />
-          <Property Name="Valor Novo" Type="varchar(max)" />
-          <Property Name="Data" Type="date" Nullable="false" />
+          <Property Name="Imagem" Type="varchar(max)" Nullable="false" />
+          <Property Name="Titulo" Type="varchar(max)" Nullable="false" />
           <Property Name="Status" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
@@ -245,6 +244,9 @@
         <Function Name="acptComentario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="acptPedido" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="addAluno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="conta" Type="int" Mode="In" />
           <Parameter Name="turma" Type="int" Mode="In" />
@@ -276,6 +278,11 @@
           <Parameter Name="conta" Type="int" Mode="In" />
           <Parameter Name="arte" Type="int" Mode="In" />
           <Parameter Name="data" Type="date" Mode="In" />
+        </Function>
+        <Function Name="addPedido" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="titulo" Type="varchar" Mode="In" />
+          <Parameter Name="imagem" Type="varchar(max)" Mode="In" />
+          <Parameter Name="conta" Type="varchar" Mode="In" />
         </Function>
         <Function Name="addTipoArte" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="tipo" Type="varchar" Mode="In" />
@@ -355,6 +362,9 @@
           <Parameter Name="nome" Type="varchar" Mode="In" />
         </Function>
         <Function Name="rfvComentario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="rfvPedido" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="rmvAdm" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -587,9 +597,8 @@
           </Key>
           <Property Name="ID_Pedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Conta_ID" Type="Int32" Nullable="false" />
-          <Property Name="Valor_Antigo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Valor_Novo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Data" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Imagem" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Titulo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Status" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Conta" Relationship="Self.FK_PedidosAdmin_Conta" FromRole="PedidosAdmin" ToRole="Conta" />
         </EntityType>
@@ -815,6 +824,9 @@
           <FunctionImport Name="acptComentario">
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="acptPedido">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="addAluno">
             <Parameter Name="conta" Mode="In" Type="Int32" />
             <Parameter Name="turma" Mode="In" Type="Int32" />
@@ -846,6 +858,11 @@
             <Parameter Name="conta" Mode="In" Type="Int32" />
             <Parameter Name="arte" Mode="In" Type="Int32" />
             <Parameter Name="data" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="addPedido">
+            <Parameter Name="titulo" Mode="In" Type="String" />
+            <Parameter Name="imagem" Mode="In" Type="String" />
+            <Parameter Name="conta" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="addTipoArte">
             <Parameter Name="tipo" Mode="In" Type="String" />
@@ -924,6 +941,9 @@
             <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="rfvComentario">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="rfvPedido">
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="rmvAdm">
@@ -1198,9 +1218,8 @@
               <MappingFragment StoreEntitySet="PedidosAdmin">
                 <ScalarProperty Name="ID_Pedido" ColumnName="ID_Pedido" />
                 <ScalarProperty Name="Conta_ID" ColumnName="Conta_ID" />
-                <ScalarProperty Name="Valor_Antigo" ColumnName="Valor Antigo" />
-                <ScalarProperty Name="Valor_Novo" ColumnName="Valor Novo" />
-                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Imagem" ColumnName="Imagem" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1235,12 +1254,14 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="acptArte" FunctionName="AbrilModel.Store.acptArte" />
           <FunctionImportMapping FunctionImportName="acptComentario" FunctionName="AbrilModel.Store.acptComentario" />
+          <FunctionImportMapping FunctionImportName="acptPedido" FunctionName="AbrilModel.Store.acptPedido" />
           <FunctionImportMapping FunctionImportName="addAluno" FunctionName="AbrilModel.Store.addAluno" />
           <FunctionImportMapping FunctionImportName="addAno" FunctionName="AbrilModel.Store.addAno" />
           <FunctionImportMapping FunctionImportName="addArte" FunctionName="AbrilModel.Store.addArte" />
           <FunctionImportMapping FunctionImportName="addComentario" FunctionName="AbrilModel.Store.addComentario" />
           <FunctionImportMapping FunctionImportName="addConta" FunctionName="AbrilModel.Store.addConta" />
           <FunctionImportMapping FunctionImportName="addGosto" FunctionName="AbrilModel.Store.addGosto" />
+          <FunctionImportMapping FunctionImportName="addPedido" FunctionName="AbrilModel.Store.addPedido" />
           <FunctionImportMapping FunctionImportName="addTipoArte" FunctionName="AbrilModel.Store.addTipoArte" />
           <FunctionImportMapping FunctionImportName="addTurma" FunctionName="AbrilModel.Store.addTurma" />
           <FunctionImportMapping FunctionImportName="delAluno" FunctionName="AbrilModel.Store.delAluno" />
@@ -1404,6 +1425,7 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="rfvArte" FunctionName="AbrilModel.Store.rfvArte" />
           <FunctionImportMapping FunctionImportName="rfvComentario" FunctionName="AbrilModel.Store.rfvComentario" />
+          <FunctionImportMapping FunctionImportName="rfvPedido" FunctionName="AbrilModel.Store.rfvPedido" />
           <FunctionImportMapping FunctionImportName="rmvAdm" FunctionName="AbrilModel.Store.rmvAdm" />
           <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="AbrilModel.Store.sp_alterdiagram" />
           <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="AbrilModel.Store.sp_creatediagram" />

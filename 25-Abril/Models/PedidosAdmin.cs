@@ -16,9 +16,8 @@ namespace _25_Abril.Models
     {
         public int ID_Pedido { get; set; }
         public int Conta_ID { get; set; }
-        public string Valor_Antigo { get; set; }
-        public string Valor_Novo { get; set; }
-        public System.DateTime Data { get; set; }
+        public string Imagem { get; set; }
+        public string Titulo { get; set; }
         public int Status { get; set; }
     
         public virtual Conta Conta { get; set; }

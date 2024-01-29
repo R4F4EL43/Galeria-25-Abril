@@ -57,6 +57,15 @@ namespace _25_Abril.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("acptComentario", idParameter);
         }
     
+        public virtual int acptPedido(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("acptPedido", idParameter);
+        }
+    
         public virtual int addAluno(Nullable<int> conta, Nullable<int> turma, string numero)
         {
             var contaParameter = conta.HasValue ?
@@ -165,6 +174,23 @@ namespace _25_Abril.Models
                 new ObjectParameter("data", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("addGosto", contaParameter, arteParameter, dataParameter);
+        }
+    
+        public virtual int addPedido(string titulo, string imagem, string conta)
+        {
+            var tituloParameter = titulo != null ?
+                new ObjectParameter("titulo", titulo) :
+                new ObjectParameter("titulo", typeof(string));
+    
+            var imagemParameter = imagem != null ?
+                new ObjectParameter("imagem", imagem) :
+                new ObjectParameter("imagem", typeof(string));
+    
+            var contaParameter = conta != null ?
+                new ObjectParameter("conta", conta) :
+                new ObjectParameter("conta", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("addPedido", tituloParameter, imagemParameter, contaParameter);
         }
     
         public virtual int addTipoArte(string tipo)
@@ -411,6 +437,15 @@ namespace _25_Abril.Models
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("rfvComentario", idParameter);
+        }
+    
+        public virtual int rfvPedido(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("rfvPedido", idParameter);
         }
     
         public virtual int rmvAdm(string nome)
