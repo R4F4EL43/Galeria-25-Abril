@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cf01fee64eec4b1ebafe565cb4ed6337" Name="Diagram1">
+      <Diagram DiagramId="2a767b21f2044bb39ae43cef246f3baa" Name="Diagram1">
         <EntityTypeShape EntityType="AbrilModel.Aluno" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="AbrilModel.Ano" Width="1.5" PointX="1.5" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AbrilModel.Arte" Width="1.5" PointX="6" PointY="6.875" IsExpanded="true" />
@@ -12,8 +12,8 @@
         <EntityTypeShape EntityType="AbrilModel.Conta" Width="1.5" PointX="0.75" PointY="7" IsExpanded="true" />
         <EntityTypeShape EntityType="AbrilModel.FavArtes" Width="1.5" PointX="8.25" PointY="11" IsExpanded="true" />
         <EntityTypeShape EntityType="AbrilModel.Gosto" Width="1.5" PointX="11.25" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="AbrilModel.PedidosAdmin" Width="1.5" PointX="3" PointY="14.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="AbrilModel.sysdiagrams" Width="1.5" PointX="3.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbrilModel.PedidosAdmin" Width="1.5" PointX="3" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbrilModel.sysdiagrams" Width="1.5" PointX="3.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="AbrilModel.Tipo_de_Arte" Width="1.5" PointX="3.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AbrilModel.Turma" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
         <AssociationConnector Association="AbrilModel.FK_Aluno_Conta" ManuallyRouted="false" />
