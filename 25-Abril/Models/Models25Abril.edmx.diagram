@@ -4,21 +4,23 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="545eb76d04004cc08a21633a9ec75b47" Name="Diagram1">
-        <EntityTypeShape EntityType="AbrilModel.Aluno" Width="1.5" PointX="3" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="AbrilModel.Ano" Width="1.5" PointX="1.5" PointY="16.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AbrilModel.Arte" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="AbrilModel.Comentario" Width="1.5" PointX="6" PointY="6.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="AbrilModel.Conta" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="AbrilModel.FavArtes" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AbrilModel.Gosto" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="AbrilModel.PedidosAdmin" Width="1.5" PointX="3" PointY="10.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="AbrilModel.Tipo_de_Arte" Width="1.5" PointX="1.5" PointY="13.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AbrilModel.TipoPedido" Width="1.5" PointX="0.75" PointY="19.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AbrilModel.Turma" Width="1.5" PointX="0.75" PointY="10.5" IsExpanded="true" />
+      <Diagram DiagramId="5fbde11658324999a86184faf50e33ac" Name="Diagram1">
+        <EntityTypeShape EntityType="AbrilModel.Aluno" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbrilModel.Ano" Width="1.5" PointX="1.5" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbrilModel.Arte" Width="1.5" PointX="6" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbrilModel.Comentario" Width="1.5" PointX="8.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbrilModel.Conta" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbrilModel.FavArtes" Width="1.5" PointX="8.25" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbrilModel.Gosto" Width="1.5" PointX="11.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbrilModel.PedidosAdmin" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbrilModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbrilModel.Tipo_de_Arte" Width="1.5" PointX="3.75" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbrilModel.TipoPedido" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AbrilModel.Turma" Width="1.5" PointX="0.75" PointY="11.625" IsExpanded="true" />
         <AssociationConnector Association="AbrilModel.FK_Aluno_Conta" ManuallyRouted="false" />
         <AssociationConnector Association="AbrilModel.FK_Aluno_Turma" ManuallyRouted="false" />
         <AssociationConnector Association="AbrilModel.FK_Turma_Ano" ManuallyRouted="false" />
+        <AssociationConnector Association="AbrilModel.FK_Arte_Conta" ManuallyRouted="false" />
         <AssociationConnector Association="AbrilModel.FK_Arte_Tipo_de_Arte" ManuallyRouted="false" />
         <AssociationConnector Association="AbrilModel.FK_Comentario_Arte" ManuallyRouted="false" />
         <AssociationConnector Association="AbrilModel.FK_FavArtes_Arte" ManuallyRouted="false" />

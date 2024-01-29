@@ -14,7 +14,7 @@ namespace _25_Abril.Models
     public partial class getComentariosArte_Result
     {
         public int ID_Comentario { get; set; }
-        public string Comentario { get; set; }
+        public string ComentarioTexto { get; set; }
         public System.DateTime Data { get; set; }
         public bool Aceite { get; set; }
         public int Conta_ID { get; set; }

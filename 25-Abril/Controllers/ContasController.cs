@@ -185,11 +185,11 @@ namespace _25_Abril.Controllers
         public ActionResult Admin()
         {
             PedidoTipoPedido_ViewModel model = new PedidoTipoPedido_ViewModel();
-            if (BD.PedidosAdmins != null)
-                model.Pedidos = BD.PedidosAdmins.ToList();
+            if (BD.PedidosAdmin != null)
+                model.Pedidos = BD.PedidosAdmin.ToList();
 
-            if (BD.TipoPedidoes != null)
-                model.Tipos = BD.TipoPedidoes.ToList();
+            if (BD.PedidosAdmin != null)
+                model.Tipos = BD.TipoPedido.ToList();
 
 
             return View(model);
@@ -253,7 +253,7 @@ namespace _25_Abril.Controllers
             if (comentario == null)
                 return HttpNotFound();
 
-            //BD.rfvComentario(id);
+            BD.rfvComentario(id);
             BD.SaveChanges();
 
             Arte arte = BD.Arte.FirstOrDefault(s => s.ID_Arte == comentario.Arte_ID);

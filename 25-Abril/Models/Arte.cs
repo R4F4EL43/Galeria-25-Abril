@@ -30,6 +30,7 @@ namespace _25_Abril.Models
         public int Conta_ID { get; set; }
         public string Caminho { get; set; }
     
+        public virtual Conta Conta { get; set; }
         public virtual Tipo_de_Arte Tipo_de_Arte { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comentario> Comentario { get; set; }
