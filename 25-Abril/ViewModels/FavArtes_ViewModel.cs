@@ -9,7 +9,7 @@ namespace _25_Abril.ViewModels
 {
     public class FavArtes_ViewModel
     {
-        public FavArte FavArte { get; set; }
+        public FavArtes FavArte { get; set; }
         public List<Arte> Artes { get; set; }
     }
 }

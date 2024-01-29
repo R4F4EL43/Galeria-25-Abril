@@ -1,4 +1,4 @@
-﻿@model List<_25_Abril.Models.FavArte>
+﻿@model List<_25_Abril.Models.FavArtes>
 
 @{
     ViewBag.Title = "Home Page";
@@ -13,7 +13,7 @@
 
         @if (Model != null)
         {
-            foreach (_25_Abril.Models.FavArte favArte in Model)
+            foreach (_25_Abril.Models.FavArtes favArte in Model)
             {
                 <div class="ArtProject">
                     <img src=@favArte.Arte.Caminho alt="" style="max-height:280px">

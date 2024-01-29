@@ -213,6 +213,15 @@
     <Compile Include="Models\PedidosAdmin.cs">
       <DependentUpon>Models25Abril.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>Models25Abril.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>Models25Abril.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagrams.cs">
+      <DependentUpon>Models25Abril.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TipoPedido.cs">
       <DependentUpon>Models25Abril.tt</DependentUpon>
     </Compile>

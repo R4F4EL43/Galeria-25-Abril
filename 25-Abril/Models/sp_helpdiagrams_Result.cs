@@ -10,18 +10,13 @@
 namespace _25_Abril.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Comentario
+    public partial class sp_helpdiagrams_Result
     {
-        public int ID_Comentario { get; set; }
-        public string ComentarioTexto { get; set; }
-        public System.DateTime Data { get; set; }
-        public bool Aceite { get; set; }
-        public int Conta_ID { get; set; }
-        public int Arte_ID { get; set; }
-    
-        public virtual Arte Arte { get; set; }
-        public virtual Conta Conta { get; set; }
+        public string Database { get; set; }
+        public string Name { get; set; }
+        public int ID { get; set; }
+        public string Owner { get; set; }
+        public int OwnerID { get; set; }
     }
 }

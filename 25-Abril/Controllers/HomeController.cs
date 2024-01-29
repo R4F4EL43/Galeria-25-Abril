@@ -14,10 +14,10 @@ namespace _25_Abril.Controllers
 
         public ActionResult Index()
         {
-            List<FavArte> favArtes = new List<FavArte>();
+            List<FavArtes> favArtes = new List<FavArtes>();
             if(BD.FavArtes != null)
             {
-                foreach (FavArte fav in BD.FavArtes.ToList())
+                foreach (FavArtes fav in BD.FavArtes.ToList())
                 {
                     if (BD.Arte.FirstOrDefault(s => s.ID_Arte == fav.Arte_ID) != null && BD.Conta.FirstOrDefault(s => s.ID_Conta == fav.Arte.Conta.ID_Conta) != null)
                     {
