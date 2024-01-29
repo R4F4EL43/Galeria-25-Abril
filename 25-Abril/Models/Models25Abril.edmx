@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AbrilModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AbrilModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Aluno">
           <Key>
             <PropertyRef Name="ID_Aluno" />
@@ -136,18 +136,6 @@
             </Principal>
             <Dependent Role="Aluno">
               <PropertyRef Name="Turma_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Arte_Conta">
-          <End Role="Conta" Type="Self.Conta" Multiplicity="1" />
-          <End Role="Arte" Type="Self.Arte" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Conta">
-              <PropertyRef Name="ID_Conta" />
-            </Principal>
-            <Dependent Role="Arte">
-              <PropertyRef Name="Conta_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -413,6 +401,7 @@
         <Function Name="stAdm" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="nome" Type="varchar" Mode="In" />
         </Function>
+        
         <Function Name="updAluno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="conta" Type="int" Mode="In" />
           <Parameter Name="NEWconta" Type="int" Mode="In" />
@@ -472,10 +461,6 @@
             <End Role="Turma" EntitySet="Turma" />
             <End Role="Aluno" EntitySet="Aluno" />
           </AssociationSet>
-          <AssociationSet Name="FK_Arte_Conta" Association="Self.FK_Arte_Conta">
-            <End Role="Conta" EntitySet="Conta" />
-            <End Role="Arte" EntitySet="Arte" />
-          </AssociationSet>
           <AssociationSet Name="FK_Arte_Tipo de Arte" Association="Self.FK_Arte_Tipo de Arte">
             <End Role="Tipo de Arte" EntitySet="Tipo de Arte" />
             <End Role="Arte" EntitySet="Arte" />
@@ -513,8 +498,7 @@
             <End Role="Turma" EntitySet="Turma" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AbrilModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -858,10 +842,10 @@
             <End Role="PedidosAdmin" EntitySet="PedidosAdmin" />
           </AssociationSet>
           <FunctionImport Name="acptArte" ReturnType="Collection(Boolean)">
-            <Parameter Name="nome" Mode="In" Type="String" />
+          <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="acptComentario">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="addAluno">
             <Parameter Name="conta" Mode="In" Type="Int32" />
@@ -869,7 +853,7 @@
             <Parameter Name="numero" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="addAno">
-            <Parameter Name="ano" Mode="In" Type="Int32" />
+          <Parameter Name="ano" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="addArte">
             <Parameter Name="nome" Mode="In" Type="String" />
@@ -896,20 +880,20 @@
             <Parameter Name="data" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="addTipoArte">
-            <Parameter Name="tipo" Mode="In" Type="String" />
+          <Parameter Name="tipo" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="addTurma">
             <Parameter Name="nome" Mode="In" Type="String" />
             <Parameter Name="ano" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="delAluno">
-            <Parameter Name="conta" Mode="In" Type="Int32" />
+          <Parameter Name="conta" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="delAno">
-            <Parameter Name="ano" Mode="In" Type="Int32" />
+          <Parameter Name="ano" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="delArte">
-            <Parameter Name="nome" Mode="In" Type="String" />
+          <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="delComentario">
             <Parameter Name="comentario" Mode="In" Type="String" />
@@ -918,64 +902,64 @@
             <Parameter Name="arte" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="delConta">
-            <Parameter Name="nome" Mode="In" Type="String" />
+          <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="delGosto">
             <Parameter Name="conta" Mode="In" Type="Int32" />
             <Parameter Name="arte" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="delTipoArte">
-            <Parameter Name="tipo" Mode="In" Type="String" />
+          <Parameter Name="tipo" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="delTurma">
-            <Parameter Name="nome" Mode="In" Type="String" />
+          <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="getAlunos" ReturnType="Collection(AbrilModel.getAlunos_Result)">
-            <Parameter Name="turma" Mode="In" Type="String" />
+          <Parameter Name="turma" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="getArtes" ReturnType="Collection(AbrilModel.getArtes_Result)">
-            <Parameter Name="nome" Mode="In" Type="String" />
+          <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="getArtesTipo" ReturnType="Collection(AbrilModel.getArtesTipo_Result)">
-            <Parameter Name="tipo" Mode="In" Type="String" />
+          <Parameter Name="tipo" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="getComentarios" ReturnType="Collection(AbrilModel.getComentarios_Result)">
-            <Parameter Name="nome" Mode="In" Type="String" />
+          <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="getComentariosArte" ReturnType="Collection(AbrilModel.getComentariosArte_Result)">
-            <Parameter Name="nome" Mode="In" Type="String" />
+          <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="getConta" ReturnType="Collection(AbrilModel.getConta_Result)">
-            <Parameter Name="conta" Mode="In" Type="Int32" />
+          <Parameter Name="conta" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="getContaAlunos" ReturnType="Collection(AbrilModel.getContaAlunos_Result)">
-            <Parameter Name="turma" Mode="In" Type="String" />
+          <Parameter Name="turma" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="getGostos" ReturnType="Collection(AbrilModel.getGostos_Result)">
-            <Parameter Name="nome" Mode="In" Type="String" />
+          <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="getGostosArte" ReturnType="Collection(AbrilModel.getGostosArte_Result)">
-            <Parameter Name="nome" Mode="In" Type="String" />
+          <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="getOrderComentarios" ReturnType="Collection(AbrilModel.getOrderComentarios_Result)">
-            <Parameter Name="nome" Mode="In" Type="String" />
+          <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="getRfvArtes" ReturnType="Collection(AbrilModel.getRfvArtes_Result)" />
           <FunctionImport Name="getRvfComentarios" ReturnType="Collection(AbrilModel.getRvfComentarios_Result)">
-            <Parameter Name="nome" Mode="In" Type="String" />
+          <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="getTipoArtes" ReturnType="Collection(String)" />
           <FunctionImport Name="getTurmas" ReturnType="Collection(AbrilModel.getTurmas_Result)">
-            <Parameter Name="ano" Mode="In" Type="Int32" />
+          <Parameter Name="ano" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="rfvArte" ReturnType="Collection(Boolean)">
-            <Parameter Name="nome" Mode="In" Type="String" />
+          <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="rfvComentario">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="rmvAdm">
-            <Parameter Name="nome" Mode="In" Type="String" />
+          <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
@@ -1008,7 +992,7 @@
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
           <FunctionImport Name="stAdm">
-            <Parameter Name="nome" Mode="In" Type="String" />
+          <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="updAluno">
             <Parameter Name="conta" Mode="In" Type="Int32" />

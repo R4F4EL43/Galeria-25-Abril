@@ -534,7 +534,20 @@ namespace _25_Abril.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("stAdm", nomeParameter);
         }
-    
+
+        //public virtual int stImage(string conta, string image)
+        //{
+        //    var contaParameter = conta != null ?
+        //        new ObjectParameter("conta", conta) :
+        //        new ObjectParameter("conta", typeof(string));
+
+        //    var imageParameter = image != null ?
+        //        new ObjectParameter("image", conta) :
+        //        new ObjectParameter("image", typeof(string));
+
+        //    return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("stImage", contaParameter, imageParameter);
+        //}
+
         public virtual int updAluno(Nullable<int> conta, Nullable<int> nEWconta, Nullable<int> turma)
         {
             var contaParameter = conta.HasValue ?
