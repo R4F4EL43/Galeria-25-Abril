@@ -341,7 +341,7 @@ namespace _25_Abril.Controllers
             return RedirectToAction("Details", "Contas", new { nome = Session["User"] });
         }
 
-        public ActionResult UpLoadArte(HttpPostedFileBase ficheiro, string nome)
+        public ActionResult UploadFoto(HttpPostedFileBase ficheiro, string nome)
         {
             if (ficheiro != null && ficheiro.ContentLength > 0 && nome != null)
             {
@@ -349,7 +349,7 @@ namespace _25_Abril.Controllers
 
                 string data = DateTime.Today.Day.ToString() + DateTime.Today.Month.ToString() + DateTime.Today.Year.ToString();
                 string hora = DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString();
-                string fichName = data + hora + "-" + conta.Nome + "Image." + ficheiro.FileName.Split('.')[1];
+                string fichName = data + hora + "-" + conta.Nome + "Image." + ficheiro.FileName.Trim().Split('.')[1];
 
                 string projectFolder = Server.MapPath("~/Imagens/Users/");
                 string filePath = Path.Combine(projectFolder, fichName);                
@@ -358,9 +358,75 @@ namespace _25_Abril.Controllers
 
                 if (conta != null)
                 {
-                    //BD.stImage(conta.Nome, "./Galeria-25-Abril/25-Abril/Imagens/Projetos/" + ficheiro.FileName);
+                    BD.stImage(conta.Nome, "/Imagens/Users/" + fichName);
+                    Session["UserImage"] = conta.Image;
                     ficheiro.SaveAs(filePath);
                 }                
+            }
+            return RedirectToAction("Details", "Contas", new { nome = Session["User"] });
+        }
+
+        public ActionResult UploadArte()
+        {
+            Arte arte = new Arte();
+
+            List<string> listTipos = new List<string>();
+            foreach (Tipo_de_Arte tipoArte in BD.Tipo_de_Arte)
+            {
+                listTipos.Add(tipoArte.Tipo_Arte);
+            }
+            IEnumerable<string> tipos = listTipos;
+
+            Tipo_de_Arte tipo = new Tipo_de_Arte();
+
+            ArteTiposArte_ViewModel model = new ArteTiposArte_ViewModel();
+            model.Arte = arte;
+            model.Tipos = tipos;
+            model.Tipo = tipo;
+
+            return View(model);
+        }
+
+        public ActionResult AddArte(HttpPostedFileBase ficheiro, string nome, string Nome_Arte, string Descricao, string Tipo_de_Arte)
+        {
+            if(nome == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            if (Nome_Arte == null || Descricao == null || Tipo_de_Arte == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Conta conta = BD.Conta.FirstOrDefault(s => s.Nome == nome);
+            if (conta == null)
+                return HttpNotFound();
+
+            Arte arte = BD.Arte.FirstOrDefault(s => s.Nome_Arte == Nome_Arte && s.Conta_ID == conta.ID_Conta);
+            if(arte != null)
+                return RedirectToAction("Details", "Contas", new { nome = Session["User"] });
+            
+
+
+
+            if (ficheiro != null && ficheiro.ContentLength > 0)
+            {
+
+                string data = DateTime.Today.Day.ToString() + DateTime.Today.Month.ToString() + DateTime.Today.Year.ToString();
+                string hora = DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString();
+                string fichName = data + hora + "-" + conta.Nome + "Arte." + ficheiro.FileName.Trim().Split('.')[1];
+
+                string projectFolder = Server.MapPath("~/Imagens/Projetos/");
+                string filePath = Path.Combine(projectFolder, fichName);
+
+
+
+                if (conta != null)
+                {
+                    if((BD.addArte(Nome_Arte, Descricao, conta.Nome, Tipo_de_Arte, "/Imagens/Projetos/" + fichName)) > 0)
+                    {
+                        BD.SaveChanges();
+                        ficheiro.SaveAs(filePath);
+                    }
+                    
+                }
             }
             return RedirectToAction("Details", "Contas", new { nome = Session["User"] });
         }

@@ -231,6 +231,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ArteComentarios_ViewModel.cs" />
     <Compile Include="ViewModels\ArtesTipoArte_ViewModel.cs" />
+    <Compile Include="ViewModels\ArteTipoArte_ViewModel.cs" />
     <Compile Include="ViewModels\ContaArte_ViewModel.cs" />
     <Compile Include="ViewModels\FavArtes_ViewModel.cs" />
   </ItemGroup>
@@ -310,6 +311,7 @@
     <Content Include="Views\Contas\Admin.cshtml" />
     <Content Include="Views\Contas\Comentarios.cshtml" />
     <Content Include="Views\Contas\TiposArte.cshtml" />
+    <Content Include="Views\Contas\UploadArte.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

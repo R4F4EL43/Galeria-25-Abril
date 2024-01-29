@@ -46,15 +46,12 @@
     </div>
 
     <div class="DivMain">
-        @using (Html.BeginForm("UpLoadArte", "Contas", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-        <img src="@Model.Conta.Image" />
-        <input type="file" id="ficheiro" name="ficheiro" />
-        <input type="hidden" value="@Model.Conta.Nome" id="nome" name="nome" />
-        <input type="submit" value="UpLoadArte" />
-        }
+        <a href="@Url.Action("UploadArte", "Contas", FormMethod.Post)">
+            <span>&#8593; Upload</span>
+        </a>
+        
 
-        <span>&#8593; Upload</span>
+        
 
         @foreach (_25_Abril.Models.Arte arte in Model.Artes)
         {

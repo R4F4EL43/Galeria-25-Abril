@@ -20,15 +20,25 @@
 <body class="Background">
 
     <div class="DivMain">
+        @using (Html.BeginForm("UpLoadFoto", "Contas", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+        <img src="@Model.Image" />
+        <input type="file" id="ficheiro" name="ficheiro" />
+        <input type="hidden" value="@Model.Nome" id="nome" name="nome" />
+        <input type="submit" value="UpLoadFoto" />
+        }
 
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
             <hr />
-            @Html.ValidationSummary(true, "")
-            @Html.HiddenFor(model => model.ID_Conta)
 
-            
+
+
+            <input type="text" id="Nome" name="Nome" />
+            <input type="text" id="Email" name="Email" />
+            <input type="text" id="Password" name="Password" />
+
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Nome)
