@@ -18,28 +18,25 @@ namespace _25_Abril.Models
         public Conta()
         {
             this.Aluno = new HashSet<Aluno>();
-            this.Arte = new HashSet<Arte>();
             this.Comentario = new HashSet<Comentario>();
             this.Gosto = new HashSet<Gosto>();
-            this.PedidosAdmins = new HashSet<PedidosAdmin>();
+            this.PedidosAdmin = new HashSet<PedidosAdmin>();
         }
     
         public int ID_Conta { get; set; }
         public string Nome { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public bool IsAdmin { get; set; }
         public string Image { get; set; }
+        public bool IsAdmin { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Aluno> Aluno { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Arte> Arte { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comentario> Comentario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gosto> Gosto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PedidosAdmin> PedidosAdmins { get; set; }
+        public virtual ICollection<PedidosAdmin> PedidosAdmin { get; set; }
     }
 }

@@ -15,10 +15,10 @@ namespace _25_Abril.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class Entities25Abril : DbContext
+    public partial class Entities : DbContext
     {
-        public Entities25Abril()
-            : base("name=Entities25Abril")
+        public Entities()
+            : base("name=Entities")
         {
         }
     
@@ -32,13 +32,12 @@ namespace _25_Abril.Models
         public virtual DbSet<Arte> Arte { get; set; }
         public virtual DbSet<Comentario> Comentario { get; set; }
         public virtual DbSet<Conta> Conta { get; set; }
+        public virtual DbSet<FavArtes> FavArtes { get; set; }
         public virtual DbSet<Gosto> Gosto { get; set; }
+        public virtual DbSet<PedidosAdmin> PedidosAdmin { get; set; }
         public virtual DbSet<Tipo_de_Arte> Tipo_de_Arte { get; set; }
+        public virtual DbSet<TipoPedido> TipoPedido { get; set; }
         public virtual DbSet<Turma> Turma { get; set; }
-        public virtual DbSet<FavArte> FavArtes { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<PedidosAdmin> PedidosAdmins { get; set; }
-        public virtual DbSet<TipoPedido> TipoPedidoes { get; set; }
     
         public virtual ObjectResult<Nullable<bool>> acptArte(string nome)
         {
@@ -47,6 +46,15 @@ namespace _25_Abril.Models
                 new ObjectParameter("nome", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<bool>>("acptArte", nomeParameter);
+        }
+    
+        public virtual int acptComentario(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("acptComentario", idParameter);
         }
     
         public virtual int addAluno(Nullable<int> conta, Nullable<int> turma, string numero)
@@ -387,13 +395,22 @@ namespace _25_Abril.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getTurmas_Result>("getTurmas", anoParameter);
         }
     
-        public virtual int rfvArte(string nome)
+        public virtual ObjectResult<Nullable<bool>> rfvArte(string nome)
         {
             var nomeParameter = nome != null ?
                 new ObjectParameter("nome", nome) :
                 new ObjectParameter("nome", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("rfvArte", nomeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<bool>>("rfvArte", nomeParameter);
+        }
+    
+        public virtual int rfvComentario(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("rfvComentario", idParameter);
         }
     
         public virtual int rmvAdm(string nome)
@@ -467,6 +484,31 @@ namespace _25_Abril.Models
                 new ObjectParameter("tipo", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("updArte", nomeParameter, newNomeParameter, descricaoParameter, contaParameter, tipoParameter);
+        }
+    
+        public virtual int updComentario(string comentario, string nEWcomentario, Nullable<System.DateTime> data, Nullable<int> conta, Nullable<int> arte)
+        {
+            var comentarioParameter = comentario != null ?
+                new ObjectParameter("comentario", comentario) :
+                new ObjectParameter("comentario", typeof(string));
+    
+            var nEWcomentarioParameter = nEWcomentario != null ?
+                new ObjectParameter("NEWcomentario", nEWcomentario) :
+                new ObjectParameter("NEWcomentario", typeof(string));
+    
+            var dataParameter = data.HasValue ?
+                new ObjectParameter("data", data) :
+                new ObjectParameter("data", typeof(System.DateTime));
+    
+            var contaParameter = conta.HasValue ?
+                new ObjectParameter("conta", conta) :
+                new ObjectParameter("conta", typeof(int));
+    
+            var arteParameter = arte.HasValue ?
+                new ObjectParameter("arte", arte) :
+                new ObjectParameter("arte", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("updComentario", comentarioParameter, nEWcomentarioParameter, dataParameter, contaParameter, arteParameter);
         }
     
         public virtual int updConta(string nome, string newNome, string email, string password)

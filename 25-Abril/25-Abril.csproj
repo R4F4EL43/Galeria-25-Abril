@@ -150,7 +150,7 @@
     <Compile Include="Models\Conta.cs">
       <DependentUpon>Models25Abril.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\FavArte.cs">
+    <Compile Include="Models\FavArtes.cs">
       <DependentUpon>Models25Abril.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\getAlunos_Result.cs">
@@ -211,9 +211,6 @@
       <DependentUpon>Models25Abril.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\PedidosAdmin.cs">
-      <DependentUpon>Models25Abril.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>Models25Abril.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TipoPedido.cs">

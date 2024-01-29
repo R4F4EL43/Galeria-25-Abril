@@ -17,13 +17,13 @@ namespace _25_Abril.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TipoPedido()
         {
-            this.PedidosAdmins = new HashSet<PedidosAdmin>();
+            this.PedidosAdmin = new HashSet<PedidosAdmin>();
         }
     
         public int ID_TipoPedido { get; set; }
         public string TipoDePedido { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PedidosAdmin> PedidosAdmins { get; set; }
+        public virtual ICollection<PedidosAdmin> PedidosAdmin { get; set; }
     }
 }

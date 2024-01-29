@@ -18,8 +18,8 @@ namespace _25_Abril.Models
         public Arte()
         {
             this.Comentario = new HashSet<Comentario>();
+            this.FavArtes = new HashSet<FavArtes>();
             this.Gosto = new HashSet<Gosto>();
-            this.FavArtes = new HashSet<FavArte>();
         }
     
         public int ID_Arte { get; set; }
@@ -30,13 +30,12 @@ namespace _25_Abril.Models
         public int Conta_ID { get; set; }
         public string Caminho { get; set; }
     
-        public virtual Conta Conta { get; set; }
         public virtual Tipo_de_Arte Tipo_de_Arte { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comentario> Comentario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Gosto> Gosto { get; set; }
+        public virtual ICollection<FavArtes> FavArtes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FavArte> FavArtes { get; set; }
+        public virtual ICollection<Gosto> Gosto { get; set; }
     }
 }
