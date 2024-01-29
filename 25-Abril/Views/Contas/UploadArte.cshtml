@@ -36,8 +36,8 @@
 
                 <div>
                     @Html.LabelFor(model => model.Tipo.Tipo_Arte, htmlAttributes: new { @class = "Labels" })
-                    <div>
-                        <select id="Tipo_de_Arte" name="Tipo_de_Arte">
+                    <div style="width:100%;">
+                        <select id="Tipo_de_Arte" name="Tipo_de_Arte" style="margin-left:15px; font-size:20px;">
                             <option value="">Selecione um tipo</option>
                             @foreach (var tipo in Model.Tipos)
                             {

@@ -167,6 +167,8 @@ namespace _25_Abril.Controllers
                 {
                     Session["User"] = conta.Nome;
                     Session["UserImage"] = conta.Image;
+                    if (conta.IsAdmin)
+                        return RedirectToAction("Admin", "Contas");
                     return RedirectToAction("Details", new { nome = conta.Nome });
                 }
             }
@@ -183,14 +185,38 @@ namespace _25_Abril.Controllers
         }
 
 
-        public ActionResult Admin()
+        public ActionResult Admin(string tipo)
         {
-            List<PedidosAdmin> pedidos = new List<PedidosAdmin>();
-            if (BD.PedidosAdmin != null)
-                pedidos = BD.PedidosAdmin.ToList();
+            Admin_ViewModel model = new Admin_ViewModel();
+
+            List<Arte> artes = new List<Arte>();
+            if (BD.Arte != null)
+                artes = BD.Arte.ToList();
+            model.Artes = artes;
 
 
-            return View(pedidos);
+            List<Tipo_de_Arte> tipos = new List<Tipo_de_Arte>();
+            if (BD.Tipo_de_Arte != null)
+                tipos = BD.Tipo_de_Arte.ToList();
+            model.Tipos = tipos;
+
+
+            List<Conta> contas = new List<Conta>();
+            if (BD.Conta != null)
+                contas = BD.Conta.ToList();
+            model.Contas = contas;
+
+            List<FavArtes> favArtes = new List<FavArtes>();
+            if (BD.FavArtes != null)
+                favArtes = BD.FavArtes.ToList();
+            model.Contas = favArtes;
+
+            if (tipo == null)
+                tipo = "arte";
+            model.tipo = tipo;
+
+
+            return View(model);
         }
 
         public ActionResult Comentarios(string nome)
@@ -276,7 +302,7 @@ namespace _25_Abril.Controllers
 
         public ActionResult RefuseArt(string nome)
         {
-            if(nome == null)
+            if (nome == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             Arte arte = BD.Arte.FirstOrDefault(s => s.Nome_Arte == nome);
@@ -300,13 +326,13 @@ namespace _25_Abril.Controllers
 
         public ActionResult CreateTipo(string tipo)
         {
-            if(tipo == null)
+            if (tipo == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             BD.addTipoArte(tipo);
             BD.SaveChanges();
 
-            return RedirectToAction("TiposArte", "Contas");
+            return RedirectToAction("Admin", "Contas", new { tipo = "tipos" });
         }
 
         public ActionResult DelTipo(string tipo)
@@ -315,17 +341,17 @@ namespace _25_Abril.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             Tipo_de_Arte tipoArte = BD.Tipo_de_Arte.FirstOrDefault(s => s.Tipo_Arte == tipo);
-            if(BD.Arte.FirstOrDefault(s => s.TipoArte_ID == tipoArte.ID_Tipo) == null)
+            if (BD.Arte.FirstOrDefault(s => s.TipoArte_ID == tipoArte.ID_Tipo) == null)
             {
                 BD.delTipoArte(tipo);
                 BD.SaveChanges();
             }
-            
 
-            return RedirectToAction("TiposArte", "Contas");
+
+            return RedirectToAction("Admin", "Contas", new { tipo = "tipos" });
         }
 
-        public ActionResult DelArte (string nome)
+        public ActionResult DelArte(string nome)
         {
             if (nome == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -352,16 +378,16 @@ namespace _25_Abril.Controllers
                 string fichName = data + hora + "-" + conta.Nome + "Image." + ficheiro.FileName.Trim().Split('.')[1];
 
                 string projectFolder = Server.MapPath("~/Imagens/Users/");
-                string filePath = Path.Combine(projectFolder, fichName);                
+                string filePath = Path.Combine(projectFolder, fichName);
 
-                
+
 
                 if (conta != null)
                 {
                     BD.stImage(conta.Nome, "/Imagens/Users/" + fichName);
                     Session["UserImage"] = conta.Image;
                     ficheiro.SaveAs(filePath);
-                }                
+                }
             }
             return RedirectToAction("Details", "Contas", new { nome = Session["User"] });
         }
@@ -389,7 +415,7 @@ namespace _25_Abril.Controllers
 
         public ActionResult AddArte(HttpPostedFileBase ficheiro, string nome, string Nome_Arte, string Descricao, string Tipo_de_Arte)
         {
-            if(nome == null)
+            if (nome == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             if (Nome_Arte == null || Descricao == null || Tipo_de_Arte == null)
@@ -400,9 +426,9 @@ namespace _25_Abril.Controllers
                 return HttpNotFound();
 
             Arte arte = BD.Arte.FirstOrDefault(s => s.Nome_Arte == Nome_Arte && s.Conta_ID == conta.ID_Conta);
-            if(arte != null)
+            if (arte != null)
                 return RedirectToAction("Details", "Contas", new { nome = Session["User"] });
-            
+
 
 
 
@@ -420,15 +446,46 @@ namespace _25_Abril.Controllers
 
                 if (conta != null)
                 {
-                    if((BD.addArte(Nome_Arte, Descricao, conta.Nome, Tipo_de_Arte, "/Imagens/Projetos/" + fichName)) > 0)
+                    if ((BD.addArte(Nome_Arte, Descricao, conta.Nome, Tipo_de_Arte, "/Imagens/Projetos/" + fichName)) > 0)
                     {
                         BD.SaveChanges();
                         ficheiro.SaveAs(filePath);
                     }
-                    
+
                 }
             }
             return RedirectToAction("Details", "Contas", new { nome = Session["User"] });
+        }
+
+        public ActionResult DelConta(string nome)
+        {
+            if (nome == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Conta conta = BD.Conta.FirstOrDefault(s => s.Nome == nome);
+            if (conta == null)
+                return HttpNotFound();
+
+            if(conta.Nome != "Anonimo")
+            {
+                BD.delConta(nome);
+                BD.SaveChanges();
+            }
+            
+            return RedirectToAction("Details", "Contas", new { nome = Session["User"] });
+        }
+
+        public ActionResult CreateDestaque(string nome)
+        {
+            if(nome == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Arte arte = BD.Arte.FirstOrDefault(s => s.Nome_Arte == nome);
+            if (arte == null)
+                return HttpNotFound();
+
+
+
         }
 
 
