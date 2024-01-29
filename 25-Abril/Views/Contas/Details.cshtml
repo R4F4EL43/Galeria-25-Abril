@@ -46,6 +46,15 @@
     </div>
 
     <div class="DivMain">
+        @using (Html.BeginForm("UpLoadArte", "Contas", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+        <img src="@Model.Conta.Image" />
+        <input type="file" id="ficheiro" name="ficheiro" />
+        <input type="hidden" value="@Model.Conta.Nome" id="nome" name="nome" />
+        <input type="submit" value="UpLoadArte" />
+        }
+
+        <span>&#8593; Upload</span>
 
         @foreach (_25_Abril.Models.Arte arte in Model.Artes)
         {
@@ -60,15 +69,12 @@
                         @arte.Descricao
                     </div>
                     <div style="display : flex">
-                        <a href="@Url.Action("Comentarios", "Contas", new { nome = @arte.Nome_Arte })">
+                        @*<a href="@Url.Action("Comentarios", "Contas", new { nome = @arte.Nome_Arte })">
                             <span> Comentarios </span>
+                        </a>*@
+                        <a href="@Url.Action("DelArte", "Contas", new { nome = @arte.Nome_Arte })">
+                            <span>&#128465;</span>
                         </a>
-                        <!--<a>
-                            <span> Comentarios </span>
-                        </a>-->
-                        @*<a href="@Html.Action("Comentarios", "Contas", new { nome = @arte.Nome_Arte })">
-
-        </a>*@
 
                     </div>
 

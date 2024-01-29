@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.Remoting.Messaging;
@@ -236,7 +237,7 @@ namespace _25_Abril.Controllers
             if (comentario == null)
                 return HttpNotFound();
 
-            //BD.acptComentario(id);
+            BD.acptComentario(id);
             BD.SaveChanges();
 
             Arte arte = new Arte();
@@ -327,6 +328,45 @@ namespace _25_Abril.Controllers
             return RedirectToAction("TiposArte", "Contas");
         }
 
-        
+        public ActionResult DelArte (string nome)
+        {
+            if (nome == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Arte arte = BD.Arte.FirstOrDefault(s => s.Nome_Arte == nome);
+            if (arte == null)
+                return HttpNotFound();
+
+            BD.delArte(arte.Nome_Arte);
+            BD.SaveChanges();
+
+
+            return RedirectToAction("Details", "Contas", new { nome = Session["User"] });
+        }
+
+        public ActionResult UpLoadArte(HttpPostedFileBase ficheiro, string nome)
+        {
+            if (ficheiro != null && ficheiro.ContentLength > 0 && nome != null)
+            {
+                Conta conta = BD.Conta.FirstOrDefault(s => s.Nome == nome);
+
+                string data = DateTime.Today.Day.ToString() + DateTime.Today.Month.ToString() + DateTime.Today.Year.ToString();
+                string fichName = data + "-" + conta.Nome + "Image." + ficheiro.FileName.Split('.')[1];
+
+                string projectFolder = Server.MapPath("~/Imagens/Users/");
+                string filePath = Path.Combine(projectFolder, fichName);                
+
+                
+
+                if (conta != null)
+                {
+                    //BD.stImage(conta.Nome, "./Galeria-25-Abril/25-Abril/Imagens/Projetos/" + ficheiro.FileName);
+                    ficheiro.SaveAs(filePath);
+                }                
+            }
+            return RedirectToAction("Details", "Contas", new { nome = Session["User"] });
+        }
+
+
     }
 }
