@@ -274,6 +274,9 @@
           <Parameter Name="password" Type="varchar" Mode="In" />
           <Parameter Name="admin" Type="bit" Mode="In" />
         </Function>
+        <Function Name="addFav" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nome" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="addGosto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="conta" Type="int" Mode="In" />
           <Parameter Name="arte" Type="int" Mode="In" />
@@ -307,6 +310,9 @@
           <Parameter Name="arte" Type="int" Mode="In" />
         </Function>
         <Function Name="delConta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nome" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="delFav" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="nome" Type="varchar" Mode="In" />
         </Function>
         <Function Name="delGosto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -854,6 +860,9 @@
             <Parameter Name="password" Mode="In" Type="String" />
             <Parameter Name="admin" Mode="In" Type="Boolean" />
           </FunctionImport>
+          <FunctionImport Name="addFav">
+            <Parameter Name="nome" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="addGosto">
             <Parameter Name="conta" Mode="In" Type="Int32" />
             <Parameter Name="arte" Mode="In" Type="Int32" />
@@ -887,6 +896,9 @@
             <Parameter Name="arte" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="delConta">
+            <Parameter Name="nome" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="delFav">
             <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="delGosto">
@@ -1260,6 +1272,7 @@
           <FunctionImportMapping FunctionImportName="addArte" FunctionName="AbrilModel.Store.addArte" />
           <FunctionImportMapping FunctionImportName="addComentario" FunctionName="AbrilModel.Store.addComentario" />
           <FunctionImportMapping FunctionImportName="addConta" FunctionName="AbrilModel.Store.addConta" />
+          <FunctionImportMapping FunctionImportName="addFav" FunctionName="AbrilModel.Store.addFav" />
           <FunctionImportMapping FunctionImportName="addGosto" FunctionName="AbrilModel.Store.addGosto" />
           <FunctionImportMapping FunctionImportName="addPedido" FunctionName="AbrilModel.Store.addPedido" />
           <FunctionImportMapping FunctionImportName="addTipoArte" FunctionName="AbrilModel.Store.addTipoArte" />
@@ -1269,6 +1282,7 @@
           <FunctionImportMapping FunctionImportName="delArte" FunctionName="AbrilModel.Store.delArte" />
           <FunctionImportMapping FunctionImportName="delComentario" FunctionName="AbrilModel.Store.delComentario" />
           <FunctionImportMapping FunctionImportName="delConta" FunctionName="AbrilModel.Store.delConta" />
+          <FunctionImportMapping FunctionImportName="delFav" FunctionName="AbrilModel.Store.delFav" />
           <FunctionImportMapping FunctionImportName="delGosto" FunctionName="AbrilModel.Store.delGosto" />
           <FunctionImportMapping FunctionImportName="delTipoArte" FunctionName="AbrilModel.Store.delTipoArte" />
           <FunctionImportMapping FunctionImportName="delTurma" FunctionName="AbrilModel.Store.delTurma" />
