@@ -19,5 +19,6 @@ namespace _25_Abril.Models
         public bool Aceite { get; set; }
         public int TipoArte_ID { get; set; }
         public int Conta_ID { get; set; }
+        public string Caminho { get; set; }
     }
 }

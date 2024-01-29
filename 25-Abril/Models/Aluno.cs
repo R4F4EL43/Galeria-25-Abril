@@ -15,9 +15,9 @@ namespace _25_Abril.Models
     public partial class Aluno
     {
         public int ID_Aluno { get; set; }
+        public string Numero { get; set; }
         public int Turma_ID { get; set; }
         public int Conta_ID { get; set; }
-        public string Numero { get; set; }
     
         public virtual Conta Conta { get; set; }
         public virtual Turma Turma { get; set; }

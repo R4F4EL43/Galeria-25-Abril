@@ -12,7 +12,7 @@ namespace _25_Abril.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class FavArte
+    public partial class FavArtes
     {
         public int ID { get; set; }
         public int Arte_ID { get; set; }
