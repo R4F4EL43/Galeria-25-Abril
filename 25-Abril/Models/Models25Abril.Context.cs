@@ -159,6 +159,15 @@ namespace _25_Abril.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("addConta", nomeParameter, emailParameter, passwordParameter, adminParameter);
         }
     
+        public virtual int addFav(string nome)
+        {
+            var nomeParameter = nome != null ?
+                new ObjectParameter("nome", nome) :
+                new ObjectParameter("nome", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("addFav", nomeParameter);
+        }
+    
         public virtual int addGosto(Nullable<int> conta, Nullable<int> arte, Nullable<System.DateTime> data)
         {
             var contaParameter = conta.HasValue ?
@@ -270,6 +279,15 @@ namespace _25_Abril.Models
                 new ObjectParameter("nome", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("delConta", nomeParameter);
+        }
+    
+        public virtual int delFav(string nome)
+        {
+            var nomeParameter = nome != null ?
+                new ObjectParameter("nome", nome) :
+                new ObjectParameter("nome", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("delFav", nomeParameter);
         }
     
         public virtual int delGosto(Nullable<int> conta, Nullable<int> arte)
