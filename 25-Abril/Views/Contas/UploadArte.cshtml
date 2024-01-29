@@ -1,0 +1,59 @@
+﻿@model _25_Abril.ViewModels.ArteTiposArte_ViewModel
+
+@{
+    Layout = null;
+}
+
+@Html.AntiForgeryToken()
+
+<head>
+
+    @Styles.Render("~/Content/Login")
+</head>
+
+<body class="Background">
+    <div class="main">
+        <div class="login">
+            @using (Html.BeginForm("AddArte", "Contas", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <input type="file" id="ficheiro" name="ficheiro" style="background: rgb(255, 80, 80, 30%);" />
+
+                <div>
+                    @Html.LabelFor(model => model.Arte.Nome_Arte, htmlAttributes: new { @class = "Labels" })
+                    <div>
+                        <input type="text" id="Nome_Arte" name="Nome_Arte" />                        
+                    </div>
+                </div>
+
+                <div>
+                    @Html.LabelFor(model => model.Arte.Descricao, htmlAttributes: new { @class = "Labels" })
+                    <div>
+                        <input type="text" id="Descricao" name="Descricao" />                        
+                    </div>
+                </div>
+
+                <div>
+                    @Html.LabelFor(model => model.Tipo.Tipo_Arte, htmlAttributes: new { @class = "Labels" })
+                    <div>
+                        <select id="Tipo_de_Arte" name="Tipo_de_Arte">
+                            <option value="">Selecione um tipo</option>
+                            @foreach (var tipo in Model.Tipos)
+                            {
+                                <option value="@tipo">@tipo</option>
+                            }
+                        </select>
+                        @Html.ValidationMessageFor(model => model.Tipo.Tipo_Arte)
+                    </div>
+                </div>
+                <input type="hidden" value="@Session["User"].ToString()" id="nome" name="nome" />
+                <input type="submit" value="AddArte" class="Butoes" id="btnLogin" />
+            }
+        </div>
+        <div>
+            @Html.ActionLink("Back", "Details", new {nome = Session["User"].ToString() })
+        </div>
+    </div>
+</body>
+
