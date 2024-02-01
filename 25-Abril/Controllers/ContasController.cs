@@ -162,7 +162,7 @@ namespace _25_Abril.Controllers
         {
             if (Nome != null && Password != null)
             {
-                Conta conta = BD.Conta.FirstOrDefault(s => s.Nome == Nome && s.Password == Password);
+                Conta conta = BD.Conta.FirstOrDefault(s => (s.Nome == Nome && s.Password == Password) || (s.Email == Nome && s.Password == Password));
                 if (conta != null)
                 {
                     Session["User"] = conta.Nome;
