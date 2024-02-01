@@ -281,7 +281,7 @@ namespace _25_Abril.Controllers
             BD.SaveChanges();
 
             Arte arte = BD.Arte.FirstOrDefault(s => s.ID_Arte == comentario.Arte_ID);
-            return RedirectToAction("Comentarios", "Contas", new { nome = arte.Nome_Arte });
+            return RedirectToAction("Comentarios", "Contas", new { tipo = arte.Nome_Arte });
         }
 
 
@@ -294,10 +294,10 @@ namespace _25_Abril.Controllers
             if (arte == null)
                 return HttpNotFound();
 
-            BD.rfvArte(arte.Nome_Arte);
+            BD.acptArte(arte.Nome_Arte);
             BD.SaveChanges();
 
-            return RedirectToAction("Comentarios", "Contas", new { nome = arte.Nome_Arte });
+            return RedirectToAction("Admin", "Contas", new { tipo = "arte" });
         }
 
         public ActionResult RefuseArt(string nome)
@@ -309,11 +309,11 @@ namespace _25_Abril.Controllers
             if (arte == null)
                 return HttpNotFound();
 
-            BD.acptArte(arte.Nome_Arte);
+            BD.rfvArte(arte.Nome_Arte);
             BD.SaveChanges();
 
 
-            return RedirectToAction("Comentarios", "Contas", new { nome = arte.Nome_Arte });
+            return RedirectToAction("Admin", "Contas", new { tipo = "arte" });
         }
 
         public ActionResult TiposArte()

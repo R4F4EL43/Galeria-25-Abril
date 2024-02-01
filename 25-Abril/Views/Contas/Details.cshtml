@@ -54,30 +54,47 @@
     <div class="DivMain">
 
 
-        @foreach (_25_Abril.Models.Arte arte in Model.Artes)
+        @if (Model != null)
         {
-            if (arte.Conta_ID == Model.Conta.ID_Conta)
+            foreach (_25_Abril.Models.Arte arte in Model.Artes)
             {
-                <div class="ArtProject">
-                    <img src=@arte.Caminho alt="NotFound">
-                    <div class="Titulo">
-                        @arte.Nome_Arte
-                    </div>
-                    <div class="Descricao">
-                        @arte.Descricao
-                    </div>
-                    <div style="display : flex">
-                        <a href="@Url.Action("Comentarios", "Contas", new { nome = @arte.Nome_Arte })" style="width:60px; text-align:center">
-                            <span> 💬 </span>
+                if (arte.Conta.Nome == Model.Conta.Nome)
+                {
+                    <div class="ArtProject">
+                        <img src=@arte.Caminho alt="" style="max-height:280px">
+                        <div class="Titulo">
+                            @arte.Nome_Arte
+                        </div>
+                        @{
+                            string descricao = arte.Descricao;
+
+                            if (descricao.Length > 100)
+                            {
+                                int ultimoEspaco = descricao.LastIndexOf(' ', 100);
+
+                                if (ultimoEspaco != -1)
+                                {
+                                    descricao = descricao.Substring(0, ultimoEspaco);
+                                }
+                                descricao += "...";
+                            }
+                        }
+                        <div class="Descricao">
+                            @descricao
+                        </div>
+                        <div class="Autor">
+                            @arte.Conta.Nome
+                        </div>
+                        <div style="width:100%; text-align:left; font-size:20px">
+                            <a href="@Url.Action("Details", "Artes", new { nome = arte.Nome_Arte })">
+                                <span> 💬 </span>
                             </a>
-                        <a href="@Url.Action("DelArte", "Contas", new { nome = @arte.Nome_Arte })" style="width: 60px; text-align: center">
-                            <span> &#128465; </span>
-                        </a>
-
+                        </div>
                     </div>
+                }
 
 
-                </div>
+
             }
         }
 
